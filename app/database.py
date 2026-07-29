@@ -25,7 +25,12 @@ mongodb = MongoDatabase()
 async def connect_to_mongodb() -> None:
     mongodb.client = MongoClientType(
         settings.MONGODB_URL,
+        maxPoolSize=100,
+        minPoolSize=10,
+        maxIdleTimeMS=45000,
         serverSelectionTimeoutMS=5000,
+        connectTimeoutMS=5000,
+        retryWrites=True,
     )
 
     await mongodb.client.admin.command("ping")
@@ -34,8 +39,15 @@ async def connect_to_mongodb() -> None:
         settings.DATABASE_NAME
     ]
 
+    try:
+        await mongodb.database.users.create_index("email", sparse=True)
+        await mongodb.database.donations.create_index("status")
+        await mongodb.database.inventory.create_index("tenant_id")
+    except Exception as idx_err:
+        print(f"Notice: Index setup: {idx_err}")
+
     print(
-        f"Connected to MongoDB database: "
+        f"Connected to High-Performance MongoDB cluster: "
         f"{settings.DATABASE_NAME}"
     )
 
