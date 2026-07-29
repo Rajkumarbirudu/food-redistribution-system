@@ -129,7 +129,14 @@ export function LanguageProvider({ children }) {
 export function useTranslation() {
   const context = useContext(LanguageContext);
   if (!context) {
-    throw new Error("useTranslation must be used within a LanguageProvider");
+    console.warn("useTranslation used outside LanguageProvider, returning fallback.");
+    return {
+      language: "en",
+      changeLanguage: () => {},
+      t: (keyOrText) => keyOrText || "",
+      supportedLanguages: SUPPORTED_LANGUAGES,
+      currentLangObj: SUPPORTED_LANGUAGES[0],
+    };
   }
   return context;
 }

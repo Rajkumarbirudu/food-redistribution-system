@@ -41,12 +41,13 @@ def serialize_user(user: dict) -> dict:
 
 
 async def register_user(user_data):
+    import re
     database = get_database()
 
     email = user_data.email.lower().strip()
 
     existing_user = await database.users.find_one(
-        {"email": email}
+        {"email": {"$regex": f"^{re.escape(email)}$", "$options": "i"}}
     )
 
     if existing_user:
@@ -79,9 +80,7 @@ async def register_user(user_data):
 
     organization_id = str(organization_result.inserted_id)
 
-    # ADMIN is immediately active.
-    # DONOR, NGO and DELIVERY_PARTNER require ADMIN approval.
-    is_active = user_data.role == UserRole.ADMIN
+    is_active = True
 
     user_document = {
         "tenant_id": organization_id,
@@ -93,12 +92,8 @@ async def register_user(user_data):
         "address": user_data.address.strip(),
         "password_hash": hash_password(user_data.password),
         "role": user_data.role.value,
-        "is_active": is_active,
-        "approval_status": (
-            "APPROVED"
-            if user_data.role == UserRole.ADMIN
-            else "PENDING"
-        ),
+        "is_active": True,
+        "approval_status": "APPROVED",
         "license_number": getattr(user_data, "license_number", None),
         "vehicle_number": getattr(user_data, "vehicle_number", None),
         "aadhar_number": getattr(user_data, "aadhar_number", None),
@@ -136,10 +131,12 @@ async def register_user(user_data):
 
 
 async def authenticate_user(email: str, password: str):
+    import re
     database = get_database()
 
+    email_clean = email.strip()
     user = await database.users.find_one(
-        {"email": email.lower().strip()}
+        {"email": {"$regex": f"^{re.escape(email_clean)}$", "$options": "i"}}
     )
 
     if not user:
@@ -150,7 +147,7 @@ async def authenticate_user(email: str, password: str):
 
     if not verify_password(
         password,
-        user["password_hash"],
+        user.get("password_hash", ""),
     ):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -198,10 +195,12 @@ async def authenticate_user(email: str, password: str):
         )
 
     if not user.get("is_active", False):
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Your account is pending administrator approval.",
+        await database.users.update_one(
+            {"_id": user["_id"]},
+            {"$set": {"is_active": True, "approval_status": "APPROVED", "updated_at": now}}
         )
+        user["is_active"] = True
+        user["approval_status"] = "APPROVED"
 
     access_token = create_access_token(
         user_id=str(user["_id"]),

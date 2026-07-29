@@ -1,24 +1,29 @@
-from typing import Optional
+from typing import Any, Optional
 
-from pymongo import AsyncMongoClient
-from pymongo.asynchronous.database import AsyncDatabase
+try:
+    from motor.motor_asyncio import AsyncIOMotorClient as MongoClientType
+    from motor.motor_asyncio import AsyncIOMotorDatabase as MongoDatabaseType
+except ImportError:
+    try:
+        from pymongo import AsyncMongoClient as MongoClientType  # type: ignore
+        from pymongo.asynchronous.database import AsyncDatabase as MongoDatabaseType  # type: ignore
+    except ImportError:
+        from pymongo import MongoClient as MongoClientType  # type: ignore
+        MongoDatabaseType = Any  # type: ignore
 
 from app.config import settings
 
 
 class MongoDatabase:
-
-    client: Optional[AsyncMongoClient] = None
-
-    database: Optional[AsyncDatabase] = None
+    client: Optional[Any] = None
+    database: Optional[Any] = None
 
 
 mongodb = MongoDatabase()
 
 
 async def connect_to_mongodb() -> None:
-
-    mongodb.client = AsyncMongoClient(
+    mongodb.client = MongoClientType(
         settings.MONGODB_URL,
         serverSelectionTimeoutMS=5000,
     )
@@ -36,18 +41,13 @@ async def connect_to_mongodb() -> None:
 
 
 async def close_mongodb_connection() -> None:
-
     if mongodb.client is not None:
-
         await mongodb.client.close()
-
         print("MongoDB connection closed")
 
 
-def get_database() -> AsyncDatabase:
-
+def get_database() -> Any:
     if mongodb.database is None:
-
         raise RuntimeError(
             "MongoDB connection has not been initialized."
         )

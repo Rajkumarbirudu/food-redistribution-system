@@ -68,6 +68,12 @@ async def lifespan(
     try:
         await connect_to_mongodb()
 
+        try:
+            from scripts.create_admin import seed_demo_users_internal
+            await seed_demo_users_internal()
+        except Exception as seed_err:
+            print("Failed to auto-seed demo accounts:", seed_err)
+
         print(
             "Aura Food API startup completed"
         )
@@ -111,8 +117,8 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-
     allow_origins=["*"],
+    allow_origin_regex=".*",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

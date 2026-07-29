@@ -1,16 +1,32 @@
 import axios from "axios";
 
+const PRODUCTION_API_URL = "https://food-redistribution-system-jk0k.onrender.com";
+
+const isLocalHost = (host) => {
+  return (
+    host === "localhost" ||
+    host === "127.0.0.1" ||
+    host.startsWith("192.168.") ||
+    host.startsWith("10.") ||
+    host.startsWith("172.") ||
+    host.endsWith(".local")
+  );
+};
+
 const getBaseURL = () => {
   if (import.meta.env.VITE_API_BASE_URL) {
     return import.meta.env.VITE_API_BASE_URL;
   }
   const hostname = typeof window !== "undefined" && window.location ? window.location.hostname : "localhost";
-  return `http://${hostname}:8000`;
+  if (isLocalHost(hostname)) {
+    return `http://${hostname}:8000`;
+  }
+  return PRODUCTION_API_URL;
 };
 
 const api = axios.create({
   baseURL: getBaseURL(),
-  timeout: 30000,
+  timeout: 60000,
 
   headers: {
     Accept: "application/json",
@@ -47,7 +63,7 @@ api.interceptors.request.use(
     console.log(
       "API REQUEST:",
       config.method?.toUpperCase(),
-      `${config.baseURL}${config.url}`
+      `${config.baseURL || ""}${config.url}`
     );
 
     console.log(
@@ -71,7 +87,7 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
 
-  (error) => {
+  async (error) => {
     console.error(
       "API ERROR STATUS:",
       error.response?.status
@@ -86,6 +102,20 @@ api.interceptors.response.use(
       "API ERROR DATA:",
       error.response?.data
     );
+
+    /*
+     * AUTOMATIC FALLBACK TO CLOUD BACKEND IF LOCAL BACKEND IS DOWN / UNREACHABLE
+     */
+    if (
+      (error.code === "ERR_NETWORK" || !error.response) &&
+      !error.config?._retriedWithFallback &&
+      api.defaults.baseURL !== PRODUCTION_API_URL
+    ) {
+      console.warn("Local backend connection refused. Switching to cloud backend:", PRODUCTION_API_URL);
+      api.defaults.baseURL = PRODUCTION_API_URL;
+      const retryConfig = { ...error.config, baseURL: PRODUCTION_API_URL, _retriedWithFallback: true };
+      return api.request(retryConfig);
+    }
 
     /*
      * Clear token and redirect to login on 401 (Unauthorized)

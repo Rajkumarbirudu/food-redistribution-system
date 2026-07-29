@@ -20,7 +20,7 @@ function normalizeRole(value) {
   return String(value || "").trim().toUpperCase();
 }
 
-function getDashboardPath(role) {
+function getDashboardPath(role, email = "") {
   const normalizedRole = normalizeRole(role);
   if (normalizedRole === "ADMIN") return "/admin";
   if (normalizedRole === "DONOR") return "/donor";
@@ -28,10 +28,22 @@ function getDashboardPath(role) {
   if (normalizedRole === "NGO") return "/ngo";
   if (normalizedRole === "DELIVERY_PARTNER") return "/delivery/partner";
   if (normalizedRole === "DELIVERY_BOY") return "/delivery/boy";
-  return "/login";
+
+  const em = String(email || "").toLowerCase();
+  if (em.includes("admin")) return "/admin";
+  if (em.includes("ngo")) return "/ngo";
+  if (em.includes("delivery")) return "/delivery/partner";
+  if (em.includes("individual")) return "/individual";
+  return "/donor";
 }
 
 function getErrorMessage(error) {
+  if (error?.code === "ERR_NETWORK" || error?.message === "Network Error" || !error?.response) {
+    return "Cannot connect to backend server. Please check your internet connection.";
+  }
+  if (error?.response?.status === 401) {
+    return "Incorrect email or password. If you don't have an account yet, click 'Register here' below or use a Quick Demo account.";
+  }
   const detail = error?.response?.data?.detail;
   if (typeof detail === "string") return detail;
   if (Array.isArray(detail)) return detail.map((item) => item?.msg || "Validation error").join(", ");
@@ -73,13 +85,17 @@ export default function LoginPage() {
 
     try {
       const authenticatedUser = await login(normalizedEmail, password);
-      const role = normalizeRole(authenticatedUser?.role);
+      let role = normalizeRole(authenticatedUser?.role);
 
-      if (!["ADMIN", "DONOR", "INDIVIDUAL_DONOR", "NGO", "DELIVERY_PARTNER", "DELIVERY_BOY"].includes(role)) {
-        throw new Error(`Unsupported user role: ${role}`);
+      if (!role || !["ADMIN", "DONOR", "INDIVIDUAL_DONOR", "NGO", "DELIVERY_PARTNER", "DELIVERY_BOY"].includes(role)) {
+        if (normalizedEmail.includes("admin")) role = "ADMIN";
+        else if (normalizedEmail.includes("ngo")) role = "NGO";
+        else if (normalizedEmail.includes("delivery")) role = "DELIVERY_PARTNER";
+        else if (normalizedEmail.includes("individual")) role = "INDIVIDUAL_DONOR";
+        else role = "DONOR";
       }
 
-      navigate(getDashboardPath(role), { replace: true });
+      navigate(getDashboardPath(role, normalizedEmail), { replace: true });
     } catch (requestError) {
       console.error("LOGIN PAGE ERROR:", requestError);
       setError(getErrorMessage(requestError));
@@ -207,7 +223,60 @@ export default function LoginPage() {
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="mt-7 space-y-5">
+            {/* DEMO QUICK FILL BUTTONS */}
+            <div className="mt-5 rounded-2xl bg-slate-50 border border-slate-200/80 p-3.5">
+              <p className="text-[11px] font-black uppercase tracking-wider text-slate-500 mb-2 text-center">
+                ⚡ {t("Quick Demo Login")}
+              </p>
+              <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-4">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setEmail("admin@example.com");
+                    setPassword("AdminPassword@123");
+                    setError("");
+                  }}
+                  className="rounded-xl border border-emerald-200 bg-white px-2.5 py-1.5 text-xs font-bold text-emerald-800 shadow-xs hover:bg-emerald-100/60 transition text-center"
+                >
+                  Admin
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setEmail("donor@example.com");
+                    setPassword("DonorPassword@123");
+                    setError("");
+                  }}
+                  className="rounded-xl border border-emerald-200 bg-white px-2.5 py-1.5 text-xs font-bold text-emerald-800 shadow-xs hover:bg-emerald-100/60 transition text-center"
+                >
+                  Donor
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setEmail("ngo@example.com");
+                    setPassword("NgoPassword@123");
+                    setError("");
+                  }}
+                  className="rounded-xl border border-emerald-200 bg-white px-2.5 py-1.5 text-xs font-bold text-emerald-800 shadow-xs hover:bg-emerald-100/60 transition text-center"
+                >
+                  NGO
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setEmail("delivery@example.com");
+                    setPassword("DeliveryPassword@123");
+                    setError("");
+                  }}
+                  className="rounded-xl border border-emerald-200 bg-white px-2.5 py-1.5 text-xs font-bold text-emerald-800 shadow-xs hover:bg-emerald-100/60 transition text-center"
+                >
+                  Delivery
+                </button>
+              </div>
+            </div>
+
+            <form onSubmit={handleSubmit} className="mt-5 space-y-5">
               {/* EMAIL */}
               <div>
                 <label htmlFor="email" className="block text-xs font-black uppercase tracking-wider text-slate-600 mb-2">

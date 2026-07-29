@@ -6,10 +6,10 @@ import App from "./App.jsx";
 
 import {
   AuthProvider,
-} from "./context/AuthContext.jsx";
+} from "./context/AuthContext";
 import {
   LanguageProvider,
-} from "./context/LanguageContext.jsx";
+} from "./context/LanguageContext";
 
 
 createRoot(
