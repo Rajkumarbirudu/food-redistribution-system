@@ -24,7 +24,7 @@ import DonationsPage from "./pages/DonationsPage";
 
 import AdminDashboard from "./pages/AdminDashboard";
 
-import AdminDetailsPage from "./pages/AdminDetailsPage";
+import AdminDetailsPage from "./pages/Admindetailspage";
 
 import DeliveryPartnerDashboard from "./pages/DeliveryPartnerDashboard";
 import DeliveryBoyDashboard from "./pages/DeliveryBoyDashboard";
