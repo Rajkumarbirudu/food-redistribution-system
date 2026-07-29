@@ -26,11 +26,10 @@ const getBaseURL = () => {
 
 const api = axios.create({
   baseURL: getBaseURL(),
-  timeout: 10000,
+  timeout: 15000,
 
   headers: {
     Accept: "application/json",
-    Connection: "keep-alive",
   },
 });
 
