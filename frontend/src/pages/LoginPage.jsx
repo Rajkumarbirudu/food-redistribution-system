@@ -120,18 +120,17 @@ export default function LoginPage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#f5fbf7]">
       {/* TOP LANGUAGE SELECTOR BAR & PWA INSTALL BUTTON */}
-      <div className="absolute top-5 right-5 z-50 ltr:right-5 rtl:left-5 rtl:right-auto flex items-center gap-3">
+      <div className="relative z-50 p-4 sm:p-0 sm:absolute sm:top-5 sm:right-5 ltr:sm:right-5 rtl:sm:left-5 flex items-center justify-end gap-2.5">
         <InstallPwaButton variant="glass" />
         <LanguageSelector />
       </div>
 
-
       {/* BACKGROUND DECORATIONS */}
-      <div className="pointer-events-none absolute -left-40 -top-40 h-[520px] w-[520px] rounded-full bg-emerald-200/40 blur-3xl" />
-      <div className="pointer-events-none absolute -right-40 top-20 h-[600px] w-[600px] rounded-full bg-lime-100/70 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-0 left-1/3 h-[450px] w-[450px] rounded-full bg-teal-100/50 blur-3xl" />
+      <div className="pointer-events-none absolute -left-40 -top-40 h-[400px] w-[400px] sm:h-[520px] sm:w-[520px] rounded-full bg-emerald-200/40 blur-3xl" />
+      <div className="pointer-events-none absolute -right-40 top-20 h-[450px] w-[450px] sm:h-[600px] sm:w-[600px] rounded-full bg-lime-100/70 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-0 left-1/3 h-[350px] w-[350px] sm:h-[450px] sm:w-[450px] rounded-full bg-teal-100/50 blur-3xl" />
 
-      <div className="relative z-10 mx-auto grid min-h-screen max-w-7xl lg:grid-cols-2">
+      <div className="relative z-10 mx-auto grid min-h-[calc(100vh-60px)] sm:min-h-screen max-w-7xl lg:grid-cols-2">
         
         {/* LEFT HERO */}
         <section className="hidden flex-col justify-between p-12 lg:flex xl:p-16">
@@ -188,17 +187,17 @@ export default function LoginPage() {
         </section>
 
         {/* RIGHT LOGIN SECTION */}
-        <section className="flex min-h-screen items-center justify-center px-5 py-12 sm:px-8 lg:px-12">
-          <div className="w-full max-w-[480px] rounded-[36px] border border-white/90 bg-white/85 p-7 shadow-[0_30px_100px_rgba(15,118,110,0.14)] backdrop-blur-2xl sm:p-10">
+        <section className="flex min-h-[calc(100vh-80px)] sm:min-h-screen items-center justify-center px-3.5 py-4 sm:px-8 sm:py-12 lg:px-12">
+          <div className="w-full max-w-[460px] rounded-3xl sm:rounded-[36px] border border-white/90 bg-white/90 p-5 sm:p-10 shadow-[0_20px_80px_rgba(15,118,110,0.12)] backdrop-blur-2xl">
             
             {/* MOBILE BRAND */}
-            <div className="mb-8 flex items-center gap-3 lg:hidden">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-600 text-white">
-                <Leaf size={25} />
+            <div className="mb-6 flex items-center gap-3 lg:hidden">
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-600 text-white shrink-0">
+                <Leaf size={22} />
               </div>
               <div>
-                <h1 className="text-xl font-black text-slate-900">Aura Food</h1>
-                <p className="text-xs font-bold text-emerald-700">{t("Share food. Spread hope.")}</p>
+                <h1 className="text-lg font-black text-slate-900">Aura Food</h1>
+                <p className="text-[11px] font-bold text-emerald-700">{t("Share food. Spread hope.")}</p>
               </div>
             </div>
 
