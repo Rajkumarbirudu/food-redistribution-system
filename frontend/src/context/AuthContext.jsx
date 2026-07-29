@@ -76,23 +76,29 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     let active = true;
 
+    // Safety timer: Ensure loading state is never stuck for > 3.5 seconds
+    const safetyTimer = setTimeout(() => {
+      if (active) {
+        setLoading(false);
+      }
+    }, 3500);
+
     async function initializeAuth() {
       setLoading(true);
 
-      const token =
-        localStorage.getItem("access_token");
+      const token = localStorage.getItem("access_token");
 
       if (!token) {
         if (active) {
           setUser(null);
           setLoading(false);
         }
-
+        clearTimeout(safetyTimer);
         return;
       }
 
       try {
-        const response = await api.get("/auth/me");
+        const response = await api.get("/auth/me", { timeout: 3000 });
 
         if (!active) {
           return;
@@ -120,6 +126,7 @@ export function AuthProvider({ children }) {
       } finally {
         if (active) {
           setLoading(false);
+          clearTimeout(safetyTimer);
         }
       }
     }
@@ -128,6 +135,7 @@ export function AuthProvider({ children }) {
 
     return () => {
       active = false;
+      clearTimeout(safetyTimer);
     };
   }, [clearSession, saveUser]);
 
