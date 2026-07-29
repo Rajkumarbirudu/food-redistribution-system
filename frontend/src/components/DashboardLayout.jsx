@@ -384,25 +384,15 @@ export default function DashboardLayout({
             )}
 
 
-            {/* LOGOUT */}
-
+            {/* LOGOUT BUTTON (VISIBLE ON MOBILE & DESKTOP) */}
             <button
               type="button"
-
-              onClick={
-                handleLogout
-              }
-
-              className="hidden h-11 items-center gap-2 rounded-xl bg-slate-900 px-4 text-sm font-black text-white transition hover:bg-emerald-700 sm:flex whitespace-nowrap"
+              onClick={handleLogout}
+              title={t("Logout")}
+              className="flex h-10 sm:h-11 items-center gap-1.5 rounded-xl bg-red-600 px-3 sm:px-4 text-xs sm:text-sm font-black text-white transition hover:bg-red-700 shadow-xs shrink-0 cursor-pointer"
             >
-
-              <LogOut
-                size={17}
-              />
-
-              {t("Logout")}
-
-
+              <LogOut size={16} />
+              <span>{t("Logout")}</span>
             </button>
 
 
@@ -515,20 +505,11 @@ export default function DashboardLayout({
 
               <button
                 type="button"
-
-                onClick={
-                  handleLogout
-                }
-
-                className="flex w-full items-center gap-3 rounded-xl bg-slate-900 px-4 py-3 text-left font-black text-white"
+                onClick={handleLogout}
+                className="flex w-full items-center gap-3 rounded-xl border border-red-200 bg-red-600 px-4 py-3 text-left font-black text-white hover:bg-red-700 shadow-xs"
               >
-
-                <LogOut
-                  size={18}
-                />
-
-                {t("Logout")}
-
+                <LogOut size={18} />
+                <span>{t("Logout")}</span>
               </button>
 
 
@@ -546,7 +527,7 @@ export default function DashboardLayout({
           CONTENT
       ==================================================== */}
 
-      <main className="relative z-10 mx-auto max-w-[1440px] px-6 py-8 md:px-10 lg:px-12 lg:py-10">
+      <main className="relative z-10 mx-auto max-w-[1440px] px-4 sm:px-6 py-6 md:px-10 lg:px-12 lg:py-10 pb-24 lg:pb-10">
 
 
 
@@ -671,6 +652,43 @@ export default function DashboardLayout({
         isOpen={showProfileModal}
         onClose={() => setShowProfileModal(false)}
       />
+
+      {/* MOBILE BOTTOM NAVIGATION BAR */}
+      <nav className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-around border-t border-emerald-100 bg-white/95 px-2 py-2.5 shadow-[0_-10px_25px_rgba(0,0,0,0.06)] backdrop-blur-xl lg:hidden">
+        <button
+          type="button"
+          onClick={() => {
+            if (userRole === "INDIVIDUAL_DONOR") navigate("/individual");
+            else if (userRole === "DONOR") navigate("/donor");
+            else if (userRole === "NGO") navigate("/ngo");
+            else if (userRole === "ADMIN") navigate("/admin");
+            else if (userRole === "DELIVERY_PARTNER") navigate("/delivery/partner");
+            else navigate("/login");
+          }}
+          className="flex flex-col items-center gap-1 p-1 text-slate-600 hover:text-emerald-700 active:scale-95 transition cursor-pointer"
+        >
+          <Leaf size={20} className="text-emerald-600" />
+          <span className="text-[10px] font-black text-slate-800">{t("Home")}</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setShowProfileModal(true)}
+          className="flex flex-col items-center gap-1 p-1 text-slate-600 hover:text-emerald-700 active:scale-95 transition cursor-pointer"
+        >
+          <User size={20} className="text-emerald-600" />
+          <span className="text-[10px] font-black text-slate-800">{t("Profile")}</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={handleLogout}
+          className="flex flex-col items-center gap-1 p-1 text-red-600 hover:text-red-700 active:scale-95 transition cursor-pointer"
+        >
+          <LogOut size={20} className="text-red-600" />
+          <span className="text-[10px] font-black text-red-600">{t("Logout")}</span>
+        </button>
+      </nav>
 
     </div>
   );
