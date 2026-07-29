@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 
 
+// Production ready app routing
 import LoginPage from "./pages/LoginPage";
 
 import RegisterPage from "./pages/RegisterPage";
