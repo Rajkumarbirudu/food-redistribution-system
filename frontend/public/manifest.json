@@ -1,0 +1,54 @@
+{
+  "name": "Aura Food - AI Redistribution System",
+  "short_name": "Aura Food",
+  "description": "AI-Based Food Redistribution System for Waste Reduction and Surplus Inventory Management",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f6fbf7",
+  "theme_color": "#059669",
+  "orientation": "any",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/pwa-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/pwa-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+
+    {
+      "src": "/pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Donor Dashboard",
+      "short_name": "Donor",
+      "description": "Open Surplus Food Donor Dashboard",
+      "url": "/donor",
+      "icons": [{ "src": "/pwa-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "NGO Food Claims",
+      "short_name": "NGO Claims",
+      "description": "Browse Available Surplus Food Donations",
+      "url": "/ngo/available",
+      "icons": [{ "src": "/pwa-192x192.png", "sizes": "192x192" }]
+    }
+  ]
+}
