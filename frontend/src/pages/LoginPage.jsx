@@ -232,58 +232,7 @@ export default function LoginPage() {
               </div>
             )}
 
-            {/* DEMO QUICK FILL BUTTONS */}
-            <div className="mt-5 rounded-2xl bg-slate-50 border border-slate-200/80 p-3.5">
-              <p className="text-[11px] font-black uppercase tracking-wider text-slate-500 mb-2 text-center">
-                ⚡ {t("Quick Demo Login")}
-              </p>
-              <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-4">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEmail("admin@example.com");
-                    setPassword("AdminPassword@123");
-                    setError("");
-                  }}
-                  className="rounded-xl border border-emerald-200 bg-white px-2.5 py-1.5 text-xs font-bold text-emerald-800 shadow-xs hover:bg-emerald-100/60 transition text-center"
-                >
-                  Admin
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEmail("donor@example.com");
-                    setPassword("DonorPassword@123");
-                    setError("");
-                  }}
-                  className="rounded-xl border border-emerald-200 bg-white px-2.5 py-1.5 text-xs font-bold text-emerald-800 shadow-xs hover:bg-emerald-100/60 transition text-center"
-                >
-                  Donor
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEmail("ngo@example.com");
-                    setPassword("NgoPassword@123");
-                    setError("");
-                  }}
-                  className="rounded-xl border border-emerald-200 bg-white px-2.5 py-1.5 text-xs font-bold text-emerald-800 shadow-xs hover:bg-emerald-100/60 transition text-center"
-                >
-                  NGO
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEmail("delivery@example.com");
-                    setPassword("DeliveryPassword@123");
-                    setError("");
-                  }}
-                  className="rounded-xl border border-emerald-200 bg-white px-2.5 py-1.5 text-xs font-bold text-emerald-800 shadow-xs hover:bg-emerald-100/60 transition text-center"
-                >
-                  Delivery
-                </button>
-              </div>
-            </div>
+
 
             <form onSubmit={handleSubmit} className="mt-5 space-y-5">
               {/* EMAIL */}
