@@ -335,33 +335,22 @@ export default function DashboardLayout({
 
             {/* MOBILE MENU */}
 
+            {/* 3 LINES ANIMATED MOBILE MENU BUTTON */}
             <button
               type="button"
-
-              onClick={() =>
-                setMobileMenuOpen(
-                  (current) =>
-                    !current
-                )
-              }
-
-              className="flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 lg:hidden"
+              onClick={() => setMobileMenuOpen((current) => !current)}
+              aria-label="Toggle navigation menu"
+              className="flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-[#007CC3]/10 text-[#007CC3] hover:bg-[#007CC3]/20 transition-all duration-300 shadow-sm lg:hidden active:scale-95 cursor-pointer"
             >
-
-              {
-                mobileMenuOpen
-                  ? (
-                    <X
-                      size={21}
-                    />
-                  )
-                  : (
-                    <Menu
-                      size={21}
-                    />
-                  )
-              }
-
+              {mobileMenuOpen ? (
+                <X size={22} className="transition-transform duration-300 rotate-90 text-[#007CC3]" />
+              ) : (
+                <div className="flex flex-col gap-1 items-center justify-center">
+                  <span className="h-0.5 w-5 rounded-full bg-[#007CC3] transition-all duration-300" />
+                  <span className="h-0.5 w-4 rounded-full bg-emerald-600 transition-all duration-300" />
+                  <span className="h-0.5 w-5 rounded-full bg-[#007CC3] transition-all duration-300" />
+                </div>
+              )}
             </button>
 
           </div>

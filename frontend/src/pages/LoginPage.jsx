@@ -14,7 +14,7 @@ import { useAuth } from "../context/AuthContext";
 import { useTranslation } from "../context/LanguageContext";
 import LanguageSelector from "../components/LanguageSelector";
 import InstallPwaButton from "../components/InstallPwaButton";
-
+import BootSplash from "../components/BootSplash";
 
 function normalizeRole(value) {
   return String(value || "").trim().toUpperCase();
@@ -105,26 +105,7 @@ export default function LoginPage() {
   }
 
   if (authLoading) {
-    return (
-      <main className="flex min-h-screen items-center justify-center bg-[#f5fbf7] px-5">
-        <div className="rounded-[30px] border border-white/80 bg-white/85 px-8 py-8 text-center shadow-[0_25px_80px_rgba(15,118,110,0.12)] backdrop-blur-xl max-w-sm">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-600 text-white shadow-lg shadow-emerald-600/20">
-            <Leaf size={27} />
-          </div>
-          <p className="mt-5 font-black text-slate-800">Checking your session...</p>
-          <button
-            type="button"
-            onClick={() => {
-              localStorage.clear();
-              window.location.reload();
-            }}
-            className="mt-4 inline-block text-xs font-bold text-emerald-700 underline hover:text-emerald-800 cursor-pointer"
-          >
-            Click here to reset session & continue
-          </button>
-        </div>
-      </main>
-    );
+    return <BootSplash />;
   }
 
   return (
