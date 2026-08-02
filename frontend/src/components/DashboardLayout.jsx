@@ -168,9 +168,9 @@ export default function DashboardLayout({
       <div className="pointer-events-none fixed -right-40 top-32 h-[550px] w-[550px] rounded-full bg-sky-100/50 blur-3xl" />
       <div className="pointer-events-none fixed bottom-0 left-1/3 h-[400px] w-[400px] rounded-full bg-teal-50/60 blur-3xl" />
 
-      {/* HEADER */}
-      <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/90 backdrop-blur-xl shadow-[0_2px_15px_rgba(15,23,42,0.03)]">
-        <div className="mx-auto flex max-w-[1440px] items-center justify-between px-6 py-3.5 md:px-10 lg:px-12 gap-4 lg:gap-8">
+      {/* FLOATING GLASS PILL NAVBAR */}
+      <header className="sticky top-3 z-40 mx-auto max-w-[1420px] px-3 sm:px-4">
+        <div className="rounded-3xl border border-slate-200/90 bg-white/95 shadow-[0_12px_40px_rgba(15,23,42,0.06)] backdrop-blur-2xl px-5 py-3 flex items-center justify-between gap-4 lg:gap-8">
 
           {/* BRAND */}
           <button
@@ -186,14 +186,17 @@ export default function DashboardLayout({
             }}
             className="flex items-center gap-3 text-left group shrink-0"
           >
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-600 text-white shadow-md shadow-emerald-600/20 group-hover:scale-105 transition-all duration-200">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-tr from-[#059669] via-[#10B981] to-[#007CC3] text-white shadow-md shadow-emerald-500/25 group-hover:scale-105 transition-all duration-300">
               <Leaf size={23} />
             </div>
 
             <div>
               <h1 className="text-xl font-black tracking-tight text-slate-900 flex items-center gap-1.5 whitespace-nowrap">
                 Aura Food
-                <Globe size={18} className="text-emerald-600 animate-pulse shrink-0" title="Global Food Network" />
+                <span className="flex h-2 w-2 relative">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                </span>
               </h1>
               <p className="text-xs font-bold text-emerald-700 whitespace-nowrap">
                 {displayTagline}
@@ -215,8 +218,8 @@ export default function DashboardLayout({
                     onClick={() => openPage(item.path)}
                     className={
                       active
-                        ? "flex items-center gap-2.5 rounded-2xl bg-[#007CC3] px-4 xl:px-5 py-2.5 text-xs xl:text-sm font-black text-white shadow-sm whitespace-nowrap transition-all duration-200"
-                        : "flex items-center gap-2.5 rounded-2xl border border-transparent px-4 xl:px-5 py-2.5 text-xs xl:text-sm font-bold text-slate-600 transition-all duration-200 hover:border-slate-200 hover:bg-slate-100/80 hover:text-slate-900 whitespace-nowrap"
+                        ? "flex items-center gap-2.5 rounded-2xl bg-gradient-to-r from-[#007CC3] via-[#0092E4] to-[#00D2FF] px-4 xl:px-5 py-2.5 text-xs xl:text-sm font-black text-white shadow-md shadow-sky-500/25 whitespace-nowrap transition-all duration-300"
+                        : "flex items-center gap-2.5 rounded-2xl border border-transparent px-4 xl:px-5 py-2.5 text-xs xl:text-sm font-bold text-slate-600 transition-all duration-200 hover:border-sky-200 hover:bg-sky-50/80 hover:text-[#007CC3] whitespace-nowrap"
                     }
                   >
                     {Icon && <Icon size={17} className="shrink-0" />}
