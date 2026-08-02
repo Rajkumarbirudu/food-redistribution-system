@@ -3,11 +3,10 @@
 @layer base {
   :root {
     --font-primary: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    --infosys-blue: #007CC3;
-    --infosys-cyan: #00D2FF;
-    --eco-emerald: #059669;
-    --eco-mint: #10B981;
-    --eco-light-mint: #34D399;
+    --corp-blue: #007CC3;
+    --corp-navy: #0A192C;
+    --corp-emerald: #059669;
+    --corp-[#F8FAFC]: #F8FAFC;
   }
 
   html,
@@ -25,8 +24,8 @@
   }
 
   body {
-    background-color: #051218;
-    color: #f1f5f9;
+    background-color: #F8FAFC;
+    color: #0F172A;
     padding-top: env(safe-area-inset-top, 0px);
     padding-bottom: env(safe-area-inset-bottom, 0px);
     padding-left: env(safe-area-inset-left, 0px);
@@ -36,87 +35,43 @@
   }
 }
 
-/* HYBRID ECO-TECH GLASS & GRADIENT UTILITIES */
-.infosys-glass {
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.9);
+/* CLEAN CORPORATE UI UTILITIES */
+.corp-glass {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 232, 240, 0.9);
 }
 
-.infosys-glass-dark {
-  background: rgba(8, 26, 35, 0.8);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(16, 185, 129, 0.15);
+.corp-card-shadow {
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.02);
 }
 
-.eco-tech-gradient {
-  background: linear-gradient(135deg, #059669 0%, #10B981 35%, #007CC3 75%, #00D2FF 100%);
+.corp-card-hover {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.eco-gradient-text {
-  background: linear-gradient(135deg, #10B981 0%, #34D399 40%, #00D2FF 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.corp-card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px rgba(0, 124, 195, 0.08), 0 2px 6px rgba(0, 124, 195, 0.04);
+  border-color: rgba(0, 124, 195, 0.25);
 }
 
-.eco-card-hover {
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.eco-card-hover:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 50px rgba(16, 185, 129, 0.18);
-  border-color: rgba(16, 185, 129, 0.35);
-}
-
-/* CUSTOM ANIMATIONS */
-@keyframes floatSlow {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-10px) rotate(1deg); }
-}
-
-@keyframes pulseGlow {
-  0%, 100% { opacity: 0.35; transform: scale(1); }
-  50% { opacity: 0.65; transform: scale(1.08); }
-}
-
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-.animate-float-slow {
-  animation: floatSlow 8s ease-in-out infinite;
-}
-
-.animate-pulse-glow {
-  animation: pulseGlow 6s ease-in-out infinite;
-}
-
-.animate-gradient-bg {
-  background-size: 200% 200%;
-  animation: gradientShift 6s ease infinite;
-}
-
-/* MODERN SCROLLBAR */
+/* CLEAN SCROLLBAR */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #051218;
+  background: #F1F5F9;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #0F2D28;
+  background: #CBD5E1;
   border-radius: 9999px;
-  border: 1.5px solid #051218;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #10B981;
+  background: #007CC3;
 }

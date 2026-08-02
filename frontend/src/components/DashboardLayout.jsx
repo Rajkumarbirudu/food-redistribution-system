@@ -161,15 +161,15 @@ export default function DashboardLayout({
 
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#051218] text-slate-100 font-sans">
+    <div className="relative min-h-screen overflow-hidden bg-[#F8FAFC] text-slate-900 font-sans">
 
-      {/* BACKGROUND ECO-TECH ORBS */}
-      <div className="pointer-events-none fixed -left-32 -top-32 h-[450px] w-[450px] rounded-full bg-emerald-500/15 blur-3xl animate-pulse-glow" />
-      <div className="pointer-events-none fixed -right-40 top-32 h-[550px] w-[550px] rounded-full bg-[#00D2FF]/15 blur-3xl animate-float-slow" />
-      <div className="pointer-events-none fixed bottom-0 left-1/3 h-[400px] w-[400px] rounded-full bg-[#007CC3]/15 blur-3xl" />
+      {/* SUBTLE BACKGROUND ACCENTS */}
+      <div className="pointer-events-none fixed -left-32 -top-32 h-[450px] w-[450px] rounded-full bg-emerald-100/50 blur-3xl" />
+      <div className="pointer-events-none fixed -right-40 top-32 h-[550px] w-[550px] rounded-full bg-sky-100/50 blur-3xl" />
+      <div className="pointer-events-none fixed bottom-0 left-1/3 h-[400px] w-[400px] rounded-full bg-teal-50/60 blur-3xl" />
 
       {/* HEADER */}
-      <header className="sticky top-0 z-40 border-b border-emerald-950/60 bg-[#081A23]/85 backdrop-blur-2xl shadow-[0_8px_32px_rgba(16,185,129,0.08)]">
+      <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/90 backdrop-blur-xl shadow-[0_2px_15px_rgba(15,23,42,0.03)]">
         <div className="mx-auto flex max-w-[1440px] items-center justify-between px-6 py-3.5 md:px-10 lg:px-12 gap-4 lg:gap-8">
 
           {/* BRAND */}
@@ -186,16 +186,16 @@ export default function DashboardLayout({
             }}
             className="flex items-center gap-3 text-left group shrink-0"
           >
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-tr from-[#059669] via-[#10B981] to-[#007CC3] text-white shadow-lg shadow-emerald-500/25 group-hover:scale-105 transition-all duration-300">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-600 text-white shadow-md shadow-emerald-600/20 group-hover:scale-105 transition-all duration-200">
               <Leaf size={23} />
             </div>
 
             <div>
-              <h1 className="text-xl font-black tracking-tight text-white flex items-center gap-1.5 whitespace-nowrap">
+              <h1 className="text-xl font-black tracking-tight text-slate-900 flex items-center gap-1.5 whitespace-nowrap">
                 Aura Food
-                <Globe size={18} className="text-[#34D399] animate-pulse shrink-0" title="Eco-Tech Redistribution Network" />
+                <Globe size={18} className="text-emerald-600 animate-pulse shrink-0" title="Global Food Network" />
               </h1>
-              <p className="text-xs font-bold text-emerald-400 whitespace-nowrap">
+              <p className="text-xs font-bold text-emerald-700 whitespace-nowrap">
                 {displayTagline}
               </p>
             </div>
@@ -215,8 +215,8 @@ export default function DashboardLayout({
                     onClick={() => openPage(item.path)}
                     className={
                       active
-                        ? "flex items-center gap-2.5 rounded-2xl bg-gradient-to-r from-emerald-600 via-emerald-500 to-[#007CC3] px-4 xl:px-5 py-2.5 text-xs xl:text-sm font-black text-white shadow-lg shadow-emerald-500/25 whitespace-nowrap transition-all duration-300"
-                        : "flex items-center gap-2.5 rounded-2xl border border-emerald-950 px-4 xl:px-5 py-2.5 text-xs xl:text-sm font-bold text-slate-300 transition-all duration-200 hover:border-emerald-500/40 hover:bg-emerald-950/40 hover:text-[#34D399] whitespace-nowrap"
+                        ? "flex items-center gap-2.5 rounded-2xl bg-[#007CC3] px-4 xl:px-5 py-2.5 text-xs xl:text-sm font-black text-white shadow-sm whitespace-nowrap transition-all duration-200"
+                        : "flex items-center gap-2.5 rounded-2xl border border-transparent px-4 xl:px-5 py-2.5 text-xs xl:text-sm font-bold text-slate-600 transition-all duration-200 hover:border-slate-200 hover:bg-slate-100/80 hover:text-slate-900 whitespace-nowrap"
                     }
                   >
                     {Icon && <Icon size={17} className="shrink-0" />}
