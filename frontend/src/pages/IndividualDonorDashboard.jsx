@@ -18,6 +18,7 @@ import {
   Filter,
   Plus,
   Camera,
+  Download,
   Image as ImageIcon,
   X,
   Maximize2,
@@ -38,29 +39,29 @@ function StatCard({ icon: Icon, title, value, description, onClick, active, colo
     <button
       type="button"
       onClick={onClick}
-      className={`group w-full rounded-[28px] border p-6 text-left shadow-[0_18px_50px_rgba(15,118,110,0.08)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:shadow-lg focus:outline-none ${
+      className={`group w-full rounded-[28px] border p-6 text-left shadow-[0_18px_50px_rgba(15,118,110,0.08)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:shadow-lg focus:outline-none cursor-pointer ${
         active
-          ? "border-emerald-500 bg-emerald-50/90 ring-2 ring-emerald-200"
-          : "border-white/80 bg-white/80 hover:border-emerald-200"
+          ? "border-emerald-500 bg-emerald-50/90 dark:bg-emerald-950/60 dark:border-emerald-600 ring-2 ring-emerald-200 dark:ring-emerald-800"
+          : "border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 hover:border-emerald-300 dark:hover:border-emerald-700"
       }`}
     >
       <div className="flex items-start justify-between">
-        <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${colorClass || "bg-emerald-50 text-emerald-700"} group-hover:scale-105 transition`}>
+        <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${colorClass || "bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400"} group-hover:scale-105 transition`}>
           <Icon size={23} />
         </div>
         <ArrowRight
           size={18}
-          className="text-slate-300 transition group-hover:translate-x-1 group-hover:text-emerald-600"
+          className="text-slate-300 dark:text-slate-600 transition group-hover:translate-x-1 group-hover:text-emerald-600 dark:group-hover:text-emerald-400"
         />
       </div>
 
-      <p className="mt-6 text-sm font-bold text-slate-500">{t(title)}</p>
+      <p className="mt-6 text-sm font-bold text-slate-500 dark:text-slate-400">{t(title)}</p>
 
-      <p className="mt-2 text-4xl font-black text-slate-900">
+      <p className="mt-2 text-4xl font-black text-slate-900 dark:text-white">
         {typeof value === "number" ? value : 0}
       </p>
 
-      <p className="mt-3 text-sm leading-6 text-slate-500">{t(description)}</p>
+      <p className="mt-3 text-sm leading-6 text-slate-500 dark:text-slate-400">{t(description)}</p>
     </button>
   );
 }
@@ -577,6 +578,52 @@ export default function IndividualDonorDashboard() {
     }
   };
 
+  const handleExportCSV = () => {
+    const listToExport = filteredInventory.length > 0 ? filteredInventory : inventory;
+    if (!listToExport || listToExport.length === 0) {
+      setError("No pantry items available to export.");
+      return;
+    }
+
+    const headers = [
+      "ID",
+      "Food Item Name",
+      "Category",
+      "Quantity",
+      "Unit",
+      "Expiry Date",
+      "Storage Requirement",
+      "Perishability Risk",
+      "Pickup Address",
+      "Notes"
+    ];
+
+    const rows = listToExport.map((item) => [
+      `"${String(item.id || item._id || "").replace(/"/g, '""')}"`,
+      `"${String(item.name || item.food_name || "").replace(/"/g, '""')}"`,
+      `"${String(item.category_name || "").replace(/"/g, '""')}"`,
+      item.quantity ?? "",
+      `"${String(item.unit || "").replace(/"/g, '""')}"`,
+      `"${String(item.expiry_date || "").replace(/"/g, '""')}"`,
+      `"${String(item.storage_requirement || "").replace(/"/g, '""')}"`,
+      `"${String(item.perishability_risk || "").replace(/"/g, '""')}"`,
+      `"${String(item.pickup_address || user?.address || "").replace(/"/g, '""')}"`,
+      `"${String(item.notes || "").replace(/"/g, '""')}"`
+    ]);
+
+    const csvString = [headers.join(","), ...rows.map((r) => r.join(","))].join("\n");
+    const blob = new Blob([csvString], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `aura_home_pantry_export_${new Date().toISOString().slice(0, 10)}.csv`);
+    link.style.visibility = "hidden";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setSuccess(`Successfully exported ${listToExport.length} pantry items to CSV!`);
+  };
+
   const location = useLocation();
 
   useEffect(() => {
@@ -694,19 +741,19 @@ export default function IndividualDonorDashboard() {
         </div>
 
         {/* ACTIVE DONATIONS & TRANSPORTER RADAR SECTION */}
-        <div id="active-donations-section" className="rounded-[32px] border border-white/80 bg-white/80 p-6 md:p-8 shadow-sm backdrop-blur-xl space-y-5">
+        <div id="active-donations-section" className="rounded-[32px] border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-6 md:p-8 shadow-sm backdrop-blur-xl space-y-5 transition-colors duration-300">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-lg font-black text-slate-900 flex items-center gap-2">
-                <Truck className="text-emerald-600" size={20} /> {t("Ongoing Dispatches in Transit")} ({activeDonations.length})
+              <h2 className="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
+                <Truck className="text-emerald-600 dark:text-emerald-400" size={20} /> {t("Ongoing Dispatches in Transit")} ({activeDonations.length})
               </h2>
-              <p className="text-xs text-slate-500 font-semibold mt-0.5">
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold mt-0.5">
                 {t("Track delivery partners currently on the way with your food items in real time.")}
               </p>
             </div>
             <button
               onClick={() => navigate("/donations")}
-              className="text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1"
+              className="text-xs font-bold text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-300 flex items-center gap-1"
             >
               {t("View All Dispatches")} <ArrowRight size={14} />
             </button>
@@ -716,14 +763,14 @@ export default function IndividualDonorDashboard() {
             {activeDonations.map((don) => (
               <div
                 key={don.id}
-                className="flex flex-col sm:flex-row sm:items-center justify-between p-4 border border-slate-100 rounded-2xl bg-slate-50/70 gap-4"
+                className="flex flex-col sm:flex-row sm:items-center justify-between p-4 border border-slate-200/80 dark:border-slate-800 rounded-2xl bg-slate-50/80 dark:bg-slate-800/60 gap-4"
               >
                 <div className="flex items-center gap-3">
                   {don.image_url ? (
                     <button
                       type="button"
                       onClick={() => setPhotoLightbox(don.image_url)}
-                      className="relative group h-12 w-12 shrink-0 rounded-xl overflow-hidden border border-slate-200 shadow-xs"
+                      className="relative group h-12 w-12 shrink-0 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-xs"
                     >
                       <img
                         src={don.image_url}
@@ -735,15 +782,15 @@ export default function IndividualDonorDashboard() {
                       </div>
                     </button>
                   ) : (
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-100 text-emerald-800 font-black text-lg">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 font-black text-lg">
                       🍲
                     </div>
                   )}
 
                   <div>
-                    <h4 className="text-xs font-extrabold text-slate-900">{t(don.food_name)}</h4>
-                    <p className="text-[11px] font-semibold text-slate-500 mt-0.5">
-                      {t("Quantity:")} <span className="font-bold text-slate-700">{don.quantity} {t(don.unit)}</span> • {t("Address:")} {don.pickup_address || "Home Address"}
+                    <h4 className="text-xs font-extrabold text-slate-900 dark:text-white">{t(don.food_name)}</h4>
+                    <p className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 mt-0.5">
+                      {t("Quantity:")} <span className="font-bold text-slate-700 dark:text-slate-200">{don.quantity} {t(don.unit)}</span> • {t("Address:")} {don.pickup_address || "Home Address"}
                     </p>
                   </div>
 
@@ -753,12 +800,12 @@ export default function IndividualDonorDashboard() {
                   <div className="flex flex-col items-end gap-1">
                     <span className={`px-3 py-1 rounded-full text-xs font-extrabold ${
                       don.status === "CLAIMED"
-                        ? "bg-purple-100 text-purple-800 animate-pulse"
+                        ? "bg-purple-100 dark:bg-purple-950/80 text-purple-800 dark:text-purple-300 animate-pulse border border-purple-200 dark:border-purple-800"
                         : don.status === "IN_TRANSIT"
-                        ? "bg-amber-100 text-amber-800 animate-pulse"
+                        ? "bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 animate-pulse border border-amber-200 dark:border-amber-800"
                         : don.status === "ASSIGNED"
-                        ? "bg-blue-100 text-blue-800"
-                        : "bg-emerald-100 text-emerald-800"
+                        ? "bg-blue-100 dark:bg-blue-950/80 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800"
+                        : "bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800"
                     }`}>
                       {don.status === "CLAIMED"
                         ? t("Claimed by NGO — Scheduled for Pickup")
@@ -773,39 +820,47 @@ export default function IndividualDonorDashboard() {
 
                   <a
                     href={`/donations/${don.id}/track`}
-                    className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition shadow-xs"
+                    className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition shadow-xs"
                   >
-                    <Navigation size={14} className="text-blue-600" /> {t("Live Fleet Radar")}
+                    <Navigation size={14} className="text-blue-600 dark:text-blue-400" /> {t("Live Fleet Radar")}
                   </a>
                 </div>
               </div>
             ))}
 
             {!loading && activeDonations.length === 0 && (
-              <div className="text-center py-8 bg-slate-50/50 rounded-2xl border border-dashed border-slate-200">
-                <Utensils size={32} className="mx-auto text-slate-300 mb-2" />
-                <p className="text-xs font-bold text-slate-600">{t("No active home donations in transit currently.")}</p>
-                <p className="text-[11px] text-slate-400 mt-0.5">{t("Click 'Post Home Meal / Food' below to donate surplus meals to local NGOs!")}</p>
+              <div className="text-center py-8 bg-slate-50/50 dark:bg-slate-800/40 rounded-2xl border border-dashed border-slate-200 dark:border-slate-700">
+                <Utensils size={32} className="mx-auto text-slate-300 dark:text-slate-600 mb-2" />
+                <p className="text-xs font-bold text-slate-600 dark:text-slate-300">{t("No active home donations in transit currently.")}</p>
+                <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">{t("Click 'Post Home Meal / Food' below to donate surplus meals to local NGOs!")}</p>
               </div>
             )}
           </div>
         </div>
 
         {/* FOOD INVENTORY TABLE & MANAGEMENT DESK (ONLY MANUAL ENTRY & PHOTO) */}
-        <div id="pantry-table-section" className="rounded-[32px] border border-white/80 bg-white/80 p-6 md:p-8 shadow-sm backdrop-blur-xl space-y-5">
+        <div id="pantry-table-section" className="rounded-[32px] border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-6 md:p-8 shadow-sm backdrop-blur-xl space-y-5 transition-colors duration-300">
           
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-4">
             <div>
-              <h2 className="text-lg font-black text-slate-900 flex items-center gap-2">
-                <PackageOpen className="text-emerald-600" size={20} /> {t("Individual Home Pantry Inventory")}
+              <h2 className="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
+                <PackageOpen className="text-emerald-600 dark:text-emerald-400" size={20} /> {t("Individual Home Pantry Inventory")}
               </h2>
-              <p className="text-xs text-slate-500 font-semibold mt-0.5">
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold mt-0.5">
                 {t("Manually enter home food stock items with real product photos and snapshots.")}
               </p>
             </div>
 
             {/* ACTION TOOLBAR: ONLY MANUAL ENTRY & PHOTO (NO BULK CSV / TEMPLATES) */}
             <div className="flex flex-wrap items-center gap-2">
+              <button
+                type="button"
+                onClick={handleExportCSV}
+                className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/80 px-4 py-2.5 text-xs font-black text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900/80 transition flex items-center gap-2 cursor-pointer"
+              >
+                <Download size={16} /> {t("Export CSV")}
+              </button>
+
               <button
                 type="button"
                 onClick={() => {
@@ -823,7 +878,7 @@ export default function IndividualDonorDashboard() {
                   setError("");
                   setShowDonateModal(true);
                 }}
-                className="rounded-xl bg-slate-900 px-4 py-2.5 text-xs font-extrabold text-white hover:bg-slate-800 transition shadow-xs flex items-center gap-2"
+                className="rounded-xl bg-slate-900 dark:bg-slate-800 px-4 py-2.5 text-xs font-extrabold text-white hover:bg-slate-800 dark:hover:bg-slate-700 transition shadow-xs flex items-center gap-2"
               >
                 <PlusCircle size={16} /> {t("Post Home Meal / Food")}
               </button>
@@ -833,22 +888,22 @@ export default function IndividualDonorDashboard() {
           {/* SEARCH & FILTERS BAR */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
             <div className="relative flex-1 w-full">
-              <Search size={16} className="absolute left-3.5 top-3 text-slate-400" />
+              <Search size={16} className="absolute left-3.5 top-3 text-slate-400 dark:text-slate-500" />
               <input
                 type="text"
                 placeholder={t("Search food item by name or category...")}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full rounded-xl border border-slate-200 bg-white pl-10 pr-4 py-2.5 text-xs font-semibold text-slate-800 focus:border-emerald-500 focus:outline-none"
+                className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 pl-10 pr-4 py-2.5 text-xs font-semibold text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:border-emerald-500 focus:outline-none"
               />
             </div>
 
             <div className="flex items-center gap-2 w-full sm:w-auto shrink-0">
-              <Filter size={16} className="text-slate-400" />
+              <Filter size={16} className="text-slate-400 dark:text-slate-500" />
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-xs font-semibold text-slate-800 focus:border-emerald-500 focus:outline-none"
+                className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-xs font-semibold text-slate-800 dark:text-slate-100 focus:border-emerald-500 focus:outline-none"
               >
                 <option value="ALL">{t("All Expiry Statuses")}</option>
                 <option value="FRESH">{t("Fresh Items Only")}</option>
@@ -860,7 +915,7 @@ export default function IndividualDonorDashboard() {
                 <button
                   type="button"
                   onClick={() => setStatusFilter("ALL")}
-                  className="rounded-xl border border-slate-200 bg-slate-100 px-3 py-2.5 text-xs font-bold text-slate-600 hover:bg-slate-200 transition flex items-center gap-1"
+                  className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 px-3 py-2.5 text-xs font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition flex items-center gap-1"
                 >
                   <RotateCcw size={13} /> {t("Reset Filter")}
                 </button>
@@ -869,9 +924,9 @@ export default function IndividualDonorDashboard() {
           </div>
 
           {/* INVENTORY TABLE WITH PRODUCT PHOTOS */}
-          <div className="overflow-x-auto rounded-2xl border border-slate-100 bg-white">
+          <div className="overflow-x-auto rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-50 text-[10px] uppercase font-black tracking-wider text-slate-400 border-b border-slate-100">
+              <thead className="bg-slate-50 dark:bg-slate-800/80 text-[10px] uppercase font-black tracking-wider text-slate-400 dark:text-slate-400 border-b border-slate-200/80 dark:border-slate-800">
                 <tr>
                   <th className="p-4">{t("Product Photo")}</th>
                   <th className="p-4">{t("Food Item Name")}</th>
@@ -882,16 +937,16 @@ export default function IndividualDonorDashboard() {
                   <th className="p-4 text-right">{t("Actions")}</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 font-semibold text-slate-700">
+              <tbody className="divide-y divide-slate-200/80 dark:divide-slate-800 font-semibold text-slate-700 dark:text-slate-300">
 
                 {filteredInventory.map((item) => (
-                  <tr key={item.id} className="hover:bg-slate-50/80 transition">
+                  <tr key={item.id} className="hover:bg-slate-50/80 dark:hover:bg-slate-800/50 transition">
                     <td className="p-4">
                       {item.image_url ? (
                         <button
                           type="button"
                           onClick={() => setPhotoLightbox(item.image_url)}
-                          className="relative group h-10 w-10 shrink-0 rounded-xl overflow-hidden border border-slate-200 shadow-xs"
+                          className="relative group h-10 w-10 shrink-0 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-xs"
                         >
                           <img
                             src={item.image_url}
@@ -903,26 +958,26 @@ export default function IndividualDonorDashboard() {
                           </div>
                         </button>
                       ) : (
-                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-400">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500">
                           <ImageIcon size={18} />
                         </div>
                       )}
                     </td>
-                    <td className="p-4 font-extrabold text-slate-900">{t(item.name || item.food_name || "Food Item")}</td>
-                    <td className="p-4">{t(item.category_name || "General Food")}</td>
-                    <td className="p-4">{item.quantity} {t(item.unit)}</td>
+                    <td className="p-4 font-extrabold text-slate-900 dark:text-white">{t(item.name || item.food_name || "Food Item")}</td>
+                    <td className="p-4 text-slate-600 dark:text-slate-300">{t(item.category_name || "General Food")}</td>
+                    <td className="p-4 text-slate-800 dark:text-slate-200">{item.quantity} {t(item.unit)}</td>
 
-                    <td className="p-4 font-mono text-[11px] text-slate-500">
+                    <td className="p-4 font-mono text-[11px] text-slate-500 dark:text-slate-400">
                       {item.expiry_date ? new Date(item.expiry_date).toLocaleString() : "N/A"}
                     </td>
                     <td className="p-4">
                       {donationByInvId[item.id] ? (
                         <span className={`px-2.5 py-1 rounded-full text-[10px] font-black ${
                           donationByInvId[item.id].status === "CLAIMED"
-                            ? "bg-purple-100 text-purple-800 animate-pulse"
+                            ? "bg-purple-100 dark:bg-purple-950/80 text-purple-800 dark:text-purple-300 animate-pulse border border-purple-200 dark:border-purple-800"
                             : donationByInvId[item.id].status === "IN_TRANSIT" || donationByInvId[item.id].status === "ASSIGNED"
-                            ? "bg-amber-100 text-amber-800"
-                            : "bg-blue-100 text-blue-800"
+                            ? "bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800"
+                            : "bg-blue-100 dark:bg-blue-950/80 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800"
                         }`}>
                           {donationByInvId[item.id].status === "CLAIMED"
                             ? `📦 ${t("Claimed by NGO")}`
@@ -933,10 +988,10 @@ export default function IndividualDonorDashboard() {
                       ) : (
                         <span className={`px-2.5 py-1 rounded-full text-[10px] font-black ${
                           item.expiry_status === "EXPIRED"
-                            ? "bg-red-100 text-red-800"
+                            ? "bg-red-100 dark:bg-red-950/80 text-red-800 dark:text-red-300 border border-red-200 dark:border-red-800"
                             : item.expiry_status === "EXPIRING_SOON"
-                            ? "bg-amber-100 text-amber-800"
-                            : "bg-emerald-100 text-emerald-800"
+                            ? "bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800"
+                            : "bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800"
                         }`}>
                           {t(item.expiry_status || "FRESH")}
                         </span>
@@ -946,10 +1001,10 @@ export default function IndividualDonorDashboard() {
                       {donationByInvId[item.id] ? (
                         <span className={`px-3 py-1.5 text-xs font-extrabold rounded-xl ${
                           donationByInvId[item.id].status === "CLAIMED"
-                            ? "bg-purple-50 text-purple-700 border border-purple-200"
+                            ? "bg-purple-50 dark:bg-purple-950/50 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800"
                             : donationByInvId[item.id].status === "IN_TRANSIT"
-                            ? "bg-amber-50 text-amber-700 border border-amber-200"
-                            : "bg-blue-50 text-blue-700 border border-blue-200"
+                            ? "bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800"
+                            : "bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800"
                         }`}>
                           {donationByInvId[item.id].status === "CLAIMED" ? t("Claimed") : donationByInvId[item.id].status === "IN_TRANSIT" ? t("In Transit") : t("Listed")}
                         </span>
@@ -957,7 +1012,7 @@ export default function IndividualDonorDashboard() {
                         <button
                           type="button"
                           onClick={() => handleDirectDonate(item)}
-                          className="rounded-xl bg-emerald-600 px-3 py-1.5 text-xs font-bold text-white hover:bg-emerald-700 transition shadow-xs inline-flex items-center gap-1"
+                          className="rounded-xl bg-emerald-600 px-3 py-1.5 text-xs font-bold text-white hover:bg-emerald-700 transition shadow-xs inline-flex items-center gap-1 cursor-pointer"
                         >
                           <HeartHandshake size={13} /> {t("Donate")}
                         </button>
@@ -966,7 +1021,7 @@ export default function IndividualDonorDashboard() {
                       <button
                         type="button"
                         onClick={() => handleEditOpen(item)}
-                        className="rounded-xl border border-slate-200 bg-white p-1.5 text-slate-600 hover:bg-slate-100 transition inline-flex items-center"
+                        className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-1.5 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition inline-flex items-center cursor-pointer"
                         title={t("Edit")}
                       >
                         <Edit2 size={13} />
@@ -975,7 +1030,7 @@ export default function IndividualDonorDashboard() {
                       <button
                         type="button"
                         onClick={() => handleDeleteInventory(item)}
-                        className="rounded-xl border border-red-200 bg-red-50 p-1.5 text-red-600 hover:bg-red-100 transition inline-flex items-center"
+                        className="rounded-xl border border-red-200 dark:border-red-900/60 bg-red-50 dark:bg-red-950/40 p-1.5 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/60 transition inline-flex items-center cursor-pointer"
                         title={t("Delete")}
                       >
                         <Trash2 size={13} />
@@ -985,7 +1040,7 @@ export default function IndividualDonorDashboard() {
                 ))}
                 {filteredInventory.length === 0 && (
                   <tr>
-                    <td colSpan="7" className="p-8 text-center text-slate-400 font-bold text-xs">
+                    <td colSpan="7" className="p-8 text-center text-slate-400 dark:text-slate-500 font-bold text-xs">
                       {t("No inventory items found. Click 'Add Inventory + Photo' above to manually add food items!")}
                     </td>
                   </tr>
@@ -999,20 +1054,20 @@ export default function IndividualDonorDashboard() {
         {/* MODAL 1: MANUAL ADD INVENTORY ITEM WITH PHOTO */}
         {showAddInventoryModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs">
-            <div className="w-full max-w-lg rounded-3xl border border-slate-100 bg-white p-6 md:p-8 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
-              <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div className="w-full max-w-lg rounded-3xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 md:p-8 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
+              <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300">
                     <Plus size={20} />
                   </div>
                   <div>
-                    <h2 className="text-lg font-extrabold text-slate-900">Manual Inventory Entry</h2>
-                    <p className="text-xs text-slate-500 font-semibold">Upload product photo & details</p>
+                    <h2 className="text-lg font-extrabold text-slate-900 dark:text-white">Manual Inventory Entry</h2>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold">Upload product photo & details</p>
                   </div>
                 </div>
                 <button
                   onClick={() => setShowAddInventoryModal(false)}
-                  className="rounded-xl p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-700 transition"
+                  className="rounded-xl p-2 text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-700 dark:hover:text-slate-200 transition"
                 >
                   ✕
                 </button>

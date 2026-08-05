@@ -26,14 +26,26 @@ async def connect_to_mongodb() -> None:
     mongodb.client = MongoClientType(
         settings.MONGODB_URL,
         maxPoolSize=100,
-        minPoolSize=10,
+        minPoolSize=0,
         maxIdleTimeMS=45000,
-        serverSelectionTimeoutMS=5000,
-        connectTimeoutMS=5000,
+        serverSelectionTimeoutMS=30000,
+        connectTimeoutMS=30000,
         retryWrites=True,
     )
 
-    await mongodb.client.admin.command("ping")
+    import asyncio
+    max_retries = 3
+    for attempt in range(1, max_retries + 1):
+        try:
+            await mongodb.client.admin.command("ping")
+            break
+        except Exception as conn_err:
+            if attempt == max_retries:
+                print(f"ERROR: Could not connect to MongoDB Atlas after {max_retries} attempts: {conn_err}")
+                print("HINT: Ensure your IP address is whitelisted (0.0.0.0/0) in MongoDB Atlas -> Network Access.")
+                raise conn_err
+            print(f"MongoDB connection attempt {attempt}/{max_retries} timed out. Retrying in 2 seconds...")
+            await asyncio.sleep(2)
 
     mongodb.database = mongodb.client[
         settings.DATABASE_NAME

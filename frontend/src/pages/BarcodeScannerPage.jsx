@@ -918,43 +918,28 @@ export default function BarcodeScannerPage() {
       <section className="grid gap-6 xl:grid-cols-[1.4fr_0.8fr]">
 
 
-        {/* ====================================================
-            CAMERA SECTION
-        ==================================================== */}
-
-        <div className="rounded-[30px] border border-white/80 bg-white/80 p-6 shadow-[0_18px_55px_rgba(15,118,110,0.08)] backdrop-blur-xl lg:p-8">
-
+        {/* CAMERA SECTION */}
+        <div className="rounded-[30px] border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-6 shadow-[0_18px_55px_rgba(15,118,110,0.08)] backdrop-blur-xl lg:p-8">
 
           <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
 
-
             <div className="flex items-center gap-3">
 
-
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-700">
-
-                <ScanLine
-                  size={24}
-                />
-
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400">
+                <ScanLine size={24} />
               </div>
 
-
               <div>
-
-                <h2 className="text-2xl font-black text-slate-900">
+                <h2 className="text-2xl font-black text-slate-900 dark:text-white">
                   Camera Barcode Scanner
                 </h2>
 
-
-                <p className="mt-1 text-sm text-slate-500">
+                <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                   Scan packaged food barcodes using your device camera.
                 </p>
-
               </div>
 
             </div>
-
 
             <button
               type="button"
@@ -966,86 +951,42 @@ export default function BarcodeScannerPage() {
               onClick={
                 loadCameras
               }
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-4 text-sm font-black text-emerald-700 transition hover:bg-emerald-100 disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/80 px-4 text-sm font-black text-emerald-700 dark:text-emerald-300 transition hover:bg-emerald-100 dark:hover:bg-emerald-900/80 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
             >
-
               {loadingCameras ? (
-                <Loader2
-                  size={17}
-                  className="animate-spin"
-                />
+                <Loader2 size={17} className="animate-spin" />
               ) : (
-                <RefreshCw
-                  size={17}
-                />
+                <RefreshCw size={17} />
               )}
-
-
-              {loadingCameras
-                ? "Detecting..."
-                : "Detect Cameras"}
-
+              {loadingCameras ? "Detecting..." : "Detect Cameras"}
             </button>
 
           </div>
 
-
           {/* CAMERA SELECTOR */}
-
           {cameras.length > 0 && (
             <div className="mt-6">
-
-              <label className="text-sm font-black text-slate-700">
+              <label className="text-sm font-black text-slate-700 dark:text-slate-300">
                 Select Camera
               </label>
 
-
               <select
-                value={
-                  selectedCameraId
-                }
-                onChange={
-                  handleCameraChange
-                }
-                disabled={
-                  scanning ||
-                  starting
-                }
-                className="mt-2 h-12 w-full rounded-xl border border-slate-200 bg-white px-4 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 disabled:bg-slate-100"
+                value={selectedCameraId}
+                onChange={handleCameraChange}
+                disabled={scanning || starting}
+                className="mt-2 h-12 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 text-slate-900 dark:text-white outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 dark:focus:ring-emerald-950 disabled:bg-slate-100 dark:disabled:bg-slate-800/50"
               >
-
-                {cameras.map(
-                  (
-                    camera,
-                    index
-                  ) => (
-                    <option
-                      key={
-                        camera.deviceId
-                      }
-                      value={
-                        camera.deviceId
-                      }
-                    >
-
-                      {camera.label ||
-                        `Camera ${index + 1}`}
-
-                    </option>
-                  )
-                )}
-
+                {cameras.map((camera, index) => (
+                  <option key={camera.deviceId} value={camera.deviceId}>
+                    {camera.label || `Camera ${index + 1}`}
+                  </option>
+                ))}
               </select>
-
             </div>
           )}
 
-
           {/* CAMERA PREVIEW */}
-
-          <div className="relative mt-6 min-h-[420px] overflow-hidden rounded-[26px] border border-slate-200 bg-black">
-
-
+          <div className="relative mt-6 min-h-[420px] overflow-hidden rounded-[26px] border border-slate-200 dark:border-slate-800 bg-black">
             <video
               id={VIDEO_ID}
               autoPlay
@@ -1054,307 +995,171 @@ export default function BarcodeScannerPage() {
               className="h-[420px] w-full object-contain"
             />
 
-
             {scanning && (
-              <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+              <div className="pointer-events-none absolute inset-0 flex items-center justify-center p-4">
+                {/* FUTURISTIC TARGET BOX WITH CORNER BRACKETS & LASER SWEEP */}
+                <div className="relative h-[230px] w-[94%] max-w-[650px] rounded-3xl border-2 border-emerald-500/60 shadow-[0_0_30px_rgba(16,185,129,0.3)] animate-pulse-border overflow-hidden">
+                  
+                  {/* CORNER BRACKETS */}
+                  <div className="absolute top-0 left-0 h-6 w-6 border-t-4 border-l-4 border-emerald-400 rounded-tl-xl" />
+                  <div className="absolute top-0 right-0 h-6 w-6 border-t-4 border-r-4 border-emerald-400 rounded-tr-xl" />
+                  <div className="absolute bottom-0 left-0 h-6 w-6 border-b-4 border-l-4 border-emerald-400 rounded-bl-xl" />
+                  <div className="absolute bottom-0 right-0 h-6 w-6 border-b-4 border-r-4 border-emerald-400 rounded-br-xl" />
 
+                  {/* ANIMATED LASER BEAM */}
+                  <div className="absolute left-2 right-2 h-[3px] bg-gradient-to-r from-emerald-500 via-teal-300 to-emerald-500 shadow-[0_0_15px_#10B981] animate-laser" />
 
-                <div className="relative h-[210px] w-[94%] max-w-[650px] rounded-2xl border-2 border-emerald-400">
+                  {/* SCANNER HUD OVERLAY */}
+                  <div className="absolute top-3 left-3 flex items-center gap-2 rounded-full bg-slate-950/80 px-3 py-1 text-[10px] font-black text-emerald-400 border border-emerald-500/30 backdrop-blur-md">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" />
+                    AI SCANNER ACTIVE • GTIN-13 / EAN / UPC
+                  </div>
 
-
-                  <div className="absolute left-4 right-4 top-1/2 h-[2px] -translate-y-1/2 bg-emerald-400" />
-
-
-                  <p className="absolute bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-black/70 px-4 py-2 text-xs font-black text-white">
-
-                    Keep complete barcode visible
-
+                  <p className="absolute bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-slate-950/90 px-4 py-1.5 text-xs font-black text-white border border-emerald-500/30 backdrop-blur-md">
+                    Align Barcode Inside Target Box
                   </p>
-
                 </div>
-
               </div>
             )}
 
-
-            {!scanning &&
-              !starting && (
-                <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
-
-                  <CameraOff
-                    size={50}
-                    className="text-slate-500"
-                  />
-
-
-                  <p className="mt-4 font-black text-white">
-                    Camera is not running
-                  </p>
-
-
-                  <p className="mt-2 max-w-md text-sm leading-6 text-slate-400">
-                    Detect available cameras and press Start Camera.
-                  </p>
-
-                </div>
-              )}
-
+            {!scanning && !starting && (
+              <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
+                <CameraOff size={50} className="text-slate-500" />
+                <p className="mt-4 font-black text-white">Camera is not running</p>
+                <p className="mt-2 max-w-md text-sm leading-6 text-slate-400">
+                  Detect available cameras and press Start Camera.
+                </p>
+              </div>
+            )}
 
             {starting && (
               <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/80">
-
-                <Loader2
-                  size={42}
-                  className="animate-spin text-emerald-400"
-                />
-
-
-                <p className="mt-4 font-black text-white">
-                  Starting scanner...
-                </p>
-
+                <Loader2 size={42} className="animate-spin text-emerald-400" />
+                <p className="mt-4 font-black text-white">Starting scanner...</p>
               </div>
             )}
-
           </div>
-
 
           {/* CAMERA BUTTON */}
-
           <div className="mt-5">
-
             {!scanning ? (
-
               <button
                 type="button"
-                disabled={
-                  starting ||
-                  loadingCameras
-                }
-                onClick={
-                  startScanner
-                }
-                className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-emerald-700 px-6 font-black text-white transition hover:bg-emerald-800 disabled:cursor-not-allowed disabled:opacity-50"
+                disabled={starting || loadingCameras}
+                onClick={startScanner}
+                className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 px-6 font-black text-white transition shadow-lg shadow-emerald-600/20 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
               >
-
-                {starting ? (
-                  <Loader2
-                    size={18}
-                    className="animate-spin"
-                  />
-                ) : (
-                  <Camera
-                    size={18}
-                  />
-                )}
-
-
-                {starting
-                  ? "Starting..."
-                  : "Start Camera"}
-
+                {starting ? <Loader2 size={18} className="animate-spin" /> : <Camera size={18} />}
+                {starting ? "Starting..." : "Start Camera"}
               </button>
-
             ) : (
-
               <button
                 type="button"
-                onClick={
-                  stopScanner
-                }
-                className="flex h-12 w-full items-center justify-center gap-2 rounded-xl border border-red-200 bg-red-50 px-6 font-black text-red-700 transition hover:bg-red-100"
+                onClick={stopScanner}
+                className="flex h-12 w-full items-center justify-center gap-2 rounded-xl border border-red-200 dark:border-red-900/60 bg-red-50 dark:bg-red-950/50 px-6 font-black text-red-700 dark:text-red-300 hover:bg-red-100 transition cursor-pointer"
               >
-
-                <CameraOff
-                  size={18}
-                />
-
+                <CameraOff size={18} />
                 Stop Camera
-
               </button>
-
             )}
-
           </div>
 
-
           {/* TIPS */}
-
-          <div className="mt-5 rounded-2xl border border-emerald-100 bg-emerald-50 p-4">
-
-            <p className="text-sm font-black text-emerald-900">
+          <div className="mt-5 rounded-2xl border border-emerald-200/80 dark:border-emerald-900/60 bg-emerald-50/80 dark:bg-emerald-950/50 p-4">
+            <p className="text-sm font-black text-emerald-900 dark:text-emerald-200">
               Scanning instructions
             </p>
-
-
-            <p className="mt-2 text-sm leading-6 text-emerald-800">
+            <p className="mt-2 text-sm leading-6 text-emerald-800 dark:text-emerald-300">
               Keep the entire barcode visible in the camera preview. Hold the product approximately 20–50 cm from a laptop webcam and slowly change the distance until the barcode lines are sharp. Use good lighting and avoid glare.
             </p>
-
           </div>
 
         </div>
 
-
-        {/* ====================================================
-            RIGHT COLUMN
-        ==================================================== */}
-
+        {/* RIGHT COLUMN */}
         <div className="space-y-6">
 
-
           {/* SUCCESS */}
-
           {scannedBarcode && (
-            <div className="rounded-[30px] border border-emerald-200 bg-emerald-50 p-6 shadow-sm">
-
-
+            <div className="rounded-[30px] border border-emerald-200 dark:border-emerald-800 bg-emerald-50/80 dark:bg-emerald-950/60 p-6 shadow-sm">
               <div className="flex items-center gap-3">
-
-
-                <CheckCircle2
-                  size={25}
-                  className="text-emerald-700"
-                />
-
-
+                <CheckCircle2 size={25} className="text-emerald-700 dark:text-emerald-400" />
                 <div>
-
-                  <p className="text-xs font-black uppercase tracking-wider text-emerald-600">
+                  <p className="text-xs font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
                     Scan Successful
                   </p>
-
-
-                  <h3 className="mt-1 text-xl font-black text-slate-900">
+                  <h3 className="mt-1 text-xl font-black text-slate-900 dark:text-white">
                     Barcode Detected
                   </h3>
-
                 </div>
-
               </div>
 
-
-              <div className="mt-5 rounded-2xl bg-white p-4">
-
-                <p className="text-xs font-bold text-slate-400">
+              <div className="mt-5 rounded-2xl bg-white dark:bg-slate-900 p-4 border border-emerald-100 dark:border-slate-800">
+                <p className="text-xs font-bold text-slate-400 dark:text-slate-500">
                   BARCODE VALUE
                 </p>
-
-
-                <p className="mt-2 break-all text-xl font-black text-slate-900">
+                <p className="mt-2 break-all text-xl font-black text-slate-900 dark:text-white">
                   {scannedBarcode}
                 </p>
-
-
                 {detectedFormat && (
-                  <p className="mt-2 text-xs font-bold text-slate-500">
+                  <p className="mt-2 text-xs font-bold text-slate-500 dark:text-slate-400">
                     Format ID: {detectedFormat}
                   </p>
                 )}
-
               </div>
-
 
               <button
                 type="button"
-                onClick={() =>
-                  continueToInventory(
-                    scannedBarcode
-                  )
-                }
-                className="mt-5 h-12 w-full rounded-xl bg-emerald-700 px-5 font-black text-white transition hover:bg-emerald-800"
+                onClick={() => continueToInventory(scannedBarcode)}
+                className="mt-5 h-12 w-full rounded-xl bg-emerald-600 hover:bg-emerald-700 px-5 font-black text-white transition shadow-lg cursor-pointer"
               >
-
                 Add to Inventory
-
               </button>
-
             </div>
           )}
 
-
           {/* MANUAL INPUT */}
-
-          <div className="rounded-[30px] border border-white/80 bg-white/80 p-6 shadow-[0_18px_55px_rgba(15,118,110,0.08)] backdrop-blur-xl">
-
-
+          <div className="rounded-[30px] border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-6 shadow-[0_18px_55px_rgba(15,118,110,0.08)] backdrop-blur-xl">
             <div className="flex items-center gap-3">
-
-
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-700">
-
-                <Keyboard
-                  size={21}
-                />
-
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400">
+                <Keyboard size={21} />
               </div>
-
-
               <div>
-
-                <h3 className="text-xl font-black text-slate-900">
+                <h3 className="text-xl font-black text-slate-900 dark:text-white">
                   Manual Barcode
                 </h3>
-
-
-                <p className="text-sm text-slate-500">
+                <p className="text-sm text-slate-500 dark:text-slate-400">
                   Enter the barcode if camera scanning is unavailable.
                 </p>
-
               </div>
-
             </div>
 
-
-            <form
-              onSubmit={
-                handleManualSubmit
-              }
-              className="mt-6"
-            >
-
-
-              <label className="text-sm font-black text-slate-700">
+            <form onSubmit={handleManualSubmit} className="mt-6">
+              <label className="text-sm font-black text-slate-700 dark:text-slate-300">
                 Barcode Number
               </label>
 
-
               <input
                 required
-                value={
-                  manualBarcode
-                }
-                onChange={
-                  (event) => {
-                    setManualBarcode(
-                      event.target.value
-                    );
-
-                    setError("");
-                  }
-                }
+                value={manualBarcode}
+                onChange={(event) => {
+                  setManualBarcode(event.target.value);
+                  setError("");
+                }}
                 placeholder="Example: 8901234567890"
                 inputMode="numeric"
                 autoComplete="off"
-                className="mt-2 h-12 w-full rounded-xl border border-slate-200 bg-white px-4 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+                className="mt-2 h-12 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 text-slate-900 dark:text-white outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 dark:focus:ring-emerald-950"
               />
-
 
               <button
                 type="submit"
-                className="mt-4 flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-emerald-700 px-5 font-black text-white transition hover:bg-emerald-800"
+                className="mt-4 flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 px-5 font-black text-white transition shadow-lg cursor-pointer"
               >
-
-                <Barcode
-                  size={18}
-                />
-
+                <Barcode size={18} />
                 Continue to Inventory
-
               </button>
-
             </form>
-
           </div>
 
         </div>

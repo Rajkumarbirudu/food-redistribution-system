@@ -630,6 +630,8 @@ async def get_admin_users(
 
 
     if role:
+        if role.upper() == "ADMIN":
+            return []
         query[
             "role"
         ] = {
@@ -639,6 +641,8 @@ async def get_admin_users(
             "$options":
                 "i",
         }
+    else:
+        query["role"] = {"$ne": "ADMIN"}
 
 
     if is_active is not None:

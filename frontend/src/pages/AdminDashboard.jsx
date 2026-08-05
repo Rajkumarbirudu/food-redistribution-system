@@ -107,13 +107,13 @@ function MainStatCard({
     <button
       type="button"
       onClick={onClick}
-      className="group w-full rounded-[28px] border border-white/80 bg-white/80 p-6 text-left shadow-[0_18px_50px_rgba(15,118,110,0.08)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-emerald-200 hover:shadow-xl"
+      className="group w-full rounded-[28px] border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-6 text-left shadow-[0_18px_50px_rgba(15,118,110,0.08)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-emerald-300 dark:hover:border-emerald-700 hover:shadow-xl cursor-pointer"
     >
 
 
       <div className="flex items-start justify-between">
 
-        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700">
+        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300">
 
           <Icon size={23} />
 
@@ -122,28 +122,28 @@ function MainStatCard({
 
         <ArrowRight
           size={18}
-          className="text-slate-300 transition group-hover:translate-x-1 group-hover:text-emerald-600"
+          className="text-slate-300 dark:text-slate-600 transition group-hover:translate-x-1 group-hover:text-emerald-600 dark:group-hover:text-emerald-400"
         />
 
       </div>
 
 
-      <p className="mt-6 text-sm font-black text-slate-500">
+      <p className="mt-6 text-sm font-black text-slate-500 dark:text-slate-400">
         {t(title)}
       </p>
 
 
-      <p className="mt-2 text-4xl font-black tracking-tight text-slate-900">
+      <p className="mt-2 text-4xl font-black tracking-tight text-slate-900 dark:text-white">
         {value ?? 0}
       </p>
 
 
-      <p className="mt-3 min-h-[48px] text-sm leading-6 text-slate-500">
+      <p className="mt-3 min-h-[48px] text-sm leading-6 text-slate-500 dark:text-slate-400">
         {t(description)}
       </p>
 
 
-      <div className="mt-5 flex items-center gap-2 text-sm font-black text-emerald-700">
+      <div className="mt-5 flex items-center gap-2 text-sm font-black text-emerald-700 dark:text-emerald-400">
 
         View details
 
@@ -171,12 +171,12 @@ function OverviewCard({
     <button
       type="button"
       onClick={onClick}
-      className="group rounded-[24px] border border-slate-100 bg-white/90 p-5 text-left shadow-sm transition hover:-translate-y-1 hover:border-emerald-200 hover:shadow-md"
+      className="group rounded-[24px] border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-5 text-left shadow-sm transition hover:-translate-y-1 hover:border-emerald-300 dark:hover:border-emerald-700 hover:shadow-md cursor-pointer"
     >
 
       <div className="flex items-center justify-between">
 
-        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700">
+        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300">
 
           <Icon size={21} />
 
@@ -185,18 +185,18 @@ function OverviewCard({
 
         <ArrowRight
           size={17}
-          className="text-slate-300 transition group-hover:translate-x-1 group-hover:text-emerald-600"
+          className="text-slate-300 dark:text-slate-600 transition group-hover:translate-x-1 group-hover:text-emerald-600 dark:group-hover:text-emerald-400"
         />
 
       </div>
 
 
-      <p className="mt-5 text-sm font-black text-slate-600">
+      <p className="mt-5 text-sm font-black text-slate-600 dark:text-slate-300">
         {t(title)}
       </p>
 
 
-      <p className="mt-2 text-3xl font-black text-slate-900">
+      <p className="mt-2 text-3xl font-black text-slate-900 dark:text-white">
         {value ?? 0}
       </p>
 
@@ -1110,13 +1110,13 @@ export default function AdminDashboard() {
 
                     }`}>
 
-                      {complaint.status}
+                      {t(complaint.status)}
 
                     </span>
 
                     <h4 className="text-sm font-black text-slate-800">
 
-                      {complaint.title}
+                      {t(complaint.title)}
 
                     </h4>
 
@@ -1125,7 +1125,7 @@ export default function AdminDashboard() {
 
                   <p className="mt-2 text-sm text-slate-600 font-semibold leading-relaxed">
 
-                    {complaint.description}
+                    {t(complaint.description)}
 
                   </p>
 
@@ -1134,7 +1134,7 @@ export default function AdminDashboard() {
 
                     <p>
 
-                      Courier: <span className="text-slate-800">{complaint.delivery_boy_name}</span>
+                      {t("Courier")}: <span className="text-slate-800">{complaint.delivery_boy_name}</span>
 
                     </p>
 
@@ -1142,7 +1142,7 @@ export default function AdminDashboard() {
 
                     <p>
 
-                      Reporter: <span className="text-slate-800">{complaint.raised_by_role}</span>
+                      {t("Reporter")}: <span className="text-slate-800">{t(complaint.raised_by_role)}</span>
 
                     </p>
 
@@ -1150,7 +1150,7 @@ export default function AdminDashboard() {
 
                     <p>
 
-                      Date: <span className="text-slate-800">{new Date(complaint.created_at).toLocaleDateString()}</span>
+                      {t("Date")}: <span className="text-slate-800">{new Date(complaint.created_at).toLocaleDateString()}</span>
 
                     </p>
 
@@ -1167,7 +1167,7 @@ export default function AdminDashboard() {
                         onClick={() => handleWarnDriver(complaint.delivery_boy_id)}
                         className="rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-xs font-bold text-amber-700 hover:bg-amber-100 transition"
                       >
-                        Warn Driver
+                        {t("Warn Driver")}
                       </button>
 
                       <button
@@ -1175,7 +1175,7 @@ export default function AdminDashboard() {
                         onClick={() => handleSuspendDriver(complaint.delivery_boy_id)}
                         className="rounded-xl border border-rose-200 bg-rose-50 px-3 py-2 text-xs font-bold text-rose-700 hover:bg-rose-100 transition"
                       >
-                        Suspend/Toggle
+                        {t("Suspend/Toggle")}
                       </button>
                     </>
                   )}
@@ -1192,7 +1192,7 @@ export default function AdminDashboard() {
 
                     >
 
-                      Mark Resolved
+                      {t("Mark Resolved")}
 
                     </button>
 
@@ -1413,12 +1413,12 @@ export default function AdminDashboard() {
         <div className="mb-5">
 
           <h2 className="text-xl font-black text-slate-900">
-            Administration Actions
+            {t("Administration Actions")}
           </h2>
 
 
           <p className="mt-1 text-sm text-slate-500">
-            Open detailed Aura Food management pages.
+            {t("Open detailed Aura Food management pages.")}
           </p>
 
         </div>
@@ -1441,11 +1441,11 @@ export default function AdminDashboard() {
             <div>
 
               <p className="font-black text-slate-900">
-                Manage Users
+                {t("Manage Users")}
               </p>
 
               <p className="mt-1 text-xs text-slate-500">
-                Accounts and approvals
+                {t("Accounts and approvals")}
               </p>
 
             </div>
@@ -1474,11 +1474,11 @@ export default function AdminDashboard() {
             <div>
 
               <p className="font-black text-slate-900">
-                Organizations
+                {t("Organizations")}
               </p>
 
               <p className="mt-1 text-xs text-slate-500">
-                Donors and NGOs
+                {t("Donors and NGOs")}
               </p>
 
             </div>
@@ -1507,11 +1507,11 @@ export default function AdminDashboard() {
             <div>
 
               <p className="font-black text-slate-900">
-                Inventory
+                {t("Inventory")}
               </p>
 
               <p className="mt-1 text-xs text-slate-500">
-                Platform food records
+                {t("Platform food records")}
               </p>
 
             </div>
@@ -1540,11 +1540,11 @@ export default function AdminDashboard() {
             <div>
 
               <p className="font-black text-slate-900">
-                Donations
+                {t("Donations")}
               </p>
 
               <p className="mt-1 text-xs text-slate-500">
-                Redistribution activity
+                {t("Redistribution activity")}
               </p>
 
             </div>

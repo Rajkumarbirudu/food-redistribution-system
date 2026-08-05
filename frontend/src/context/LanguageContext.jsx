@@ -64,6 +64,18 @@ export function LanguageProvider({ children }) {
         return langLowerMap.get(lowerText);
       }
 
+      // 2b. Smart colon/punctuation handling (e.g., "Courier:" -> "कुरिअर:")
+      if (cleanText.endsWith(":")) {
+        const base = cleanText.slice(0, -1).trim();
+        const baseLower = base.toLowerCase();
+        if (phraseMap[base]) {
+          return phraseMap[base] + ":";
+        }
+        if (langLowerMap && langLowerMap.has(baseLower)) {
+          return langLowerMap.get(baseLower) + ":";
+        }
+      }
+
       // 3. Check for dictionary object keys (e.g. "nav.logout")
       if (!cleanText.includes(" ") && cleanText.includes(".")) {
         const keys = cleanText.split(".");

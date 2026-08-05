@@ -6,31 +6,22 @@ import {
 } from "react-router-dom";
 
 
-// Production ready app routing
+import DashboardSelectPage from "./pages/DashboardSelectPage";
 import LoginPage from "./pages/LoginPage";
-
 import RegisterPage from "./pages/RegisterPage";
-
 import DonorDashboard from "./pages/DonorDashboard";
 import IndividualDonorDashboard from "./pages/IndividualDonorDashboard";
-
 import InventoryPage from "./pages/InventoryPage";
-
 import BarcodeScannerPage from "./pages/BarcodeScannerPage";
-
 import NgoDashboard from "./pages/NgoDashboard";
 import AvailableDonationsPage from "./pages/AvailableDonationsPage";
 import NgoClaimsPage from "./pages/NgoClaimsPage";
 import DonationsPage from "./pages/DonationsPage";
-
 import AdminDashboard from "./pages/AdminDashboard";
-
 import AdminDetailsPage from "./pages/Admindetailspage";
-
 import DeliveryPartnerDashboard from "./pages/DeliveryPartnerDashboard";
 import DeliveryBoyDashboard from "./pages/DeliveryBoyDashboard";
 import DeliveryTrackingPage from "./pages/DeliveryTrackingPage";
-
 
 export default function App() {
   return (
@@ -39,15 +30,19 @@ export default function App() {
       <Routes>
 
 
-        {/* ROOT */}
+        {/* ROOT & LOGIN */}
 
         <Route
           path="/"
           element={
-            <Navigate
-              to="/login"
-              replace
-            />
+            <LoginPage />
+          }
+        />
+
+        <Route
+          path="/select"
+          element={
+            <LoginPage />
           }
         />
 

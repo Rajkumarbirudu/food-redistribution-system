@@ -317,7 +317,7 @@ export default function AdminDetailsPage() {
             </h1>
 
             <p className="text-xs font-semibold text-slate-500">
-              Administration Workspace
+              {t("Administration Workspace")}
             </p>
 
           </div>
@@ -328,11 +328,11 @@ export default function AdminDetailsPage() {
             onClick={() =>
               navigate("/admin")
             }
-            className="flex items-center gap-2 rounded-xl border border-slate-200 px-4 py-2.5 font-bold text-slate-700"
+            className="flex items-center gap-2 rounded-xl border border-slate-200 px-4 py-2.5 font-bold text-slate-700 hover:bg-slate-100 transition"
           >
             <ArrowLeft size={18} />
 
-            Dashboard
+            {t("Dashboard")}
           </button>
 
         </div>
@@ -345,15 +345,15 @@ export default function AdminDetailsPage() {
         <div>
 
           <p className="text-sm font-black uppercase tracking-widest text-emerald-700">
-            Administration
+            {t("Administration")}
           </p>
 
           <h2 className="mt-2 text-3xl font-black text-slate-900">
-            {page.title}
+            {t(page.title)}
           </h2>
 
           <p className="mt-2 text-slate-500">
-            {page.subtitle}
+            {t(page.subtitle)}
           </p>
 
         </div>
@@ -377,7 +377,7 @@ export default function AdminDetailsPage() {
                     event.target.value
                   )
                 }
-                placeholder={`Search ${page.title.toLowerCase()}...`}
+                placeholder={`${t("Search")} ${t(page.title).toLowerCase()}...`}
                 className="w-full rounded-2xl border border-slate-200 py-3 pl-11 pr-4 outline-none focus:border-emerald-500 sm:w-96"
               />
 
@@ -387,7 +387,7 @@ export default function AdminDetailsPage() {
             <button
               type="button"
               onClick={loadDetails}
-              className="flex items-center justify-center gap-2 rounded-2xl border border-slate-200 px-4 py-3 font-bold"
+              className="flex items-center justify-center gap-2 rounded-2xl border border-slate-200 px-4 py-3 font-bold hover:bg-slate-50 transition"
             >
               <RefreshCw
                 size={18}
@@ -398,7 +398,7 @@ export default function AdminDetailsPage() {
                 }
               />
 
-              Refresh
+              {t("Refresh")}
             </button>
 
           </div>
@@ -406,7 +406,7 @@ export default function AdminDetailsPage() {
 
           {location.search && (
             <div className="mt-5 rounded-2xl bg-emerald-50 p-3 text-sm font-bold text-emerald-800">
-              Filter:{" "}
+              {t("Filter:")}{" "}
               {decodeURIComponent(
                 location.search.substring(1)
               )}
@@ -425,14 +425,14 @@ export default function AdminDetailsPage() {
 
             {loading ? (
 
-              <div className="p-12 text-center text-slate-500">
-                Loading records...
+              <div className="p-12 text-center text-slate-500 font-semibold">
+                {t("Loading records...")}
               </div>
 
             ) : filteredRows.length === 0 ? (
 
-              <div className="p-12 text-center text-slate-500">
-                No records found.
+              <div className="p-12 text-center text-slate-500 font-semibold">
+                {t("No records found.")}
               </div>
 
             ) : (
@@ -449,9 +449,7 @@ export default function AdminDetailsPage() {
                           key={column}
                           className="whitespace-nowrap p-4 text-xs font-black uppercase text-slate-500"
                         >
-                          {formatColumnName(
-                            column
-                          )}
+                          {t(formatColumnName(column))}
                         </th>
                       )
                     )}

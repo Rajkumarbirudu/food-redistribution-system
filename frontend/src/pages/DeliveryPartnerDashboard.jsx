@@ -237,40 +237,40 @@ export default function DeliveryPartnerDashboard() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-8 p-6 max-w-7xl mx-auto bg-[#fafbfc] min-h-screen">
+      <div className="space-y-8 p-6 max-w-7xl mx-auto bg-transparent min-h-screen transition-colors duration-300">
         
         {/* Header */}
-        <header className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 pb-5">
+        <header className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200/80 dark:border-slate-800 pb-5">
           <div>
-            <h1 className="text-3xl font-black text-slate-900 tracking-tight flex items-center gap-3">
-              <Truck className="text-green-600" size={32} /> Delivery Operations Desk
+            <h1 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
+              <Truck className="text-emerald-600 dark:text-emerald-400" size={32} /> {t("Delivery Operations Desk")}
             </h1>
-            <p className="text-slate-500 mt-1">
-              Welcome back, <span className="font-bold text-slate-700">{user?.full_name}</span>. Claim food shipments, execute runs, and track transit logs.
+            <p className="text-slate-500 dark:text-slate-400 mt-1">
+              {t("Welcome back,")} <span className="font-bold text-slate-700 dark:text-slate-200">{user?.full_name}</span>. {t("Claim food shipments, execute runs, and track transit logs.")}
             </p>
             {user?.license_number && (
-              <p className="text-xs text-slate-400 mt-1 font-bold">
-                Driver License: <span className="text-slate-600">{user.license_number}</span> • Registered Vehicle: <span className="text-slate-600">{user.vehicle_number || "None"}</span>
+              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1 font-bold">
+                {t("Driver License:")} <span className="text-slate-600 dark:text-slate-300">{user.license_number}</span> • {t("Registered Vehicle:")} <span className="text-slate-600 dark:text-slate-300">{user.vehicle_number || t("None")}</span>
               </p>
             )}
           </div>
           <button
             onClick={fetchData}
-            className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 font-bold text-slate-700 hover:bg-slate-50 transition flex items-center gap-2"
+            className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2.5 font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition flex items-center gap-2 cursor-pointer shadow-xs"
           >
-            <RefreshCw size={18} /> Refresh Desk
+            <RefreshCw size={18} /> {t("Refresh Desk")}
           </button>
         </header>
 
         {/* Feedback Alerts */}
         {error && (
-          <div className="rounded-2xl border border-red-200 bg-red-50 p-4 text-sm font-semibold text-red-700 flex items-start gap-2">
+          <div className="rounded-2xl border border-red-200 dark:border-red-900/60 bg-red-50 dark:bg-red-950/50 p-4 text-sm font-semibold text-red-700 dark:text-red-300 flex items-start gap-2">
             <AlertCircle size={20} className="shrink-0 mt-0.5" />
             <span>{error}</span>
           </div>
         )}
         {success && (
-          <div className="rounded-2xl border border-green-200 bg-green-50 p-4 text-sm font-semibold text-green-700 flex items-start gap-2">
+          <div className="rounded-2xl border border-green-200 dark:border-emerald-900/60 bg-green-50 dark:bg-emerald-950/50 p-4 text-sm font-semibold text-green-700 dark:text-emerald-300 flex items-start gap-2">
             <CheckCircle size={20} className="shrink-0 mt-0.5" />
             <span>{success}</span>
           </div>
@@ -278,26 +278,26 @@ export default function DeliveryPartnerDashboard() {
 
         {/* GPS Tracking active banner */}
         {simulatingId && (
-          <div className="rounded-2xl border border-blue-200 bg-blue-50/50 p-4 text-sm font-bold text-blue-700 flex items-center justify-between animate-pulse">
+          <div className="rounded-2xl border border-blue-200 dark:border-blue-800/80 bg-blue-50/80 dark:bg-blue-950/60 p-4 text-sm font-bold text-blue-700 dark:text-blue-300 flex items-center justify-between animate-pulse">
             <div className="flex items-center gap-2">
               <Navigation className="animate-spin" size={18} />
-              <span>Simulated GPS Live Transit Tracking Active (Posting Telemetry)</span>
+              <span>{t("Simulated GPS Live Transit Tracking Active (Posting Telemetry)")}</span>
             </div>
-            <span>{simStep * 10}% Progress</span>
+            <span>{simStep * 10}% {t("Progress")}</span>
           </div>
         )}
 
         {/* 1-Month Suspension Warning Banner */}
         {(user?.is_suspended || (user?.warnings_count || 0) >= 3) && (
-          <div className="rounded-2xl border-2 border-red-500 bg-red-50 p-5 text-red-900 shadow-md flex items-start gap-3">
-            <ShieldAlert size={26} className="text-red-600 shrink-0 mt-0.5" />
+          <div className="rounded-2xl border-2 border-red-500 bg-red-50 dark:bg-red-950/80 p-5 text-red-900 dark:text-red-200 shadow-md flex items-start gap-3">
+            <ShieldAlert size={26} className="text-red-600 dark:text-red-400 shrink-0 mt-0.5" />
             <div>
-              <h3 className="font-extrabold text-base text-red-900">ACCOUNT SUSPENDED FOR 1 MONTH</h3>
-              <p className="text-xs font-semibold text-red-700 mt-1">
+              <h3 className="font-extrabold text-base text-red-900 dark:text-red-100">{t("ACCOUNT SUSPENDED FOR 1 MONTH")}</h3>
+              <p className="text-xs font-semibold text-red-700 dark:text-red-300 mt-1">
                 You have received {user?.warnings_count || 3} warnings. In accordance with platform policy, receiving 3 warnings triggers an automatic 1-month account suspension and a ₹100 penalty fine per warning.
               </p>
               {user?.suspended_until && (
-                <p className="text-xs font-bold text-red-800 mt-2 bg-red-100/80 px-3 py-1.5 rounded-xl inline-block">
+                <p className="text-xs font-bold text-red-800 dark:text-red-200 mt-2 bg-red-100/80 dark:bg-red-900/60 px-3 py-1.5 rounded-xl inline-block">
                   Suspension active until: {new Date(user.suspended_until).toLocaleDateString()}
                 </p>
               )}
@@ -307,7 +307,7 @@ export default function DeliveryPartnerDashboard() {
 
         {/* Wallet & Compliance Row */}
         <div className="grid gap-5 sm:grid-cols-2">
-          <div className="rounded-3xl border border-slate-100 bg-gradient-to-br from-emerald-500 to-teal-700 p-6 text-white shadow-lg">
+          <div className="rounded-3xl border border-slate-100 dark:border-slate-800 bg-gradient-to-br from-emerald-500 to-teal-700 p-6 text-white shadow-lg">
             <div className="flex items-center justify-between">
               <p className="text-xs font-black uppercase tracking-wider text-emerald-100">Transporter Wallet Balance</p>
               <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/20 backdrop-blur-xs text-white">
@@ -322,21 +322,21 @@ export default function DeliveryPartnerDashboard() {
             </p>
           </div>
 
-          <div className="rounded-3xl border border-slate-100 bg-white p-6 shadow-xs flex flex-col justify-between">
+          <div className="rounded-3xl border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-6 shadow-xs flex flex-col justify-between">
             <div className="flex items-center justify-between">
-              <p className="text-xs font-black uppercase tracking-wider text-slate-400">Warnings & Compliance</p>
+              <p className="text-xs font-black uppercase tracking-wider text-slate-400 dark:text-slate-400">Warnings & Compliance</p>
               <span className={`px-3 py-1 rounded-full text-xs font-extrabold ${
                 (user?.warnings_count || 0) >= 3 
-                  ? "bg-red-100 text-red-700" 
+                  ? "bg-red-100 dark:bg-red-950/80 text-red-700 dark:text-red-300" 
                   : (user?.warnings_count || 0) > 0 
-                  ? "bg-amber-100 text-amber-800" 
-                  : "bg-emerald-100 text-emerald-700"
+                  ? "bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300" 
+                  : "bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300"
               }`}>
                 {user?.warnings_count || 0} / 3 Warnings
               </span>
             </div>
             <div className="mt-3">
-              <div className="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+              <div className="w-full bg-slate-100 dark:bg-slate-800 h-2.5 rounded-full overflow-hidden">
                 <div 
                   className={`h-full transition-all duration-500 ${
                     (user?.warnings_count || 0) >= 3 ? "bg-red-600" : (user?.warnings_count || 0) > 0 ? "bg-amber-500" : "bg-emerald-500"
@@ -344,7 +344,7 @@ export default function DeliveryPartnerDashboard() {
                   style={{ width: `${Math.min(100, ((user?.warnings_count || 0) / 3) * 100)}%` }}
                 />
               </div>
-              <p className="text-[11px] font-semibold text-slate-500 mt-2">
+              <p className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 mt-2">
                 {(user?.warnings_count || 0) >= 3 
                   ? "Maximum warning threshold reached. 1-month suspension active." 
                   : `${3 - (user?.warnings_count || 0)} warning(s) remaining before automatic 1-month suspension.`
@@ -356,33 +356,33 @@ export default function DeliveryPartnerDashboard() {
 
         {/* Overview Cards */}
         <div className="grid gap-5 sm:grid-cols-3">
-          <div className="rounded-2xl border border-slate-100 bg-white p-5 shadow-xs flex items-center gap-4 hover:shadow-md transition">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600">
+          <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-5 shadow-xs flex items-center gap-4 hover:shadow-md transition">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400">
               <ClipboardList size={24} />
             </div>
             <div>
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Available Requests</p>
-              <h3 className="text-2xl font-black text-slate-900 mt-1">{pendingDeliveries.length}</h3>
+              <p className="text-xs font-bold text-slate-400 dark:text-slate-400 uppercase tracking-wider">Available Requests</p>
+              <h3 className="text-2xl font-black text-slate-900 dark:text-white mt-1">{pendingDeliveries.length}</h3>
             </div>
           </div>
 
-          <div className="rounded-2xl border border-slate-100 bg-white p-5 shadow-xs flex items-center gap-4 hover:shadow-md transition">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-50 text-amber-600">
+          <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-5 shadow-xs flex items-center gap-4 hover:shadow-md transition">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400">
               <Truck size={24} />
             </div>
             <div>
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">My Active Runs</p>
-              <h3 className="text-2xl font-black text-slate-900 mt-1">{activeTasks.length}</h3>
+              <p className="text-xs font-bold text-slate-400 dark:text-slate-400 uppercase tracking-wider">My Active Runs</p>
+              <h3 className="text-2xl font-black text-slate-900 dark:text-white mt-1">{activeTasks.length}</h3>
             </div>
           </div>
 
-          <div className="rounded-2xl border border-slate-100 bg-white p-5 shadow-xs flex items-center gap-4 hover:shadow-md transition">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600">
+          <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-5 shadow-xs flex items-center gap-4 hover:shadow-md transition">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400">
               <CheckCircle size={24} />
             </div>
             <div>
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Completed Deliveries</p>
-              <h3 className="text-2xl font-black text-slate-900 mt-1">{completedTasks.length}</h3>
+              <p className="text-xs font-bold text-slate-400 dark:text-slate-400 uppercase tracking-wider">Completed Deliveries</p>
+              <h3 className="text-2xl font-black text-slate-900 dark:text-white mt-1">{completedTasks.length}</h3>
             </div>
           </div>
         </div>
@@ -392,59 +392,59 @@ export default function DeliveryPartnerDashboard() {
           
           {/* Section 1: Open Requests */}
           <section className="space-y-4">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-slate-400">Claim Shipment to Deliver</h2>
+            <h2 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400">Claim Shipment to Deliver</h2>
             
             {loading ? (
-              <p className="text-center py-8 text-xs text-slate-500 font-semibold">Loading shipping requests...</p>
+              <p className="text-center py-8 text-xs text-slate-500 dark:text-slate-400 font-semibold">Loading shipping requests...</p>
             ) : pendingDeliveries.length === 0 ? (
-              <div className="text-center py-12 border-2 border-dashed border-slate-200 rounded-2xl bg-white p-6">
-                <CheckCircle className="mx-auto text-slate-300" size={36} />
-                <p className="text-xs text-slate-500 font-bold mt-3">No pending transport requests</p>
-                <p className="text-[10px] text-slate-400 mt-1">All claimed donations are currently assigned.</p>
+              <div className="text-center py-12 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-2xl bg-white/90 dark:bg-slate-900/90 p-6">
+                <CheckCircle className="mx-auto text-slate-300 dark:text-slate-600" size={36} />
+                <p className="text-xs text-slate-500 dark:text-slate-400 font-bold mt-3">No pending transport requests</p>
+                <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-1">All claimed donations are currently assigned.</p>
               </div>
             ) : (
               <div className="space-y-4">
                 {pendingDeliveries.map((delivery) => (
                   <div
                     key={delivery.id}
-                    className="rounded-3xl border border-slate-100 bg-white p-5 shadow-sm hover:shadow-md transition"
+                    className="rounded-3xl border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-5 shadow-sm hover:shadow-md transition"
                   >
                     <div className="flex items-start justify-between">
                       <div>
-                        <span className="inline-block rounded-full bg-slate-100 px-2.5 py-0.5 text-[10px] font-black text-slate-700">
+                        <span className="inline-block rounded-full bg-slate-100 dark:bg-slate-800 px-2.5 py-0.5 text-[10px] font-black text-slate-700 dark:text-slate-300">
                           {delivery.category_name}
                         </span>
-                        <h3 className="font-extrabold text-slate-900 text-lg mt-2">{delivery.food_name}</h3>
-                        <p className="text-xs text-slate-500 font-bold mt-1">
+                        <h3 className="font-extrabold text-slate-900 dark:text-white text-lg mt-2">{delivery.food_name}</h3>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 font-bold mt-1">
                           Qty: {delivery.quantity} {delivery.unit}
                         </p>
                       </div>
                       <button
                         onClick={() => handleClaimClick(delivery)}
-                        className="rounded-xl bg-indigo-600 px-4 py-2.5 text-xs font-bold text-white shadow-md shadow-indigo-600/10 hover:bg-indigo-700 transition"
+                        className="rounded-xl bg-indigo-600 px-4 py-2.5 text-xs font-bold text-white shadow-md shadow-indigo-600/10 hover:bg-indigo-700 transition cursor-pointer"
                       >
                         Claim Delivery
                       </button>
                     </div>
 
-                    <hr className="my-4 border-slate-100" />
+                    <hr className="my-4 border-slate-100 dark:border-slate-800" />
 
                     <div className="space-y-3">
                       <div className="flex gap-2">
-                        <MapPin className="text-green-600 shrink-0 mt-0.5" size={15} />
+                        <MapPin className="text-green-600 dark:text-emerald-400 shrink-0 mt-0.5" size={15} />
                         <div>
                           <p className="text-[10px] font-bold text-slate-400 uppercase">Pickup Location</p>
-                          <p className="text-xs font-bold text-slate-800 mt-0.5">{delivery.pickup_address}</p>
-                          <p className="text-[10px] text-slate-500">{delivery.contact_person} • {delivery.phone_number}</p>
+                          <p className="text-xs font-bold text-slate-800 dark:text-slate-200 mt-0.5">{delivery.pickup_address}</p>
+                          <p className="text-[10px] text-slate-500 dark:text-slate-400">{delivery.contact_person} • {delivery.phone_number}</p>
                         </div>
                       </div>
 
                       <div className="flex gap-2">
-                        <MapPin className="text-rose-600 shrink-0 mt-0.5" size={15} />
+                        <MapPin className="text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" size={15} />
                         <div>
                           <p className="text-[10px] font-bold text-slate-400 uppercase">NGO Destination</p>
-                          <p className="text-xs font-bold text-slate-800 mt-0.5">NGO Redistribution Facility</p>
-                          <p className="text-[10px] text-slate-500">Scheduled pickup time: {delivery.pickup_time || "12:00"}</p>
+                          <p className="text-xs font-bold text-slate-800 dark:text-slate-200 mt-0.5">NGO Redistribution Facility</p>
+                          <p className="text-[10px] text-slate-500 dark:text-slate-400">Scheduled pickup time: {delivery.pickup_time || "12:00"}</p>
                         </div>
                       </div>
                     </div>
@@ -461,7 +461,7 @@ export default function DeliveryPartnerDashboard() {
             <section className="space-y-4">
               <div className="flex items-center justify-between flex-wrap gap-2">
                 <h2 className="text-xs font-bold uppercase tracking-wider text-slate-400">My Active Run Sheet</h2>
-                <label className="flex items-center gap-2 text-xs font-bold text-slate-500 cursor-pointer select-none">
+                <label className="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 cursor-pointer select-none">
                   <input
                     type="checkbox"
                     checked={useRealLocation}
@@ -480,44 +480,44 @@ export default function DeliveryPartnerDashboard() {
               </div>
               
               {loading ? (
-                <p className="text-center py-8 text-xs text-slate-500 font-semibold">Loading assignments...</p>
+                <p className="text-center py-8 text-xs text-slate-500 dark:text-slate-400 font-semibold">Loading assignments...</p>
               ) : activeTasks.length === 0 ? (
-                <div className="text-center py-12 border-2 border-dashed border-slate-200 rounded-2xl bg-white p-6">
-                  <Truck className="mx-auto text-slate-300" size={36} />
-                  <p className="text-xs text-slate-500 font-bold mt-3">No active deliveries</p>
-                  <p className="text-[10px] text-slate-400 mt-1">Claim a transport request to start delivering.</p>
+                <div className="text-center py-12 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-2xl bg-white/90 dark:bg-slate-900/90 p-6">
+                  <Truck className="mx-auto text-slate-300 dark:text-slate-600" size={36} />
+                  <p className="text-xs text-slate-500 dark:text-slate-400 font-bold mt-3">No active deliveries</p>
+                  <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-1">Claim a transport request to start delivering.</p>
                 </div>
               ) : (
                 <div className="space-y-4">
                   {activeTasks.map((task) => (
                     <div
                       key={task.id}
-                      className="rounded-3xl border border-slate-100 bg-white p-5 shadow-sm hover:shadow-md transition"
+                      className="rounded-3xl border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-5 shadow-sm hover:shadow-md transition"
                     >
                       <div className="flex items-start justify-between">
                         <div>
-                          <h3 className="font-extrabold text-slate-900 text-lg">{task.food_name}</h3>
-                          <p className="text-xs text-slate-500 font-bold mt-1">
-                            Qty: {task.quantity} {task.unit} • Vehicle: <span className="text-slate-800 font-black">{task.vehicle_number}</span>
+                          <h3 className="font-extrabold text-slate-900 dark:text-white text-lg">{task.food_name}</h3>
+                          <p className="text-xs text-slate-500 dark:text-slate-400 font-bold mt-1">
+                            Qty: {task.quantity} {task.unit} • Vehicle: <span className="text-slate-800 dark:text-slate-200 font-black">{task.vehicle_number}</span>
                           </p>
                         </div>
                         <span className={`rounded-full px-2.5 py-0.5 text-[10px] font-bold ${
                           task.status === "IN_TRANSIT" 
-                            ? "bg-amber-100 text-amber-800" 
-                            : "bg-blue-100 text-blue-800"
+                            ? "bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300" 
+                            : "bg-blue-100 dark:bg-blue-950/80 text-blue-800 dark:text-blue-300"
                         }`}>
                           {task.status}
                         </span>
                       </div>
 
-                      <hr className="my-4 border-slate-100" />
+                      <hr className="my-4 border-slate-100 dark:border-slate-800" />
 
                       <div className="space-y-3">
                         <div className="flex gap-2">
-                          <MapPin className="text-green-600 shrink-0 mt-0.5" size={15} />
+                          <MapPin className="text-green-600 dark:text-emerald-400 shrink-0 mt-0.5" size={15} />
                           <div>
                             <p className="text-[10px] font-bold text-slate-400 uppercase">Pickup Location</p>
-                            <p className="text-xs font-bold text-slate-800 mt-0.5">{task.pickup_address}</p>
+                            <p className="text-xs font-bold text-slate-800 dark:text-slate-200 mt-0.5">{task.pickup_address}</p>
                           </div>
                         </div>
                       </div>
@@ -526,14 +526,14 @@ export default function DeliveryPartnerDashboard() {
                         {task.status === "ASSIGNED" ? (
                           <button
                             onClick={() => handleStartPickup(task.id)}
-                            className="w-full rounded-2xl bg-green-600 py-3 text-xs font-bold text-white shadow-lg shadow-green-600/25 hover:bg-green-700 transition"
+                            className="w-full rounded-2xl bg-green-600 py-3 text-xs font-bold text-white shadow-lg shadow-green-600/25 hover:bg-green-700 transition cursor-pointer"
                           >
                             Start Pickup & GPS Telemetry
                           </button>
                         ) : (
                           <button
                             onClick={() => handleMarkDelivered(task.id)}
-                            className="w-full rounded-2xl bg-amber-500 py-3 text-xs font-bold text-white shadow-lg shadow-amber-500/25 hover:bg-amber-600 transition"
+                            className="w-full rounded-2xl bg-amber-500 py-3 text-xs font-bold text-white shadow-lg shadow-amber-500/25 hover:bg-amber-600 transition cursor-pointer"
                           >
                             Mark as Delivered
                           </button>
@@ -541,7 +541,7 @@ export default function DeliveryPartnerDashboard() {
                         
                         <a
                           href={`/donations/${task.id}/track`}
-                          className="rounded-2xl border border-slate-200 px-4 py-3 text-xs font-bold text-slate-700 hover:bg-slate-50 transition shrink-0 flex items-center justify-center"
+                          className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition shrink-0 flex items-center justify-center"
                         >
                           <Navigation size={16} />
                         </a>
@@ -559,13 +559,13 @@ export default function DeliveryPartnerDashboard() {
                 {completedTasks.slice(0, 5).map((task) => (
                   <div
                     key={task.id}
-                    className="flex items-center justify-between p-4 border border-slate-100 rounded-2xl bg-white shadow-xs"
+                    className="flex items-center justify-between p-4 border border-slate-200/80 dark:border-slate-800 rounded-2xl bg-white/90 dark:bg-slate-900/90 shadow-xs"
                   >
                     <div>
-                      <h4 className="font-extrabold text-slate-800 text-xs">{task.food_name}</h4>
+                      <h4 className="font-extrabold text-slate-800 dark:text-white text-xs">{task.food_name}</h4>
                       <p className="text-[10px] text-slate-400 mt-0.5">Qty: {task.quantity} {task.unit}</p>
                     </div>
-                    <div className="flex items-center gap-1.5 text-xs font-bold text-green-600">
+                    <div className="flex items-center gap-1.5 text-xs font-bold text-green-600 dark:text-emerald-400">
                       <CheckCircle size={14} /> Delivered
                     </div>
                   </div>
@@ -583,21 +583,21 @@ export default function DeliveryPartnerDashboard() {
         {/* Claim Cargo Modal */}
         {claimingDonation && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs">
-            <div className="w-full max-w-md rounded-3xl border border-slate-100 bg-white p-6 shadow-2xl">
-              <h2 className="text-xl font-extrabold text-slate-900 mb-2">Claim Surplus Shipment</h2>
-              <p className="text-xs text-slate-500 mb-5">
+            <div className="w-full max-w-md rounded-3xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-2xl">
+              <h2 className="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Claim Surplus Shipment</h2>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mb-5">
                 Verify or provide your transport vehicle plate number to accept this delivery.
               </p>
 
               <form onSubmit={handleClaimSubmit} className="space-y-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase mb-2">Vehicle / Bike Plate Number</label>
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase mb-2">Vehicle / Bike Plate Number</label>
                   <input
                     type="text"
                     placeholder="e.g. NY-99-TR-7777"
                     value={vehicleNumber}
                     onChange={(e) => setVehicleNumber(e.target.value)}
-                    className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm font-semibold focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                    className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm font-semibold text-slate-900 dark:text-white focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
                     required
                   />
                 </div>
@@ -606,7 +606,7 @@ export default function DeliveryPartnerDashboard() {
                   <button
                     type="button"
                     onClick={() => setClaimingDonation(null)}
-                    className="rounded-xl border border-slate-200 px-4 py-2.5 text-xs font-bold text-slate-600 hover:bg-slate-50 transition"
+                    className="rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-2.5 text-xs font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition"
                   >
                     Cancel
                   </button>

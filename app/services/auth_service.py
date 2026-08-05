@@ -44,6 +44,13 @@ async def register_user(user_data):
     import re
     database = get_database()
 
+    role_val = str(user_data.role.value if hasattr(user_data.role, 'value') else user_data.role).upper()
+    if role_val == "ADMIN":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Admin self-registration is disabled. Admin accounts must be created using the administrative CLI tool.",
+        )
+
     email = user_data.email.lower().strip()
 
     existing_user = await database.users.find_one(

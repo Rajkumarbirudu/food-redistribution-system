@@ -101,7 +101,7 @@ export default function UserProfileModal({ isOpen, onClose }) {
               <h2 className="text-lg font-black text-slate-900 flex items-center gap-2">
                 {t("User Profile & Account")}
                 <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-[10px] font-black text-emerald-800 uppercase">
-                  {user.role?.replace("_", " ")}
+                  {t(user.role?.replace("_", " "))}
                 </span>
               </h2>
               <p className="text-xs text-slate-500 font-semibold mt-0.5">
@@ -121,15 +121,15 @@ export default function UserProfileModal({ isOpen, onClose }) {
         <div className="flex flex-wrap items-center gap-2 rounded-2xl bg-slate-50 p-3.5 border border-slate-100 text-xs font-bold text-slate-700">
           <div className="flex items-center gap-1.5 text-emerald-700 bg-emerald-50 px-3 py-1 rounded-xl border border-emerald-200">
             <ShieldCheck size={15} />
-            <span>Aadhar Verified ✓</span>
+            <span>{t("Aadhar Verified ✓")}</span>
           </div>
           <div className="flex items-center gap-1.5 text-emerald-700 bg-emerald-50 px-3 py-1 rounded-xl border border-emerald-200">
             <FileCheck size={15} />
-            <span>PAN Card Verified ✓</span>
+            <span>{t("PAN Card Verified ✓")}</span>
           </div>
           <div className="flex items-center gap-1.5 text-blue-700 bg-blue-50 px-3 py-1 rounded-xl border border-blue-200">
             <CheckCircle2 size={15} />
-            <span>Mobile OTP Security ✓</span>
+            <span>{t("Mobile OTP Security ✓")}</span>
           </div>
         </div>
 

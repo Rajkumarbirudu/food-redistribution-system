@@ -126,25 +126,27 @@ function StatCard({
       onClick={onClick}
       className={
         active
-          ? "rounded-[26px] border border-emerald-300 bg-emerald-50 p-6 text-left shadow-lg"
-          : "rounded-[26px] border border-white/80 bg-white/80 p-6 text-left shadow-[0_18px_50px_rgba(15,118,110,0.08)] transition hover:-translate-y-1 hover:border-emerald-200"
+          ? "rounded-[26px] border border-emerald-300 dark:border-emerald-600 bg-emerald-50 dark:bg-emerald-950/80 p-6 text-left shadow-lg cursor-pointer transition"
+          : "rounded-[26px] border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-6 text-left shadow-[0_18px_50px_rgba(15,118,110,0.08)] transition hover:-translate-y-1 hover:border-emerald-300 dark:hover:border-emerald-700 cursor-pointer"
       }
     >
       <div className="flex items-center justify-between">
 
-        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-700">
+        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300">
           <Icon size={22} />
         </div>
 
-        <span className="text-3xl font-black text-slate-900">
+        <span className="text-3xl font-black text-slate-900 dark:text-white">
           {value}
         </span>
 
       </div>
 
-      <p className="mt-5 font-black text-slate-800">
+
+      <p className="mt-4 text-sm font-bold text-slate-600 dark:text-slate-300">
         {t(title)}
       </p>
+
     </button>
   );
 }
@@ -162,24 +164,24 @@ function DonationCard({
     );
 
   return (
-    <article className="rounded-[28px] border border-white/80 bg-white/85 p-6 shadow-[0_18px_50px_rgba(15,118,110,0.08)]">
+    <article className="rounded-[28px] border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-6 shadow-[0_18px_50px_rgba(15,118,110,0.08)] transition-colors duration-300">
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
 
         <div>
 
-          <span className="inline-flex rounded-full bg-emerald-50 px-3 py-1 text-xs font-black uppercase tracking-wider text-emerald-700">
+          <span className="inline-flex rounded-full bg-emerald-50 dark:bg-emerald-950/80 border border-emerald-200 dark:border-emerald-800 px-3 py-1 text-xs font-black uppercase tracking-wider text-emerald-700 dark:text-emerald-300">
             {status || "UNKNOWN"}
           </span>
 
-          <h3 className="mt-4 text-xl font-black text-slate-900">
+          <h3 className="mt-4 text-xl font-black text-slate-900 dark:text-white">
             {
               donation?.food_name ||
               "Food Donation"
             }
           </h3>
 
-          <p className="mt-1 text-sm font-semibold text-slate-500">
+          <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-slate-400">
             {
               donation?.category_name ||
               "Food"
@@ -189,16 +191,16 @@ function DonationCard({
         </div>
 
 
-        <div className="rounded-2xl bg-emerald-50 px-4 py-3 text-center">
+        <div className="rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-100 dark:border-emerald-900/50 px-4 py-3 text-center">
 
-          <p className="text-2xl font-black text-emerald-700">
+          <p className="text-2xl font-black text-emerald-700 dark:text-emerald-300">
             {
               donation?.quantity ??
               0
             }
           </p>
 
-          <p className="text-xs font-bold uppercase text-slate-500">
+          <p className="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">
             {
               donation?.unit ||
               "units"
@@ -210,14 +212,14 @@ function DonationCard({
       </div>
 
 
-      <div className="mt-6 grid gap-4 border-t border-slate-100 pt-5 sm:grid-cols-2">
+      <div className="mt-6 grid gap-4 border-t border-slate-100 dark:border-slate-800 pt-5 sm:grid-cols-2">
 
         <div>
-          <p className="text-xs font-black uppercase tracking-wider text-slate-400">
+          <p className="text-xs font-black uppercase tracking-wider text-slate-400 dark:text-slate-500">
             Pickup Address
           </p>
 
-          <p className="mt-1 text-sm font-semibold text-slate-700">
+          <p className="mt-1 text-sm font-semibold text-slate-700 dark:text-slate-200">
             {
               donation?.pickup_address ||
               "Not specified"
@@ -227,11 +229,11 @@ function DonationCard({
 
 
         <div>
-          <p className="text-xs font-black uppercase tracking-wider text-slate-400">
+          <p className="text-xs font-black uppercase tracking-wider text-slate-400 dark:text-slate-500">
             Pickup Time
           </p>
 
-          <p className="mt-1 text-sm font-semibold text-slate-700">
+          <p className="mt-1 text-sm font-semibold text-slate-700 dark:text-slate-200">
             {
               donation?.pickup_time ||
               "Not specified"
@@ -241,11 +243,11 @@ function DonationCard({
 
 
         <div>
-          <p className="text-xs font-black uppercase tracking-wider text-slate-400">
+          <p className="text-xs font-black uppercase tracking-wider text-slate-400 dark:text-slate-500">
             Contact Person
           </p>
 
-          <p className="mt-1 text-sm font-semibold text-slate-700">
+          <p className="mt-1 text-sm font-semibold text-slate-700 dark:text-slate-200">
             {
               donation?.contact_person ||
               "Not specified"
@@ -255,11 +257,11 @@ function DonationCard({
 
 
         <div>
-          <p className="text-xs font-black uppercase tracking-wider text-slate-400">
+          <p className="text-xs font-black uppercase tracking-wider text-slate-400 dark:text-slate-500">
             Pickup Deadline
           </p>
 
-          <p className="mt-1 text-sm font-semibold text-slate-700">
+          <p className="mt-1 text-sm font-semibold text-slate-700 dark:text-slate-200">
             {
               formatDate(
                 donation?.pickup_deadline
@@ -272,14 +274,14 @@ function DonationCard({
 
       {/* DELIVERY PARTNER PICKUP DETAILS BOX */}
       {["CLAIMED", "ASSIGNED", "IN_TRANSIT", "DELIVERED", "COMPLETED"].includes(status) && (
-        <div className="mt-4 rounded-2xl border border-slate-100 bg-[#f8fafc] p-4 space-y-2">
-          <h4 className="text-xs font-extrabold text-slate-800 flex items-center gap-1.5">
-            <Truck size={16} className="text-emerald-600" /> Delivery Partner Pickup Details
+        <div className="mt-4 rounded-2xl border border-slate-200/80 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 p-4 space-y-2">
+          <h4 className="text-xs font-extrabold text-slate-800 dark:text-white flex items-center gap-1.5">
+            <Truck size={16} className="text-emerald-600 dark:text-emerald-400" /> Delivery Partner Pickup Details
           </h4>
           <div className="grid grid-cols-2 gap-2 text-xs">
             <div>
-              <p className="text-[9px] font-bold uppercase text-slate-400">Driver / Transporter</p>
-              <p className="font-extrabold text-slate-900 mt-0.5">
+              <p className="text-[9px] font-bold uppercase text-slate-400 dark:text-slate-400">Driver / Transporter</p>
+              <p className="font-extrabold text-slate-900 dark:text-white mt-0.5">
                 {donation?.delivery_boy_name || donation?.driver_name || "Pending Driver Assignment"}
               </p>
             </div>
@@ -809,7 +811,7 @@ export default function NgoDashboard() {
 
   const navigation = [
     {
-      label: "Dashboard",
+      label: t("Dashboard"),
       path: "/ngo",
       icon: LayoutDashboard,
     },
@@ -825,7 +827,7 @@ export default function NgoDashboard() {
       <main className="flex min-h-screen items-center justify-center bg-[#f6fbf7]">
 
         <div className="rounded-3xl border border-emerald-100 bg-white px-8 py-6 font-black text-slate-700 shadow-lg">
-          Checking NGO session...
+          {t("Checking NGO session...")}
         </div>
 
       </main>
@@ -859,13 +861,13 @@ export default function NgoDashboard() {
 
   return (
     <DashboardLayout
-      title="NGO Dashboard"
+      title={t("NGO Dashboard")}
 
-      subtitle="Browse available food donations and coordinate food redistribution."
+      subtitle={t("Browse available food donations and coordinate food redistribution.")}
 
-      badge="Food Redistribution Network"
+      badge={t("Food Redistribution Network")}
 
-      quote="Connecting surplus food with communities that need it most."
+      quote={t("Connecting surplus food with communities that need it most.")}
 
       navigation={
         navigation
@@ -983,7 +985,7 @@ export default function NgoDashboard() {
 
       {/* FILTER BAR */}
 
-      <section className="mt-7 rounded-[28px] border border-white/80 bg-white/80 p-5 shadow-[0_18px_50px_rgba(15,118,110,0.08)]">
+      <section className="mt-7 rounded-[28px] border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-5 shadow-[0_18px_50px_rgba(15,118,110,0.08)]">
 
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
 
@@ -992,7 +994,7 @@ export default function NgoDashboard() {
 
             <Search
               size={18}
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500"
             />
 
             <input
@@ -1004,7 +1006,7 @@ export default function NgoDashboard() {
                 )
               }
               placeholder="Search food, category, address..."
-              className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-11 pr-4 text-sm outline-none focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100"
+              className="h-12 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 pl-11 pr-4 text-sm text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 outline-none focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100 dark:focus:ring-emerald-950"
             />
 
           </div>
@@ -1019,7 +1021,7 @@ export default function NgoDashboard() {
                   "ALL"
                 )
               }
-              className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-black text-slate-700"
+              className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2 text-sm font-black text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition cursor-pointer"
             >
               Show All
             </button>
@@ -1033,7 +1035,7 @@ export default function NgoDashboard() {
               disabled={
                 loading
               }
-              className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 text-sm font-black text-white disabled:opacity-50"
+              className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 text-sm font-black text-white hover:bg-emerald-700 transition cursor-pointer disabled:opacity-50"
             >
 
               <RefreshCw
@@ -1062,11 +1064,11 @@ export default function NgoDashboard() {
 
         <div className="mb-5">
 
-          <h2 className="text-xl font-black text-slate-900">
+          <h2 className="text-xl font-black text-slate-900 dark:text-white">
             Food Donations
           </h2>
 
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
             Showing {filteredDonations.length} donation records.
           </p>
 
@@ -1076,7 +1078,7 @@ export default function NgoDashboard() {
         {loading &&
           donations.length === 0 && (
 
-          <div className="rounded-[28px] border border-white/80 bg-white/80 p-10 text-center font-black text-slate-500">
+          <div className="rounded-[28px] border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-10 text-center font-black text-slate-500 dark:text-slate-400">
             Loading donations...
           </div>
 
@@ -1087,14 +1089,14 @@ export default function NgoDashboard() {
           !error &&
           filteredDonations.length === 0 && (
 
-          <div className="rounded-[28px] border border-white/80 bg-white/80 p-10 text-center">
+          <div className="rounded-[28px] border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-10 text-center">
 
             <PackageOpen
               size={38}
-              className="mx-auto text-slate-300"
+              className="mx-auto text-slate-300 dark:text-slate-600"
             />
 
-            <h3 className="mt-4 text-lg font-black text-slate-800">
+            <h3 className="mt-4 text-lg font-black text-slate-800 dark:text-white">
               No donations found
             </h3>
 
@@ -1191,21 +1193,21 @@ export default function NgoDashboard() {
       {/* REPORT COMPLAINT ON DELIVERY PARTNER MODAL */}
       {activeComplaintDonation && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs">
-          <div className="w-full max-w-md rounded-3xl border border-slate-100 bg-white p-6 shadow-2xl space-y-4">
-            <h2 className="text-xl font-extrabold text-slate-900 flex items-center gap-2">
-              <ShieldAlert className="text-red-600" size={24} /> Report Delivery Partner Issue
+          <div className="w-full max-w-md rounded-3xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-2xl space-y-4">
+            <h2 className="text-xl font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+              <ShieldAlert className="text-red-600 dark:text-red-400" size={24} /> Report Delivery Partner Issue
             </h2>
-            <p className="text-xs text-slate-500 font-semibold">
-              Raise a formal complaint regarding delivery partner for item "<span className="font-bold text-slate-700">{activeComplaintDonation.food_name}</span>". Receiving 3 warnings triggers an automatic 1-month driver suspension and fine.
+            <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold">
+              Raise a formal complaint regarding delivery partner for item "<span className="font-bold text-slate-700 dark:text-slate-200">{activeComplaintDonation.food_name}</span>". Receiving 3 warnings triggers an automatic 1-month driver suspension and fine.
             </p>
 
             <form onSubmit={handleFileComplaint} className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase mb-2">Complaint Category</label>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase mb-2">Complaint Category</label>
                 <select
                   value={complaintType}
                   onChange={(e) => setComplaintType(e.target.value)}
-                  className="w-full rounded-xl border border-slate-200 px-4 py-3 text-xs font-semibold focus:border-red-500 focus:outline-none"
+                  className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-xs font-semibold text-slate-900 dark:text-white focus:border-red-500 focus:outline-none"
                   required
                 >
                   <option value="Coming Late">Delivery Partner Coming Late</option>
@@ -1217,13 +1219,13 @@ export default function NgoDashboard() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase mb-2">Detailed Description</label>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase mb-2">Detailed Description</label>
                 <textarea
                   rows="4"
                   placeholder="Describe the issue with the delivery partner..."
                   value={complaintDesc}
                   onChange={(e) => setComplaintDesc(e.target.value)}
-                  className="w-full rounded-xl border border-slate-200 px-4 py-3 text-xs font-semibold focus:border-red-500 focus:outline-none resize-none"
+                  className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-xs font-semibold text-slate-900 dark:text-white focus:border-red-500 focus:outline-none resize-none"
                   required
                 />
               </div>
@@ -1232,14 +1234,14 @@ export default function NgoDashboard() {
                 <button
                   type="button"
                   onClick={() => setActiveComplaintDonation(null)}
-                  className="rounded-xl border border-slate-200 px-4 py-2.5 text-xs font-bold text-slate-600 hover:bg-slate-50 transition"
+                  className="rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-2.5 text-xs font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submittingComplaint}
-                  className="rounded-xl bg-red-600 px-5 py-2.5 text-xs font-bold text-white shadow-lg shadow-red-600/10 hover:bg-red-700 transition"
+                  className="rounded-xl bg-red-600 px-5 py-2.5 text-xs font-bold text-white shadow-lg shadow-red-600/10 hover:bg-red-700 transition cursor-pointer"
                 >
                   {submittingComplaint ? "Submitting..." : "Submit Complaint"}
                 </button>
@@ -1252,18 +1254,18 @@ export default function NgoDashboard() {
       {/* CLAIM DONATION MODAL */}
       {showClaimModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-sm">
-          <div className="w-full max-w-xl rounded-[28px] border border-white/80 bg-white/95 p-8 shadow-[0_20px_60px_rgba(0,0,0,0.15)] backdrop-blur-md">
-            <h2 className="text-2xl font-black text-slate-900">
+          <div className="w-full max-w-xl rounded-[28px] border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 shadow-[0_20px_60px_rgba(0,0,0,0.15)] backdrop-blur-md">
+            <h2 className="text-2xl font-black text-slate-900 dark:text-white">
               Claim Surplus Food Donation
             </h2>
-            <p className="mt-1.5 text-sm font-semibold text-slate-500">
+            <p className="mt-1.5 text-sm font-semibold text-slate-500 dark:text-slate-400">
               Provide pickup logistics to schedule collection.
             </p>
 
             <form onSubmit={submitClaim} className="mt-6 space-y-4">
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
-                  <label className="block text-xs font-black uppercase tracking-wider text-slate-500">
+                  <label className="block text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
                     Pickup Date
                   </label>
                   <input
@@ -1276,12 +1278,12 @@ export default function NgoDashboard() {
                         pickup_date: e.target.value,
                       })
                     }
-                    className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-800 focus:border-emerald-500 focus:bg-white focus:outline-none transition-all"
+                    className="mt-2 w-full rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-4 py-3 text-sm font-semibold text-slate-800 dark:text-slate-100 focus:border-emerald-500 focus:outline-none transition-all"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-black uppercase tracking-wider text-slate-500">
+                  <label className="block text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
                     Pickup Time
                   </label>
                   <input
@@ -1294,14 +1296,14 @@ export default function NgoDashboard() {
                         pickup_time: e.target.value,
                       })
                     }
-                    className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-800 focus:border-emerald-500 focus:bg-white focus:outline-none transition-all"
+                    className="mt-2 w-full rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-4 py-3 text-sm font-semibold text-slate-800 dark:text-slate-100 focus:border-emerald-500 focus:outline-none transition-all"
                   />
                 </div>
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
-                  <label className="block text-xs font-black uppercase tracking-wider text-slate-500">
+                  <label className="block text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
                     Driver Name
                   </label>
                   <input
@@ -1314,12 +1316,12 @@ export default function NgoDashboard() {
                         driver_name: e.target.value,
                       })
                     }
-                    className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-800 focus:border-emerald-500 focus:bg-white focus:outline-none transition-all"
+                    className="mt-2 w-full rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-4 py-3 text-sm font-semibold text-slate-800 dark:text-slate-100 focus:border-emerald-500 focus:outline-none transition-all"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-black uppercase tracking-wider text-slate-500">
+                  <label className="block text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
                     Vehicle Number
                   </label>
                   <input
@@ -1332,13 +1334,13 @@ export default function NgoDashboard() {
                         vehicle_number: e.target.value,
                       })
                     }
-                    className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-800 focus:border-emerald-500 focus:bg-white focus:outline-none transition-all"
+                    className="mt-2 w-full rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-4 py-3 text-sm font-semibold text-slate-800 dark:text-slate-100 focus:border-emerald-500 focus:outline-none transition-all"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-black uppercase tracking-wider text-slate-500">
+                <label className="block text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   Volunteer Name
                 </label>
                 <input
@@ -1351,12 +1353,12 @@ export default function NgoDashboard() {
                       volunteer_name: e.target.value,
                     })
                   }
-                  className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-800 focus:border-emerald-500 focus:bg-white focus:outline-none transition-all"
+                  className="mt-2 w-full rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-4 py-3 text-sm font-semibold text-slate-800 dark:text-slate-100 focus:border-emerald-500 focus:outline-none transition-all"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-black uppercase tracking-wider text-slate-500">
+                <label className="block text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   Special Instructions
                 </label>
                 <textarea
@@ -1368,7 +1370,7 @@ export default function NgoDashboard() {
                       special_instructions: e.target.value,
                     })
                   }
-                  className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-800 focus:border-emerald-500 focus:bg-white focus:outline-none transition-all resize-none"
+                  className="mt-2 w-full rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-4 py-3 text-sm font-semibold text-slate-800 dark:text-slate-100 focus:border-emerald-500 focus:outline-none transition-all resize-none"
                 />
               </div>
 
@@ -1376,13 +1378,13 @@ export default function NgoDashboard() {
                 <button
                   type="button"
                   onClick={() => setShowClaimModal(false)}
-                  className="rounded-2xl bg-slate-100 px-5 py-3 text-sm font-bold text-slate-600 hover:bg-slate-200 transition-all"
+                  className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 px-5 py-3 text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="rounded-2xl bg-emerald-600 px-5 py-3 text-sm font-black text-white hover:bg-emerald-700 transition-all"
+                  className="rounded-2xl bg-emerald-600 px-5 py-3 text-sm font-black text-white hover:bg-emerald-700 transition-all cursor-pointer"
                 >
                   Confirm Claim
                 </button>

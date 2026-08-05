@@ -11,6 +11,7 @@ import {
   Barcode,
   CheckCircle2,
   Clock3,
+  Download,
   Gift,
   LayoutDashboard,
   Leaf,
@@ -1271,6 +1272,68 @@ export default function InventoryPage() {
     );
   }
 
+  // ============================================================
+  // EXPORT CSV
+  // ============================================================
+
+  function handleExportCSV() {
+    const listToExport = filteredItems.length > 0 ? filteredItems : items;
+    if (!listToExport || listToExport.length === 0) {
+      setError("No inventory items available to export.");
+      return;
+    }
+
+    const headers = [
+      "ID",
+      "Food Name",
+      "Category ID",
+      "Category Name",
+      "Quantity",
+      "Unit",
+      "Manufacturing Date",
+      "Expiry Date",
+      "Status",
+      "Pickup Address",
+      "Contact Person",
+      "Phone Number",
+      "Barcode",
+      "Special Instructions"
+    ];
+
+    const rows = listToExport.map((item) => {
+      const catName = categories.find((c) => String(c.id) === String(item.category_id))?.name || item.category_name || "";
+      const status = getExpiryStatus(item);
+      return [
+        `"${String(item.id || item._id || "").replace(/"/g, '""')}"`,
+        `"${String(item.food_name || item.name || "").replace(/"/g, '""')}"`,
+        `"${String(item.category_id || "").replace(/"/g, '""')}"`,
+        `"${String(catName).replace(/"/g, '""')}"`,
+        item.quantity ?? "",
+        `"${String(item.unit || "").replace(/"/g, '""')}"`,
+        `"${String(item.manufacturing_date || "").replace(/"/g, '""')}"`,
+        `"${String(item.expiry_date || "").replace(/"/g, '""')}"`,
+        `"${String(status).replace(/"/g, '""')}"`,
+        `"${String(item.pickup_address || "").replace(/"/g, '""')}"`,
+        `"${String(item.contact_person || "").replace(/"/g, '""')}"`,
+        `"${String(item.phone_number || "").replace(/"/g, '""')}"`,
+        `"${String(item.barcode || "").replace(/"/g, '""')}"`,
+        `"${String(item.special_instructions || item.notes || "").replace(/"/g, '""')}"`
+      ];
+    });
+
+    const csvString = [headers.join(","), ...rows.map((r) => r.join(","))].join("\n");
+    const blob = new Blob([csvString], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `aura_food_inventory_export_${new Date().toISOString().slice(0, 10)}.csv`);
+    link.style.visibility = "hidden";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setSuccess(`Successfully exported ${listToExport.length} food inventory items to CSV!`);
+  }
+
 
   // ============================================================
   // UI
@@ -1278,10 +1341,10 @@ export default function InventoryPage() {
 
   return (
     <DashboardLayout
-      title="Inventory Management"
-      subtitle="Register surplus food, monitor expiry risk and prepare inventory for redistribution."
-      badge="Food Donor Workspace"
-      quote="Every food item tracked is another opportunity to reduce waste."
+      title={t("Inventory Management")}
+      subtitle={t("Register surplus food, monitor expiry risk and prepare inventory for redistribution.")}
+      badge={t("Food Donor Workspace")}
+      quote={t("Every food item tracked is another opportunity to reduce waste.")}
       navigation={navigation}
       activePath="/inventory"
       onRefresh={() => {
@@ -1386,19 +1449,13 @@ export default function InventoryPage() {
 
 
       {/* TOOLBAR */}
-
-      <section className="mt-6 rounded-[28px] border border-white/80 bg-white/80 p-5 shadow-[0_18px_50px_rgba(15,118,110,0.08)]">
-
+      <section className="mt-6 rounded-[28px] border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-5 shadow-[0_18px_50px_rgba(15,118,110,0.08)]">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-
-
           <div className="relative flex-1">
-
             <Search
               size={18}
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500"
             />
-
 
             <input
               value={search}
@@ -1408,15 +1465,11 @@ export default function InventoryPage() {
                 )
               }
               placeholder="Search inventory, barcode, category or pickup address..."
-              className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-11 pr-4 outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+              className="h-12 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 pl-11 pr-4 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 dark:focus:ring-emerald-950"
             />
-
           </div>
 
-
           <div className="flex flex-col gap-3 sm:flex-row">
-
-
             <button
               type="button"
               onClick={() =>
@@ -1424,56 +1477,51 @@ export default function InventoryPage() {
                   "/donor/barcode"
                 )
               }
-              className="flex h-12 items-center justify-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-5 font-black text-emerald-700 transition hover:bg-emerald-100"
+              className="flex h-12 items-center justify-center gap-2 rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/80 px-5 font-black text-emerald-700 dark:text-emerald-300 transition hover:bg-emerald-100 dark:hover:bg-emerald-900/80 cursor-pointer"
             >
-
               <Barcode size={18} />
-
               Scan Barcode
-
             </button>
-
 
             <button
               type="button"
               onClick={() => setShowCsvUpload(true)}
-              className="flex h-12 items-center justify-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-5 font-black text-emerald-700 transition hover:bg-emerald-100"
+              className="flex h-12 items-center justify-center gap-2 rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/80 px-5 font-black text-emerald-700 dark:text-emerald-300 transition hover:bg-emerald-100 dark:hover:bg-emerald-900/80 cursor-pointer"
             >
-
               <Upload size={18} />
-
               Bulk Upload
-
             </button>
 
+            <button
+              type="button"
+              onClick={handleExportCSV}
+              className="flex h-12 items-center justify-center gap-2 rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/80 px-5 font-black text-emerald-700 dark:text-emerald-300 transition hover:bg-emerald-100 dark:hover:bg-emerald-900/80 cursor-pointer"
+            >
+              <Download size={18} />
+              Export CSV
+            </button>
 
             <button
               type="button"
               onClick={openForm}
-              className="flex h-12 items-center justify-center gap-2 rounded-xl bg-emerald-700 px-5 font-black text-white transition hover:bg-emerald-800"
+              className="flex h-12 items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 px-5 font-black text-white transition shadow-lg shadow-emerald-600/20 cursor-pointer"
             >
-
               <Plus size={18} />
-
               Add Inventory
-
             </button>
-
 
             <button
               type="button"
               onClick={() => {
                 loadInventory();
-
                 loadCategories();
               }}
               disabled={
                 loading ||
                 categoriesLoading
               }
-              className="flex h-12 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-5 font-black text-slate-700 transition hover:bg-slate-50 disabled:opacity-50"
+              className="flex h-12 items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-5 font-black text-slate-700 dark:text-slate-200 transition hover:bg-slate-50 dark:hover:bg-slate-700 cursor-pointer disabled:opacity-50"
             >
-
               <RefreshCw
                 size={18}
                 className={
@@ -1482,53 +1530,37 @@ export default function InventoryPage() {
                     : ""
                 }
               />
-
               Refresh
-
             </button>
-
           </div>
-
         </div>
-
 
         {expiryFilter && (
           <div className="mt-4 flex flex-wrap items-center gap-3">
-
-            <span className="rounded-full bg-emerald-100 px-4 py-2 text-sm font-black text-emerald-700">
-
+            <span className="rounded-full bg-emerald-100 dark:bg-emerald-950/80 border border-emerald-200 dark:border-emerald-800 px-4 py-2 text-sm font-black text-emerald-700 dark:text-emerald-300">
               Expiry Filter: {
                 formatStatus(
                   expiryFilter
                 )
               }
-
             </span>
-
 
             <button
               type="button"
               onClick={
                 clearExpiryFilter
               }
-              className="flex items-center gap-1 text-sm font-black text-slate-500 hover:text-slate-900"
+              className="flex items-center gap-1 text-sm font-black text-slate-500 hover:text-slate-900 dark:hover:text-white cursor-pointer"
             >
-
               <X size={16} />
-
               Clear filter
-
             </button>
-
           </div>
         )}
-
       </section>
 
-
       {/* INVENTORY TABLE */}
-
-      <section className="mt-6 overflow-hidden rounded-[28px] border border-white/80 bg-white/80 shadow-[0_18px_50px_rgba(15,118,110,0.08)]">
+      <section className="mt-6 overflow-hidden rounded-[28px] border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 shadow-[0_18px_50px_rgba(15,118,110,0.08)]">
 
 
         {loading ? (
@@ -2436,32 +2468,26 @@ const inputClass =
   "h-12 w-full rounded-xl border border-slate-200 bg-white px-4 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100";
 
 
-function StatCard({
-  icon: Icon,
-  label,
-  value,
-  onClick,
-  active,
-}) {
+function StatCard({ icon: Icon, label, value, active, onClick }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className={`group w-full rounded-[26px] border p-5 text-left shadow-[0_18px_50px_rgba(15,118,110,0.07)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:shadow-md focus:outline-none ${
+      className={`group w-full rounded-[26px] border p-5 text-left shadow-[0_18px_50px_rgba(15,118,110,0.07)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:shadow-md focus:outline-none cursor-pointer ${
         active
-          ? "border-emerald-500 bg-emerald-50/90 ring-2 ring-emerald-200"
-          : "border-white/80 bg-white/80 hover:border-emerald-200"
+          ? "border-emerald-500 bg-emerald-50/90 dark:bg-emerald-950/80 ring-2 ring-emerald-200 dark:ring-emerald-800"
+          : "border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 hover:border-emerald-300 dark:hover:border-emerald-700"
       }`}
     >
-      <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700">
+      <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400">
         <Icon size={21} />
       </div>
 
-      <p className="mt-5 text-sm font-bold text-slate-500">
+      <p className="mt-5 text-sm font-bold text-slate-500 dark:text-slate-400">
         {label}
       </p>
 
-      <p className="mt-1 text-3xl font-black text-slate-900">
+      <p className="mt-1 text-3xl font-black text-slate-900 dark:text-white">
         {value ?? 0}
       </p>
     </button>
@@ -2473,7 +2499,7 @@ function TableHeading({
   children,
 }) {
   return (
-    <th className="whitespace-nowrap px-5 py-4 text-left text-xs font-black uppercase tracking-wider text-slate-500">
+    <th className="whitespace-nowrap px-5 py-4 text-left text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
 
       {children}
 
@@ -2486,7 +2512,7 @@ function TableCell({
   children,
 }) {
   return (
-    <td className="whitespace-nowrap px-5 py-4 text-sm text-slate-600">
+    <td className="whitespace-nowrap px-5 py-4 text-sm text-slate-600 dark:text-slate-300">
 
       {children}
 
