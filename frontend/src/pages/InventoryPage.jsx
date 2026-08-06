@@ -36,16 +36,155 @@ import DashboardLayout from "../components/DashboardLayout";
 import CsvUploadModal from "../components/CsvUploadModal";
 import { useAuth } from "../context/AuthContext";
 import { useTranslation } from "../context/LanguageContext";
+import {
+  fetchCurrentTemperature,
+  calculateTempAdjustedExpiry,
+  calculateAdjustedHours,
+  getTemperatureMultiplier,
+  formatDateTimeLocal
+} from "../utils/temperatureExpiry";
 
 
+
+function calculateExpiryFromPrep(prepDateStr, hoursOffset) {
+  const baseDate = prepDateStr ? new Date(prepDateStr) : new Date();
+  if (isNaN(baseDate.getTime())) return "";
+  const expObj = new Date(baseDate.getTime() + Number(hoursOffset || 4) * 60 * 60 * 1000);
+  return formatDateTimeLocal(expObj);
+}
+
+const COOKED_FOOD_PRESETS = [
+  {
+    id: "cooked_meals_hot",
+    label: "Hot Cooked Meals (Room Temp Pickup)",
+    shortLabel: "Hot Meal (Room Temp)",
+    hours: 4,
+    unit: "PORTION",
+    sampleName: "Hot Veg Thali / Rice & Curry",
+    instruction: "Hot cooked meal held at room temperature. FSSAI food safety rule requires pickup & distribution within 4 hours.",
+    icon: "🔥"
+  },
+  {
+    id: "cooked_meals_chilled",
+    label: "Refrigerated / Chilled Cooked Rice & Meal",
+    shortLabel: "Refrigerated Meal",
+    hours: 24,
+    unit: "PORTION",
+    sampleName: "Refrigerated Cooked Rice & Curry",
+    instruction: "Kept refrigerated below 5°C. Safe consumption window extended to 24 hours.",
+    icon: "❄️"
+  },
+  {
+    id: "biryani_pulao",
+    label: "Biryani / Pulao / Rice Dish (Hot)",
+    shortLabel: "Biryani / Rice (Hot)",
+    hours: 5,
+    unit: "PORTION",
+    sampleName: "Hot Veg / Chicken Biryani",
+    instruction: "Hot prepared rice dish. Pickup within 5 hours for optimal safety & taste.",
+    icon: "🍛"
+  },
+  {
+    id: "curries_gravy",
+    label: "Curries, Gravy & Dal Containers",
+    shortLabel: "Curries & Dal",
+    hours: 6,
+    unit: "LITER",
+    sampleName: "Paneer Masala / Dal Fry Container",
+    instruction: "Cooked hot gravy. Ensure tight container lid closure.",
+    icon: "🥘"
+  },
+  {
+    id: "rotis_bread",
+    label: "Roti, Chapati, Paratha & Naan",
+    shortLabel: "Rotis & Chapatis",
+    hours: 8,
+    unit: "PIECE",
+    sampleName: "Fresh Whole Wheat Chapatis",
+    instruction: "Wrapped in foil paper. Consume or redistribute today.",
+    icon: "🫓"
+  },
+  {
+    id: "cooked_nonveg",
+    label: "Cooked Non-Veg (Chicken, Meat, Fish)",
+    shortLabel: "Cooked Non-Veg",
+    hours: 4,
+    unit: "PORTION",
+    sampleName: "Cooked Chicken Curry / Gravy",
+    instruction: "High priority perishable item. Must be collected and distributed within 4 hours.",
+    icon: "🍗"
+  },
+  {
+    id: "cooked_snacks",
+    label: "Cooked Snacks (Samosas, Pakoras, Puffs)",
+    shortLabel: "Cooked Snacks",
+    hours: 6,
+    unit: "PIECE",
+    sampleName: "Fresh Vegetable Samosas",
+    instruction: "Store in dry ventilated food container.",
+    icon: "🥟"
+  },
+  {
+    id: "sweets_desserts",
+    label: "Milk Sweets & Desserts (Kheer, Mithai)",
+    shortLabel: "Sweets & Desserts",
+    hours: 12,
+    unit: "KG",
+    sampleName: "Fresh Kheer / Mithai Box",
+    instruction: "Store in cool environment or refrigerated box.",
+    icon: "🍨"
+  },
+  {
+    id: "salads_fruits",
+    label: "Cut Fruit Bowls & Fresh Salads",
+    shortLabel: "Salads & Cut Fruits",
+    hours: 4,
+    unit: "PACKET",
+    sampleName: "Fresh Green Salad / Fruit Bowl",
+    instruction: "Keep chilled. Consume within 4 hours of preparation.",
+    icon: "🥗"
+  },
+  {
+    id: "fresh_bakery",
+    label: "Fresh Bakery & Breads",
+    shortLabel: "Bakery & Breads",
+    hours: 24,
+    unit: "PACKET",
+    sampleName: "Fresh Sandwich Bread Buns",
+    instruction: "Store in cool dry place.",
+    icon: "🍞"
+  },
+  {
+    id: "raw_produce",
+    label: "Raw Produce & Fresh Fruits",
+    shortLabel: "Raw Vegetables & Fruit",
+    hours: 48,
+    unit: "KG",
+    sampleName: "Fresh Organic Produce",
+    instruction: "Raw unpeeled produce. Handle gently.",
+    icon: "🍎"
+  },
+  {
+    id: "raw_dry_grain",
+    label: "Raw Dry Rice / Flour / Pulses (Uncooked)",
+    shortLabel: "Uncooked Dry Grain / Rice",
+    hours: 720,
+    unit: "KG",
+    sampleName: "Raw Basmati Rice Bag / Flour",
+    instruction: "Raw uncooked dry food grain. Long shelf life (30+ days).",
+    icon: "📦"
+  }
+];
 
 const EMPTY_FORM = {
   food_name: "",
   category_id: "",
-  quantity: "",
-  unit: "KG",
-  manufacturing_date: "",
+  quantity: "10",
+  unit: "PORTION",
+  manufacturing_date: formatDateTimeLocal(new Date()),
   expiry_date: "",
+  preset_hours: 4,
+  selected_preset_id: "",
   pickup_address: "",
   pickup_time: "",
   contact_person: "",
@@ -53,7 +192,6 @@ const EMPTY_FORM = {
   special_instructions: "",
   barcode: "",
 };
-
 
 function createEmptyForm() {
   let cachedUser = null;
@@ -66,8 +204,11 @@ function createEmptyForm() {
     console.error("Failed to parse cached user:", e);
   }
 
+  const nowPrep = formatDateTimeLocal(new Date());
   return {
     ...EMPTY_FORM,
+    manufacturing_date: nowPrep,
+    expiry_date: "",
     pickup_address: cachedUser?.address || "",
     contact_person: cachedUser?.full_name || "",
     phone_number: cachedUser?.phone_number || "",
@@ -170,19 +311,73 @@ function normalizeItems(data) {
 
 
 function normalizeCategories(data) {
+  let list = [];
   if (Array.isArray(data)) {
-    return data;
+    list = [...data];
+  } else if (Array.isArray(data?.items)) {
+    list = [...data.items];
+  } else if (Array.isArray(data?.categories)) {
+    list = [...data.categories];
   }
 
-  if (Array.isArray(data?.items)) {
-    return data.items;
+  const hasCooked = list.some(c => {
+    const name = (c.name || c.category_name || "").toLowerCase();
+    return name.includes("cooked") || name.includes("prepared") || name.includes("meal");
+  });
+
+  if (!hasCooked) {
+    list.unshift({ id: "cat_cooked_food", name: "Cooked Food / Prepared Meals", category_name: "Cooked Food / Prepared Meals" });
   }
 
-  if (Array.isArray(data?.categories)) {
-    return data.categories;
+  return list;
+}
+
+function isCookedFoodCategory(categoryId, categoriesList) {
+  if (!categoryId) return false;
+  if (String(categoryId) === "cat_cooked_food") return true;
+
+  const found = (categoriesList || []).find(c => String(c.id) === String(categoryId));
+  if (!found) return false;
+
+  const catName = (found.name || found.category_name || "").toLowerCase();
+  return catName.includes("cooked") || catName.includes("prepared") || catName.includes("meal") || catName.includes("hot") || catName.includes("catering") || catName.includes("thali");
+}
+
+function getShelfLifeForFoodName(foodName) {
+  if (!foodName) return 4;
+  const lower = String(foodName).toLowerCase().trim();
+
+  // Very short shelf life (~2.5h base)
+  if (lower.includes("salad") || lower.includes("fruit bowl") || lower.includes("cut fruit") || lower.includes("sprouts")) {
+    return 2.5;
+  }
+  // Shorter shelf life (~3h base)
+  if (lower.includes("biryani") || lower.includes("pulao") || lower.includes("chicken") || lower.includes("mutton") || lower.includes("fish") || lower.includes("meat") || lower.includes("egg") || lower.includes("non-veg") || lower.includes("non veg")) {
+    return 3;
+  }
+  // Moderate shelf life (4h base)
+  if (lower.includes("rice") || lower.includes("thali") || lower.includes("meal") || lower.includes("dosa") || lower.includes("idli") || lower.includes("khichdi")) {
+    return 4;
+  }
+  // Moderate shelf life (5h base)
+  if (lower.includes("curry") || lower.includes("dal") || lower.includes("gravy") || lower.includes("paneer") || lower.includes("sambar") || lower.includes("korma")) {
+    return 5;
+  }
+  // Moderate shelf life (5.5h base)
+  if (lower.includes("samosa") || lower.includes("pakora") || lower.includes("snack") || lower.includes("puff") || lower.includes("vada") || lower.includes("bhajji")) {
+    return 5.5;
+  }
+  // Moderate/Longer shelf life (8h base)
+  if (lower.includes("roti") || lower.includes("chapati") || lower.includes("naan") || lower.includes("paratha") || lower.includes("bread") || lower.includes("phulka") || lower.includes("puri")) {
+    return 8;
+  }
+  // Longer shelf life (12h base)
+  if (lower.includes("sweet") || lower.includes("kheer") || lower.includes("mithai") || lower.includes("halwa") || lower.includes("dessert") || lower.includes("jamun") || lower.includes("laddu") || lower.includes("rasgulla")) {
+    return 12;
   }
 
-  return [];
+  // Default cooked food baseline: 4h
+  return 4;
 }
 
 
@@ -298,7 +493,19 @@ export default function InventoryPage() {
   const navigate =
     useNavigate();
 
+  const [ambientTemp, setAmbientTemp] = useState(28);
+  const [tempSource, setTempSource] = useState("loading");
+  const [locationName, setLocationName] = useState("Detecting location...");
 
+  useEffect(() => {
+    async function loadTemp() {
+      const res = await fetchCurrentTemperature();
+      setAmbientTemp(res.temp);
+      setTempSource(res.source);
+      setLocationName(res.locationName);
+    }
+    loadTemp();
+  }, []);
 
   const [
     searchParams,
@@ -543,8 +750,16 @@ export default function InventoryPage() {
 
   useEffect(() => {
     loadInventory();
-
     loadCategories();
+
+    const handleOnlineSync = () => {
+      console.log("Network online sync event received in InventoryPage. Refreshing inventory...");
+      loadInventory();
+      loadCategories();
+    };
+
+    window.addEventListener("app:online-sync", handleOnlineSync);
+    return () => window.removeEventListener("app:online-sync", handleOnlineSync);
   }, [
     loadInventory,
     loadCategories,
@@ -933,26 +1148,59 @@ export default function InventoryPage() {
   // FORM CHANGE
   // ============================================================
 
-  function handleInputChange(
-    event
-  ) {
-    const {
-      name,
-      value,
-    } = event.target;
+  function applyCookedFoodPreset(preset) {
+    const prepTime = formData.manufacturing_date || formatDateTimeLocal(new Date());
+    const autoExpiry = calculateTempAdjustedExpiry(prepTime, preset.hours, ambientTemp, formData.storage_type || "ROOM_TEMPERATURE");
+    
+    // Find Cooked Food category or match category
+    const cookedCat = categories.find(cat => 
+      isCookedFoodCategory(cat.id, categories)
+    )?.id || categories[0]?.id || "cat_cooked_food";
 
+    const adjH = calculateAdjustedHours(preset.hours, ambientTemp, formData.storage_type || "ROOM_TEMPERATURE");
 
-    setFormData(
-      (previous) => ({
-        ...previous,
+    setFormData(prev => ({
+      ...prev,
+      selected_preset_id: preset.id,
+      preset_hours: preset.hours,
+      food_name: prev.food_name && !COOKED_FOOD_PRESETS.some(p => p.sampleName === prev.food_name) ? prev.food_name : preset.sampleName,
+      unit: preset.unit,
+      category_id: cookedCat,
+      manufacturing_date: prepTime,
+      expiry_date: autoExpiry,
+      special_instructions: preset.instruction
+    }));
+    setError("");
+    setSuccess(`Cooked Food selected: Auto-calculated expiry set to ${adjH} hours (${ambientTemp}°C ambient temp).`);
+  }
 
-        [name]: value,
-      })
-    );
+  function handleInputChange(event) {
+    const { name, value } = event.target;
 
+    setFormData((previous) => {
+      const nextForm = { ...previous, [name]: value };
+      const activeCatId = name === "category_id" ? value : previous.category_id;
+      const isCooked = isCookedFoodCategory(activeCatId, categories);
+
+      // Trigger auto-expiry calculation ONLY when Cooked Food category is selected!
+      if (isCooked) {
+        const currentName = name === "food_name" ? value : previous.food_name;
+        const baseHours = getShelfLifeForFoodName(currentName);
+        nextForm.preset_hours = baseHours;
+
+        const prepTime = nextForm.manufacturing_date || formatDateTimeLocal(new Date());
+        const st = name === "storage_type" ? value : (previous.storage_type || "ROOM_TEMPERATURE");
+
+        // Compute temperature & food name adjusted expiry datetime!
+        nextForm.expiry_date = calculateTempAdjustedExpiry(prepTime, baseHours, ambientTemp, st);
+      } else if (name === "category_id") {
+        nextForm.expiry_date = "";
+      }
+
+      return nextForm;
+    });
 
     setError("");
-
     setSuccess("");
   }
 
@@ -1821,7 +2069,7 @@ export default function InventoryPage() {
 
       {showForm && (
 
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/50 p-4 backdrop-blur-sm">
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-slate-950/50 p-4 backdrop-blur-sm">
 
 
           <div className="max-h-[92vh] w-full max-w-5xl overflow-y-auto rounded-[30px] bg-white shadow-2xl">
@@ -1850,17 +2098,13 @@ export default function InventoryPage() {
 
                 <div>
 
-                  <h2 className="text-2xl font-black text-slate-900">
-
-                    Add Inventory Item
-
+                  <h2 className="text-2xl font-black text-slate-900 flex items-center gap-2">
+                    🍲 Add Food Item for Rescue & Donation
                   </h2>
 
 
-                  <p className="mt-1 text-sm text-slate-500">
-
-                    Register surplus food for redistribution.
-
+                  <p className="mt-1 text-sm text-slate-500 font-medium">
+                    Register freshly cooked meals, surplus food & groceries for community redistribution.
                   </p>
 
                 </div>
@@ -1890,15 +2134,14 @@ export default function InventoryPage() {
               className="p-6 lg:p-8"
             >
 
-
               {/* BARCODE */}
 
               <FormSection
-                title="Barcode Information"
+                title="Barcode Information (Optional for Packaged Items)"
               >
 
                 <FormField
-                  label="Barcode"
+                  label="Barcode / SKU (Optional)"
                 >
 
                   <div className="relative">
@@ -1918,7 +2161,7 @@ export default function InventoryPage() {
                       onChange={
                         handleInputChange
                       }
-                      placeholder="Scan or enter barcode"
+                      placeholder="Scan or enter barcode if applicable"
                       className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-11 pr-4 outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
                     />
 
@@ -1951,11 +2194,11 @@ export default function InventoryPage() {
               {/* FOOD INFORMATION */}
 
               <FormSection
-                title="Food Information"
+                title="Food Item Details & Portions"
               >
 
                 <FormField
-                  label="Food Name"
+                  label="Food Item Name"
                 >
 
                   <input
@@ -1967,7 +2210,7 @@ export default function InventoryPage() {
                     onChange={
                       handleInputChange
                     }
-                    placeholder="Example: Rice Packets"
+                    placeholder="Example: Fresh Cooked Veg Biryani & Curry"
                     className={inputClass}
                   />
 
@@ -2028,7 +2271,7 @@ export default function InventoryPage() {
 
 
                 <FormField
-                  label="Quantity"
+                  label="Quantity / Servings"
                 >
 
                   <input
@@ -2043,7 +2286,7 @@ export default function InventoryPage() {
                     onChange={
                       handleInputChange
                     }
-                    placeholder="Enter quantity"
+                    placeholder="Enter quantity or portions"
                     className={inputClass}
                   />
 
@@ -2051,7 +2294,7 @@ export default function InventoryPage() {
 
 
                 <FormField
-                  label="Unit"
+                  label="Portion / Unit"
                 >
 
                   <select
@@ -2066,8 +2309,16 @@ export default function InventoryPage() {
                     className={inputClass}
                   >
 
+                    <option value="PORTION">
+                      PORTION (Meals / Servings)
+                    </option>
+
+                    <option value="SERVING">
+                      SERVING (People Fed)
+                    </option>
+
                     <option value="KG">
-                      KG
+                      KG (Kilogram)
                     </option>
 
                     <option value="GRAM">
@@ -2087,16 +2338,27 @@ export default function InventoryPage() {
                     </option>
 
                     <option value="PIECE">
-                      PIECE
+                      PIECE / ITEMS
                     </option>
 
                     <option value="BOX">
-                      BOX
+                      BOX / CONTAINER
                     </option>
 
                   </select>
 
                 </FormField>
+
+                {isCookedFoodCategory(formData.category_id, categories) && (
+                  <FormField label="Temperature">
+                    <input
+                      type="text"
+                      readOnly
+                      value={`${ambientTemp}°C`}
+                      className={inputClass + " bg-slate-50 text-slate-700 cursor-not-allowed font-semibold"}
+                    />
+                  </FormField>
+                )}
 
               </FormSection>
 
@@ -2104,11 +2366,11 @@ export default function InventoryPage() {
               {/* DATES */}
 
               <FormSection
-                title="Manufacturing and Expiry"
+                title="Cooking Time & Expiry"
               >
 
                 <FormField
-                  label="Manufacturing Date"
+                  label="Cooking / Preparation Date & Time"
                 >
 
                   <input
@@ -2128,7 +2390,7 @@ export default function InventoryPage() {
 
 
                 <FormField
-                  label="Expiry Date"
+                  label="Expiry Date & Time"
                 >
 
                   <input
@@ -2310,8 +2572,8 @@ export default function InventoryPage() {
 
 
                   {submitting
-                    ? "Adding Inventory..."
-                    : "Add Inventory Item"}
+                    ? "Adding Food Item..."
+                    : "Add Food Item for Rescue & Donation"}
 
                 </button>
 
@@ -2337,7 +2599,7 @@ export default function InventoryPage() {
 
       {/* DONATE MODAL */}
       {showDonateForm && donateItem && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/50 p-4 backdrop-blur-sm">
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-slate-950/50 p-4 backdrop-blur-sm">
           <div className="max-h-[92vh] w-full max-w-lg overflow-y-auto rounded-[30px] bg-white p-6 shadow-2xl">
             <div className="flex items-center justify-between border-b border-slate-100 pb-4">
               <div className="flex items-center gap-3">

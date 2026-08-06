@@ -62,7 +62,7 @@ export default function DashboardSelectPage() {
       <div className="pointer-events-none absolute bottom-0 left-1/3 h-[500px] w-[500px] rounded-full bg-sky-100/40 blur-3xl" />
 
       {/* TOP NAVBAR */}
-      <header className="relative z-50 max-w-7xl mx-auto w-full px-4 sm:px-8 py-5 flex items-center justify-between">
+      <header className="relative z-50 max-w-[1750px] mx-auto w-full px-4 sm:px-8 lg:px-12 py-5 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-600 text-white shadow-lg shadow-emerald-600/25 ring-4 ring-emerald-500/10">
             <Leaf size={22} className="animate-pulse" />
@@ -102,7 +102,7 @@ export default function DashboardSelectPage() {
       </header>
 
       {/* MAIN CONTENT HERO & GRID */}
-      <main className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-8 py-6 lg:py-10 flex-1 flex items-center">
+      <main className="relative z-10 max-w-[1750px] mx-auto w-full px-4 sm:px-8 lg:px-12 py-6 lg:py-10 flex-1 flex items-center">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 w-full items-stretch">
           
           {/* LEFT HERO CARD - Matches exact left pane in photo */}
@@ -243,49 +243,49 @@ export default function DashboardSelectPage() {
               </div>
             </div>
 
-            {/* CARD 3: DELIVERY DASHBOARD (Dark Blue Theme "D") */}
+            {/* CARD 3: DELIVERY DASHBOARD (Sky/Cyan Logistics Theme "D") */}
             <div
               onClick={() => handleDashboardClick("/delivery/partner", "delivery@aura.com", "DELIVERY_PARTNER")}
-              className="bg-slate-900 border border-slate-800 rounded-[28px] p-6 sm:p-7 shadow-md hover:shadow-2xl hover:border-slate-700 hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer flex flex-col justify-between relative overflow-hidden text-white"
+              className="bg-white/90 backdrop-blur-xl border border-slate-200/90 rounded-[28px] p-6 sm:p-7 shadow-sm hover:shadow-2xl hover:border-sky-300 hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer flex flex-col justify-between relative overflow-hidden"
             >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-sky-900/30 rounded-full blur-xl pointer-events-none group-hover:bg-sky-800/40 transition" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-sky-50 rounded-full blur-xl pointer-events-none group-hover:bg-sky-100 transition" />
 
               <div className="relative z-10">
-                {/* Header row: Icon Box "D" + Diagonal Compass Route Graphic */}
+                {/* Header row: Icon Box "D" + Diagonal Route Graphic */}
                 <div className="flex items-center justify-between">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-800 text-white font-black text-xl border border-slate-700 shadow-inner">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-600 text-white font-black text-xl shadow-lg shadow-sky-600/25 ring-4 ring-sky-500/10">
                     D
                   </div>
 
                   {/* Diagonal Line Route Graphic */}
-                  <div className="flex items-center justify-center h-10 px-3 bg-slate-800/80 rounded-xl border border-slate-700">
-                    <svg width="36" height="24" viewBox="0 0 36 24" fill="none" className="text-sky-400">
+                  <div className="flex items-center justify-center h-10 px-3 bg-sky-50/80 rounded-xl border border-sky-100">
+                    <svg width="36" height="24" viewBox="0 0 36 24" fill="none" className="text-sky-600">
                       <path d="M4 20 L32 4" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-                      <circle cx="4" cy="20" r="3" fill="#38bdf8" />
-                      <circle cx="32" cy="4" r="3" fill="#fbbf24" />
+                      <circle cx="4" cy="20" r="3" fill="#0284c7" />
+                      <circle cx="32" cy="4" r="3" fill="#f59e0b" />
                     </svg>
                   </div>
                 </div>
 
                 {/* Title */}
-                <h3 className="mt-6 text-xl font-black text-white group-hover:text-sky-400 transition-colors flex items-center justify-between">
+                <h3 className="mt-6 text-xl font-black text-slate-900 group-hover:text-sky-600 transition-colors flex items-center justify-between">
                   <span>{t("Delivery Dashboard") || "Delivery Dashboard"}</span>
-                  <ArrowRight size={18} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-sky-400" />
+                  <ArrowRight size={18} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-sky-600" />
                 </h3>
 
                 {/* Description */}
-                <p className="mt-2.5 text-xs sm:text-sm font-medium text-slate-300 leading-relaxed">
+                <p className="mt-2.5 text-xs sm:text-sm font-medium text-slate-600 leading-relaxed">
                   {t("Delivery users accept pickup tasks, coordinate routes, and complete food handovers for NGOs or users.") ||
                     "Delivery users accept pickup tasks, coordinate routes, and complete food handovers for NGOs or users."}
                 </p>
               </div>
 
-              <div className="relative z-10 mt-6 pt-4 border-t border-slate-800 flex items-center justify-between text-xs font-bold text-sky-300">
+              <div className="relative z-10 mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-sky-700">
                 <span className="flex items-center gap-1.5">
                   <Truck size={15} />
                   {t("Volunteers & Logistics") || "Volunteers & Logistics"}
                 </span>
-                <span className="text-[11px] font-black uppercase tracking-wider bg-slate-800 text-sky-300 border border-slate-700 px-2.5 py-1 rounded-lg">
+                <span className="text-[11px] font-black uppercase tracking-wider bg-sky-100 text-sky-800 px-2.5 py-1 rounded-lg">
                   {loadingRole === "DELIVERY_PARTNER" ? "Opening..." : "Launch →"}
                 </span>
               </div>
@@ -342,7 +342,7 @@ export default function DashboardSelectPage() {
       </main>
 
       {/* FOOTER */}
-      <footer className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-8 py-5 border-t border-slate-200/60 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-semibold text-slate-500">
+      <footer className="relative z-10 max-w-[1750px] mx-auto w-full px-4 sm:px-8 lg:px-12 py-5 border-t border-slate-200/60 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-semibold text-slate-500">
         <div>
           © {new Date().getFullYear()} {t("Aura Food") || "Aura Food"}. {t("AI-Based Food Redistribution System for Waste Reduction") || "AI-Based Food Redistribution System for Waste Reduction"}.
         </div>

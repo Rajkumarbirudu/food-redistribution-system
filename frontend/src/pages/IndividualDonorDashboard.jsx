@@ -32,6 +32,12 @@ import api from "../api/axios";
 import DashboardLayout from "../components/DashboardLayout";
 import { useAuth } from "../context/AuthContext";
 import { useTranslation } from "../context/LanguageContext";
+import {
+  fetchCurrentTemperature,
+  calculateTempAdjustedExpiry,
+  calculateAdjustedHours,
+  getTemperatureMultiplier
+} from "../utils/temperatureExpiry";
 
 function StatCard({ icon: Icon, title, value, description, onClick, active, colorClass }) {
   const { t } = useTranslation();
@@ -80,6 +86,18 @@ export default function IndividualDonorDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+
+  const [ambientTemp, setAmbientTemp] = useState(28);
+  const [locationName, setLocationName] = useState("Detecting location...");
+
+  useEffect(() => {
+    async function loadTemp() {
+      const res = await fetchCurrentTemperature();
+      setAmbientTemp(res.temp);
+      setLocationName(res.locationName);
+    }
+    loadTemp();
+  }, []);
 
   // Search & Filters
   const [searchTerm, setSearchTerm] = useState("");
@@ -268,6 +286,14 @@ export default function IndividualDonorDashboard() {
 
   useEffect(() => {
     fetchData();
+
+    const handleOnlineSync = () => {
+      console.log("Network online sync event received in IndividualDonorDashboard. Refreshing dashboard...");
+      fetchData();
+    };
+
+    window.addEventListener("app:online-sync", handleOnlineSync);
+    return () => window.removeEventListener("app:online-sync", handleOnlineSync);
   }, [fetchData]);
 
   // Mutually exclusive mathematical calculations for cards
@@ -1053,7 +1079,7 @@ export default function IndividualDonorDashboard() {
 
         {/* MODAL 1: MANUAL ADD INVENTORY ITEM WITH PHOTO */}
         {showAddInventoryModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs">
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs">
             <div className="w-full max-w-lg rounded-3xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 md:p-8 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
               <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
                 <div className="flex items-center gap-2">
@@ -1115,16 +1141,47 @@ export default function IndividualDonorDashboard() {
                   </div>
                 </div>
 
+
+
                 <div>
                   <label className="block uppercase font-bold text-[10px] tracking-wider text-slate-400 mb-1">
-                    Food / Grocery Item Name *
+                    Food / Meal Item Name *
                   </label>
                   <input
                     required
                     type="text"
-                    placeholder="e.g. Fresh Whole Milk / Rice & Dal / Apples"
+                    placeholder="e.g. Fresh Cooked Rice & Dal / Biryani / Chapatis"
                     value={inventoryForm.name}
-                    onChange={(e) => setInventoryForm(p => ({ ...p, name: e.target.value }))}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      setInventoryForm(p => {
+                        const next = { ...p, name: val };
+                        const catObj = categories.find(c => String(c.id || c.name) === String(p.category_id));
+                        const catName = (catObj?.name || "").toLowerCase();
+                        const isCooked = p.category_id && (catName.includes("cooked") || catName.includes("prepared") || catName.includes("meal") || String(p.category_id) === "cat_cooked_food");
+
+                        if (isCooked && val.length >= 1) {
+                          const lower = val.toLowerCase().trim();
+                          let hours = 4;
+                          if (lower.includes("salad") || lower.includes("fruit bowl") || lower.includes("cut fruit")) hours = 2.5;
+                          else if (lower.includes("biryani") || lower.includes("pulao") || lower.includes("chicken") || lower.includes("mutton") || lower.includes("fish") || lower.includes("meat") || lower.includes("non-veg") || lower.includes("non veg")) hours = 3;
+                          else if (lower.includes("rice") || lower.includes("thali") || lower.includes("meal") || lower.includes("dosa") || lower.includes("idli")) hours = 4;
+                          else if (lower.includes("curry") || lower.includes("dal") || lower.includes("gravy") || lower.includes("paneer")) hours = 5;
+                          else if (lower.includes("samosa") || lower.includes("pakora") || lower.includes("snack") || lower.includes("puff")) hours = 5.5;
+                          else if (lower.includes("roti") || lower.includes("chapati") || lower.includes("naan") || lower.includes("paratha") || lower.includes("bread")) hours = 8;
+                          else if (lower.includes("sweet") || lower.includes("kheer") || lower.includes("mithai") || lower.includes("halwa") || lower.includes("dessert")) hours = 12;
+
+                          next.preset_hours = hours;
+                          next.expiry_date = calculateTempAdjustedExpiry(
+                            new Date().toISOString(),
+                            hours,
+                            ambientTemp,
+                            p.storage_requirement || "ROOM_TEMPERATURE"
+                          );
+                        }
+                        return next;
+                      });
+                    }}
                     className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold focus:border-emerald-500 focus:outline-none"
                   />
                 </div>
@@ -1137,7 +1194,26 @@ export default function IndividualDonorDashboard() {
                     <select
                       required
                       value={inventoryForm.category_id || (categories[0]?.id || "")}
-                      onChange={(e) => setInventoryForm(p => ({ ...p, category_id: e.target.value }))}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        setInventoryForm(p => {
+                          const next = { ...p, category_id: val };
+                          const catObj = categories.find(c => String(c.id || c.name) === String(val));
+                          const catName = (catObj?.name || "").toLowerCase();
+                          const isCooked = val && (catName.includes("cooked") || catName.includes("prepared") || catName.includes("meal") || String(val) === "cat_cooked_food");
+
+                          if (isCooked) {
+                            const hours = p.preset_hours || 4;
+                            next.expiry_date = calculateTempAdjustedExpiry(
+                              new Date().toISOString(),
+                              hours,
+                              ambientTemp,
+                              p.storage_requirement || "ROOM_TEMPERATURE"
+                            );
+                          }
+                          return next;
+                        });
+                      }}
                       className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold focus:border-emerald-500 focus:outline-none"
                     >
                       {categories.map(c => (
@@ -1178,6 +1254,26 @@ export default function IndividualDonorDashboard() {
                     </div>
                   </div>
                 </div>
+
+                {(() => {
+                  const catObj = categories.find(c => String(c.id || c.name) === String(inventoryForm.category_id));
+                  const catName = (catObj?.name || "").toLowerCase();
+                  const isCooked = catName.includes("cooked") || catName.includes("prepared") || catName.includes("meal") || String(inventoryForm.category_id) === "cat_cooked_food";
+                  if (!isCooked) return null;
+                  return (
+                    <div>
+                      <label className="block uppercase font-bold text-[10px] tracking-wider text-slate-400 mb-1">
+                        Temperature
+                      </label>
+                      <input
+                        type="text"
+                        readOnly
+                        value={`Temperature: ${ambientTemp}°C`}
+                        className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 font-semibold text-slate-700 cursor-not-allowed"
+                      />
+                    </div>
+                  );
+                })()}
 
                 <div>
                   <label className="block uppercase font-bold text-[10px] tracking-wider text-slate-400 mb-1">
@@ -1260,7 +1356,7 @@ export default function IndividualDonorDashboard() {
 
         {/* MODAL 2: EDIT INVENTORY ITEM WITH PHOTO */}
         {showEditInventoryModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs">
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs">
             <div className="w-full max-w-lg rounded-3xl border border-slate-100 bg-white p-6 md:p-8 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
               <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                 <div className="flex items-center gap-2">
@@ -1410,7 +1506,7 @@ export default function IndividualDonorDashboard() {
 
         {/* MODAL 3: POST HOME DONATION MODAL WITH PRODUCT PHOTO */}
         {showDonateModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs">
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs">
             <div className="w-full max-w-lg rounded-3xl border border-slate-100 bg-white p-6 md:p-8 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
               <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                 <div className="flex items-center gap-2">
@@ -1592,7 +1688,7 @@ export default function IndividualDonorDashboard() {
 
         {/* MODAL 4: PHOTO LIGHTBOX PREVIEW */}
         {photoLightbox && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-md">
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-md">
             <div className="relative max-w-xl max-h-[85vh] rounded-3xl overflow-hidden bg-slate-900 border border-slate-800 shadow-2xl p-2">
               <img src={photoLightbox} alt="Enlarged Food Product" className="max-h-[75vh] w-full object-contain rounded-2xl" />
               <button
@@ -1607,7 +1703,7 @@ export default function IndividualDonorDashboard() {
 
         {/* LIVE CAMERA CAPTURE OVERLAY */}
         {cameraActive && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-sm">
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-sm">
             <div className="w-full max-w-md rounded-3xl bg-slate-900 p-6 text-white space-y-4 text-center">
               <h3 className="text-base font-bold flex items-center justify-center gap-2">
                 <Camera size={20} className="text-emerald-400 animate-pulse" /> Take Food Product Snapshot

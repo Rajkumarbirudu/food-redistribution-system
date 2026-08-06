@@ -1,87 +1,83 @@
-const CACHE_NAME = "aura-food-v1";
-const STATIC_ASSETS = [
+const CACHE_NAME = "aura-food-pwa-v1";
+const ASSETS_TO_CACHE = [
   "/",
   "/index.html",
-  "/manifest.json",
-  "/pwa-192x192.png",
-  "/pwa-512x512.png"
+  "/src/main.jsx",
+  "/src/index.css",
+  "/src/App.css",
+  "/favicon.ico"
 ];
 
-// 1. INSTALL SERVICE WORKER
 self.addEventListener("install", (event) => {
-  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log("[PWA ServiceWorker] Pre-caching static app shell");
-      return cache.addAll(STATIC_ASSETS).catch((err) => {
-        console.warn("[PWA ServiceWorker] Pre-cache warning:", err);
-      });
+      console.log("[SW] Pre-caching static app shell assets...");
+      return cache.addAll(ASSETS_TO_CACHE).catch(() => {});
     })
   );
+  self.skipWaiting();
 });
 
-// 2. ACTIVATE SERVICE WORKER
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then((keyList) => {
+    caches.keys().then((cacheNames) => {
       return Promise.all(
-        keyList.map((key) => {
-          if (key !== CACHE_NAME) {
-            console.log("[PWA ServiceWorker] Removing old cache", key);
-            return caches.delete(key);
+        cacheNames.map((name) => {
+          if (name !== CACHE_NAME) {
+            console.log("[SW] Removing old cache:", name);
+            return caches.delete(name);
           }
         })
       );
-    }).then(() => self.clients.claim())
+    })
   );
+  self.clients.claim();
 });
 
-// 3. FETCH INTERCEPTOR (Network-First for API, Cache-First for Assets)
 self.addEventListener("fetch", (event) => {
-  const url = new URL(event.request.url);
-
-  // Skip non-GET requests
+  // Only handle GET requests for static assets and navigation
   if (event.request.method !== "GET") return;
 
-  // Network-First for API requests & Auth calls
-  if (url.pathname.startsWith("/api") || url.pathname.startsWith("/auth") || url.port === "8000") {
-    event.respondWith(
-      fetch(event.request).catch(() => {
-        return caches.match(event.request);
-      })
-    );
+  const url = new URL(event.request.url);
+
+  // Skip API requests - API requests are handled by Axios IndexedDB cache interceptor
+  if (url.pathname.startsWith("/api") || url.port === "8000" || url.hostname.includes("onrender.com")) {
     return;
   }
 
-  // Cache-First for static assets (js, css, images, fonts)
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {
-        // Return cached asset and update cache in background
-        fetch(event.request).then((networkResponse) => {
-          if (networkResponse && networkResponse.status === 200) {
-            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, networkResponse));
-          }
-        }).catch(() => {});
+        // Fetch fresh copy in background to keep cache updated (Stale-While-Revalidate)
+        fetch(event.request)
+          .then((networkResponse) => {
+            if (networkResponse && networkResponse.status === 200) {
+              caches.open(CACHE_NAME).then((cache) => {
+                cache.put(event.request, networkResponse);
+              });
+            }
+          })
+          .catch(() => {});
         return cachedResponse;
       }
 
-      // Network fallback
-      return fetch(event.request).then((networkResponse) => {
-        if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== "basic") {
+      return fetch(event.request)
+        .then((networkResponse) => {
+          if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== "basic") {
+            return networkResponse;
+          }
+          const responseToCache = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseToCache);
+          });
           return networkResponse;
-        }
-        const responseToCache = networkResponse.clone();
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, responseToCache);
+        })
+        .catch(() => {
+          // If offline and request is HTML navigation, serve index.html cached page
+          if (event.request.mode === "navigate") {
+            return caches.match("/index.html") || caches.match("/");
+          }
         });
-        return networkResponse;
-      }).catch(() => {
-        // Offline fallback for HTML navigation
-        if (event.request.headers.get("accept")?.includes("text/html")) {
-          return caches.match("/index.html") || caches.match("/");
-        }
-      });
     })
   );
 });

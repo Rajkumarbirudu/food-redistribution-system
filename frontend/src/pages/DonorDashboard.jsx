@@ -154,6 +154,14 @@ export default function DonorDashboard() {
 
   useEffect(() => {
     loadDashboard();
+
+    const handleOnlineSync = () => {
+      console.log("Network online sync event received in DonorDashboard. Refreshing dashboard...");
+      loadDashboard();
+    };
+
+    window.addEventListener("app:online-sync", handleOnlineSync);
+    return () => window.removeEventListener("app:online-sync", handleOnlineSync);
   }, []);
 
   const navigation = [

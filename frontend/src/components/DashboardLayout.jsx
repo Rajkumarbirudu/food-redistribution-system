@@ -23,6 +23,7 @@ import UserProfileModal from "./UserProfileModal";
 import GlobalSearch from "./GlobalSearch";
 import NotificationCenter from "./NotificationCenter";
 import QuickActionCenter from "./QuickActionCenter";
+import OfflineIndicator from "./OfflineIndicator";
 import MobileBottomNav from "./MobileBottomNav";
 
 
@@ -286,8 +287,9 @@ export default function DashboardLayout({
             </button>
           </div>
 
-          {/* RIGHT HEADER ACTIONS: SEARCH, NOTIFICATIONS, THEME TOGGLE & REFRESH */}
+          {/* RIGHT HEADER ACTIONS: OFFLINE STATUS, SEARCH, NOTIFICATIONS, THEME TOGGLE & REFRESH */}
           <div className="flex items-center gap-2 sm:gap-3">
+            <OfflineIndicator />
             <GlobalSearch />
             <NotificationCenter />
 
@@ -444,30 +446,6 @@ export default function DashboardLayout({
                   </nav>
                 </div>
 
-                {/* SECTION 3: REAL-TIME IMPACT METRICS WIDGET */}
-                <div className="rounded-2xl bg-gradient-to-br from-slate-900 via-slate-900 to-emerald-950 p-4 text-white shadow-md border border-slate-800 space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-black uppercase tracking-wider text-emerald-400">
-                      ⚡ Impact Snapshot
-                    </span>
-                    <span className="flex h-2 w-2 relative">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-                    </span>
-                  </div>
-                  
-                  <div className="grid grid-cols-2 gap-2 text-center">
-                    <div className="bg-slate-800/80 rounded-xl p-2.5 border border-slate-700">
-                      <p className="text-lg font-black text-emerald-400">128.4k+</p>
-                      <p className="text-[10px] font-bold text-slate-400">Meals Rescued</p>
-                    </div>
-                    <div className="bg-slate-800/80 rounded-xl p-2.5 border border-slate-700">
-                      <p className="text-lg font-black text-emerald-300">42.8 T</p>
-                      <p className="text-[10px] font-bold text-slate-400">CO2 Reduced</p>
-                    </div>
-                  </div>
-                </div>
-
                 {/* SECTION 4: QUICK UTILITIES */}
                 <div className="pt-3 border-t border-slate-100 dark:border-slate-800 space-y-3">
                   <h3 className="text-xs font-black uppercase tracking-wider text-slate-400 px-1">
@@ -513,7 +491,7 @@ export default function DashboardLayout({
           CONTENT
       ==================================================== */}
 
-      <main className="relative z-10 mx-auto max-w-[1440px] px-3 sm:px-5 py-4 md:px-8 lg:px-10 lg:py-6 pb-20 lg:pb-8">
+      <main className="relative mx-auto max-w-[1440px] px-3 sm:px-5 py-4 md:px-8 lg:px-10 lg:py-6 pb-20 lg:pb-8">
 
         {/* HERO HEADER - COMPACT DENSITY FOR ENTERPRISE EXPERIENCE */}
         <section className="relative overflow-hidden rounded-[28px] border border-slate-200/80 dark:border-slate-800 bg-white/85 dark:bg-slate-900/90 p-5 sm:p-6 md:p-7 shadow-[0_16px_50px_rgba(15,23,42,0.04)] backdrop-blur-xl transition-all duration-300">

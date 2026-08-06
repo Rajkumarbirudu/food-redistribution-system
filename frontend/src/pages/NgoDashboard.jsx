@@ -672,6 +672,15 @@ export default function NgoDashboard() {
     loadDonations();
     loadMyComplaints();
 
+    const handleOnlineSync = () => {
+      console.log("Network online sync event received in NgoDashboard. Refreshing donations...");
+      loadDonations();
+      loadMyComplaints();
+    };
+
+    window.addEventListener("app:online-sync", handleOnlineSync);
+    return () => window.removeEventListener("app:online-sync", handleOnlineSync);
+
   }, [
     authLoading,
     user,

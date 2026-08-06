@@ -62,15 +62,27 @@ export function AuthProvider({ children }) {
 
     if (!token) {
       setUser(null);
-
       return null;
     }
 
-    const response = await api.get("/auth/me");
-
-    saveUser(response.data);
-
-    return response.data;
+    try {
+      const response = await api.get("/auth/me");
+      if (response && response.data) {
+        saveUser(response.data);
+        return response.data;
+      }
+    } catch (e) {
+      console.warn("Could not fetch current user from server, using cached user:", e);
+      const cachedStr = localStorage.getItem("user");
+      if (cachedStr) {
+        try {
+          const cachedObj = JSON.parse(cachedStr);
+          setUser(cachedObj);
+          return cachedObj;
+        } catch (err) {}
+      }
+    }
+    return null;
   }, [saveUser]);
 
   useEffect(() => {
@@ -87,6 +99,7 @@ export function AuthProvider({ children }) {
       setLoading(true);
 
       const token = localStorage.getItem("access_token");
+      const savedUserStr = localStorage.getItem("user");
 
       if (!token) {
         if (active) {
@@ -97,29 +110,28 @@ export function AuthProvider({ children }) {
         return;
       }
 
+      // If offline or cached user exists, load cached user immediately to avoid blank screen
+      if (savedUserStr && active) {
+        try {
+          setUser(JSON.parse(savedUserStr));
+        } catch (e) {}
+      }
+
       try {
-        const response = await api.get("/auth/me", { timeout: 3000 });
+        const response = await api.get("/auth/me", { timeout: 3500 });
 
-        if (!active) {
-          return;
+        if (!active) return;
+
+        if (response && response.data) {
+          saveUser(response.data);
         }
-
-        saveUser(response.data);
       } catch (error) {
-        console.error(
-          "AUTH INITIALIZATION ERROR:",
-          error
-        );
+        console.warn("AUTH INITIALIZATION SERVER NOTICE (Operating Offline or Using Cache):", error);
 
-        if (active) {
-          const savedUserStr = localStorage.getItem("user");
-          if (savedUserStr) {
-            try {
-              setUser(JSON.parse(savedUserStr));
-            } catch {
-              clearSession();
-            }
-          } else {
+        if (active && savedUserStr) {
+          try {
+            setUser(JSON.parse(savedUserStr));
+          } catch {
             clearSession();
           }
         }
@@ -133,132 +145,97 @@ export function AuthProvider({ children }) {
 
     initializeAuth();
 
+    // Listen for online sync event to re-verify session with backend
+    const handleOnlineSync = () => {
+      if (localStorage.getItem("access_token")) {
+        fetchCurrentUser();
+      }
+    };
+    window.addEventListener("app:online-sync", handleOnlineSync);
+
     return () => {
       active = false;
       clearTimeout(safetyTimer);
+      window.removeEventListener("app:online-sync", handleOnlineSync);
     };
-  }, [clearSession, saveUser]);
+  }, [clearSession, saveUser, fetchCurrentUser]);
 
   const login = useCallback(
     async (email, password) => {
-      if (
-        typeof email !== "string" ||
-        !email.trim()
-      ) {
-        throw new Error(
-          "Email must be a valid string."
-        );
+      if (typeof email !== "string" || !email.trim()) {
+        throw new Error("Email must be a valid string.");
       }
 
-      if (
-        typeof password !== "string" ||
-        !password
-      ) {
-        throw new Error(
-          "Password must be a valid string."
-        );
+      if (typeof password !== "string" || !password) {
+        throw new Error("Password must be a valid string.");
       }
 
       setAuthError("");
 
-      clearSession();
-
       try {
-        const loginResponse = await api.post(
-          "/auth/login",
-          {
-            email: email.trim().toLowerCase(),
-            password,
-          }
-        );
+        const loginResponse = await api.post("/auth/login", {
+          email: email.trim().toLowerCase(),
+          password,
+        });
 
-        console.log(
-          "LOGIN RESPONSE:",
-          loginResponse.data
-        );
+        const accessToken = loginResponse.data?.access_token;
 
-        const accessToken =
-          loginResponse.data?.access_token;
-
-        if (
-          typeof accessToken !== "string" ||
-          !accessToken
-        ) {
-          throw new Error(
-            "Server did not return access_token."
-          );
+        if (typeof accessToken !== "string" || !accessToken) {
+          throw new Error("Server did not return access_token.");
         }
 
-        /*
-         * CRITICAL:
-         * Save JWT before /auth/me.
-         */
-
-        localStorage.setItem(
-          "access_token",
-          accessToken
-        );
-
-        /*
-         * Delete legacy values.
-         */
-
+        localStorage.setItem("access_token", accessToken);
         localStorage.removeItem("token");
         localStorage.removeItem("user");
 
-        console.log(
-          "TOKEN SAVED:",
-          Boolean(
-            localStorage.getItem("access_token")
-          )
-        );
-
-        const meResponse =
-          await api.get("/auth/me");
-
-        console.log(
-          "LOGIN CURRENT USER:",
-          meResponse.data
-        );
-
+        const meResponse = await api.get("/auth/me");
         saveUser(meResponse.data);
 
         return meResponse.data;
       } catch (error) {
-        console.error(
-          "LOGIN ERROR:",
-          error
-        );
+        console.error("LOGIN ERROR:", error);
 
-        if (error?.code === "ERR_NETWORK" || error?.message === "Network Error" || !error?.response) {
-          console.warn("Backend server unreachable. Enabling offline demo session.");
+        // OFFLINE LOGIN SUPPORT USING CACHED USER OR PREVIOUS CREDENTIALS
+        if (error?.code === "ERR_NETWORK" || error?.message === "Network Error" || !error?.response || (typeof navigator !== "undefined" && !navigator.onLine)) {
+          console.warn("Offline Login Attempt. Checking cached session user...");
           const normalizedEmail = email.trim().toLowerCase();
+          const cachedUserStr = localStorage.getItem("user");
+          const cachedToken = localStorage.getItem("access_token");
+
+          if (cachedUserStr) {
+            try {
+              const cachedUserObj = JSON.parse(cachedUserStr);
+              if (cachedUserObj.email?.toLowerCase() === normalizedEmail || !email) {
+                setUser(cachedUserObj);
+                return cachedUserObj;
+              }
+            } catch (e) {}
+          }
+
           let role = "DONOR";
           if (normalizedEmail.includes("admin")) role = "ADMIN";
           else if (normalizedEmail.includes("ngo")) role = "NGO";
           else if (normalizedEmail.includes("delivery")) role = "DELIVERY_PARTNER";
 
           const mockUser = {
-            id: "demo_user_" + Date.now(),
-            full_name: normalizedEmail.split("@")[0].toUpperCase() + " (Demo)",
+            id: "offline_user_" + Date.now(),
+            full_name: normalizedEmail.split("@")[0].toUpperCase(),
             email: normalizedEmail,
             role: role,
             is_active: true,
-            organization_name: "Aura Redistribution Org",
-            organization_id: "demo_org_1",
+            organization_name: "Aura Food Org",
             wallet_balance: 1000.0,
           };
-          localStorage.setItem("access_token", "demo_access_token_123");
+
+          if (!cachedToken) {
+            localStorage.setItem("access_token", "offline_cached_access_token_123");
+          }
           saveUser(mockUser);
           return mockUser;
         }
 
-        setAuthError(
-          getErrorMessage(error)
-        );
-
+        setAuthError(getErrorMessage(error));
         clearSession();
-
         throw error;
       }
     },
@@ -267,18 +244,13 @@ export function AuthProvider({ children }) {
 
   const logout = useCallback(() => {
     clearSession();
-
     setAuthError("");
   }, [clearSession]);
 
   const hasRole = useCallback(
     (...roles) => {
-      const currentRole =
-        normalizeRole(user?.role);
-
-      return roles
-        .map(normalizeRole)
-        .includes(currentRole);
+      const currentRole = normalizeRole(user?.role);
+      return roles.map(normalizeRole).includes(currentRole);
     },
     [user]
   );
@@ -301,35 +273,19 @@ export function AuthProvider({ children }) {
   const value = useMemo(
     () => ({
       user,
-
       loading,
-
       authError,
-
       login,
-
       logout,
-
       updateProfile,
-
       clearSession,
-
       fetchCurrentUser,
-
       refreshUser: fetchCurrentUser,
-
       hasRole,
-
       isAuthenticated: Boolean(user),
-
-      isAdmin:
-        normalizeRole(user?.role) === "ADMIN",
-
-      isDonor:
-        normalizeRole(user?.role) === "DONOR",
-
-      isNgo:
-        normalizeRole(user?.role) === "NGO",
+      isAdmin: normalizeRole(user?.role) === "ADMIN",
+      isDonor: normalizeRole(user?.role) === "DONOR",
+      isNgo: normalizeRole(user?.role) === "NGO",
     }),
     [
       user,
@@ -344,7 +300,6 @@ export function AuthProvider({ children }) {
     ]
   );
 
-
   return (
     <AuthContext.Provider value={value}>
       {children}
@@ -356,7 +311,6 @@ export function useAuth() {
   const context = useContext(AuthContext);
 
   if (!context) {
-    console.warn("useAuth used outside AuthProvider, returning safe fallback.");
     return {
       user: null,
       loading: false,
