@@ -22,6 +22,7 @@ import AdminDetailsPage from "./pages/Admindetailspage";
 import DeliveryPartnerDashboard from "./pages/DeliveryPartnerDashboard";
 import DeliveryBoyDashboard from "./pages/DeliveryBoyDashboard";
 import DeliveryTrackingPage from "./pages/DeliveryTrackingPage";
+import SalesPage from "./pages/SalesPage";
 
 export default function App() {
   return (
@@ -113,6 +114,20 @@ export default function App() {
           path="/donor/barcode"
           element={
             <BarcodeScannerPage />
+          }
+        />
+
+        <Route
+          path="/sales"
+          element={
+            <SalesPage />
+          }
+        />
+
+        <Route
+          path="/donor/sales"
+          element={
+            <SalesPage />
           }
         />
 

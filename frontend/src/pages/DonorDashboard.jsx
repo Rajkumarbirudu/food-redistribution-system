@@ -13,7 +13,8 @@ import {
   Truck,
   Upload,
   Utensils,
-  AlertCircle
+  AlertCircle,
+  TrendingUp,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/axios";
@@ -168,6 +169,7 @@ export default function DonorDashboard() {
     { label: t("Dashboard"), path: "/donor", icon: LayoutDashboard },
     { label: t("Inventory"), path: "/inventory", icon: PackageOpen },
     { label: t("Barcode Scanner"), path: "/donor/barcode", icon: Barcode },
+    { label: t("Sales"), path: "/sales", icon: TrendingUp },
   ];
 
   return (

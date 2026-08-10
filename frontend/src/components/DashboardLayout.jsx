@@ -10,6 +10,10 @@ import {
   LayoutGrid,
   Sun,
   Moon,
+  TrendingUp,
+  LayoutDashboard,
+  PackageOpen,
+  Barcode,
 } from "lucide-react";
 
 import { useState, useEffect } from "react";
@@ -417,32 +421,63 @@ export default function DashboardLayout({
                   </div>
 
                   <nav className="space-y-2">
-                    {navigation.map((item) => {
-                      const Icon = item.icon;
-                      const active = activePath === item.path;
+                    {(() => {
+                      const isBusinessDonorWorkspace =
+                        (userRole === "DONOR" ||
+                          activePath === "/donor" ||
+                          activePath === "/sales" ||
+                          activePath === "/inventory" ||
+                          activePath === "/donations" ||
+                          activePath.startsWith("/donor")) &&
+                        userRole !== "INDIVIDUAL_DONOR" &&
+                        !activePath.startsWith("/individual");
 
-                      return (
-                        <button
-                          key={item.path}
-                          type="button"
-                          onClick={() => {
-                            setSidebarOpen(false);
-                            openPage(item.path);
-                          }}
-                          className={
-                            active
-                              ? "flex w-full items-center gap-3.5 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 px-4 py-3 text-left text-sm font-black text-white shadow-md shadow-emerald-600/20 transition-all cursor-pointer"
-                              : "flex w-full items-center gap-3.5 rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-800/40 px-4 py-3 text-left text-sm font-bold text-slate-700 dark:text-slate-300 hover:border-emerald-300 hover:bg-emerald-50/60 dark:hover:bg-slate-800 hover:text-emerald-600 transition-all cursor-pointer"
-                          }
-                        >
-                          {Icon && <Icon size={20} className={active ? "text-white" : "text-slate-500 dark:text-slate-400 group-hover:text-emerald-600"} />}
-                          <span className="flex-1">{t(item.label)}</span>
-                          {active && (
-                            <span className="h-2 w-2 rounded-full bg-white animate-pulse" />
-                          )}
-                        </button>
+                      const baseNav = (navigation && navigation.length > 0)
+                        ? navigation
+                        : isBusinessDonorWorkspace
+                          ? [
+                              { label: "Dashboard", path: "/donor", icon: LayoutDashboard },
+                              { label: "Inventory", path: "/inventory", icon: PackageOpen },
+                              { label: "Barcode Scanner", path: "/donor/barcode", icon: Barcode },
+                              { label: "Sales", path: "/sales", icon: TrendingUp },
+                            ]
+                          : [];
+
+                      const hasSales = baseNav.some(
+                        (i) => i.path === "/sales" || i.path === "/donor/sales" || i.label === "Sales"
                       );
-                    })}
+
+                      const navList = isBusinessDonorWorkspace
+                        ? (hasSales ? baseNav : [...baseNav, { label: "Sales", path: "/sales", icon: TrendingUp }])
+                        : baseNav;
+
+                      return navList.map((item) => {
+                        const Icon = item.icon || TrendingUp;
+                        const active = activePath === item.path;
+
+                        return (
+                          <button
+                            key={item.path}
+                            type="button"
+                            onClick={() => {
+                              setSidebarOpen(false);
+                              openPage(item.path);
+                            }}
+                            className={
+                              active
+                                ? "flex w-full items-center gap-3.5 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 px-4 py-3 text-left text-sm font-black text-white shadow-md shadow-emerald-600/20 transition-all cursor-pointer"
+                                : "flex w-full items-center gap-3.5 rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-800/40 px-4 py-3 text-left text-sm font-bold text-slate-700 dark:text-slate-300 hover:border-emerald-300 hover:bg-emerald-50/60 dark:hover:bg-slate-800 hover:text-emerald-600 transition-all cursor-pointer"
+                            }
+                          >
+                            {Icon && <Icon size={20} className={active ? "text-white" : "text-slate-500 dark:text-slate-400 group-hover:text-emerald-600"} />}
+                            <span className="flex-1">{t(item.label)}</span>
+                            {active && (
+                              <span className="h-2 w-2 rounded-full bg-white animate-pulse" />
+                            )}
+                          </button>
+                        );
+                      });
+                    })()}
                   </nav>
                 </div>
 
