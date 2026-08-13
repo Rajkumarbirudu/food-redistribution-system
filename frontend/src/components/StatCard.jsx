@@ -28,7 +28,7 @@ export default function StatCard({
           )}
         </div>
 
-        <div className="rounded-2xl bg-green-50 p-3 text-green-600">
+        <div className="rounded-2xl bg-sky-50 dark:bg-sky-950/40 p-3 text-sky-600 dark:text-sky-400">
           {icon}
         </div>
       </div>

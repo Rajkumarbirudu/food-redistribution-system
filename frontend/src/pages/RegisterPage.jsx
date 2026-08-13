@@ -338,23 +338,23 @@ export default function RegisterPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#F4FAF6] dark:bg-[#020617] text-slate-900 dark:text-slate-100 font-sans p-3 sm:p-6 lg:p-8 flex items-center justify-center selection:bg-emerald-500 selection:text-white">
+    <main className="min-h-screen bg-[#F8FCFF] dark:bg-[#020617] text-slate-900 dark:text-slate-100 font-sans p-3 sm:p-6 lg:p-8 flex items-center justify-center selection:bg-sky-500 selection:text-white">
       <canvas ref={canvasRef} className="hidden" />
 
       {/* MAIN MOCKUP CONTAINER */}
-      <div className="w-full max-w-[1360px] bg-[#ECFDF5]/50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800 rounded-[36px] shadow-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 backdrop-blur-2xl">
+      <div className="w-full max-w-[1360px] bg-[#F0F9FF]/50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800 rounded-[36px] shadow-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 backdrop-blur-2xl">
 
         {/* LEFT PANEL (BRANDING & SUSTAINABILITY MISSION) */}
-        <div className="lg:col-span-5 p-8 sm:p-10 lg:p-12 flex flex-col justify-between relative bg-gradient-to-b from-[#E6F8ED] to-[#F4FAF6] dark:from-slate-950 dark:to-slate-900">
+        <div className="lg:col-span-5 p-8 sm:p-10 lg:p-12 flex flex-col justify-between relative bg-gradient-to-b from-[#EFF8FF] to-[#F8FCFF] dark:from-slate-950 dark:to-slate-900">
           
           {/* TOP LOGO */}
           <div>
             <div className="flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-tr from-[#059669] to-[#10B981] text-white shadow-lg shadow-emerald-600/30">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-tr from-[#0284C7] to-[#0EA5E9] text-white shadow-lg shadow-sky-600/30">
                 <Leaf size={24} />
               </div>
               <div>
-                <h2 className="text-xl font-black tracking-tight text-[#059669] uppercase">
+                <h2 className="text-xl font-black tracking-tight text-[#0284C7] uppercase">
                   Aura Food
                 </h2>
                 <p className="text-[11px] font-bold text-slate-500 dark:text-slate-400">
@@ -367,8 +367,8 @@ export default function RegisterPage() {
             <div className="mt-10">
               <h1 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-black tracking-tight leading-[1.15] text-slate-900 dark:text-white">
                 Join the Movement.<br />
-                <span className="text-[#059669]">Reduce Waste.</span><br />
-                <span className="text-[#059669]">Feed Hope.</span>
+                <span className="text-[#0EA5E9]">Reduce Waste.</span><br />
+                <span className="text-[#0EA5E9]">Feed Hope.</span>
               </h1>
 
               <p className="mt-5 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400 leading-relaxed max-w-md">
@@ -379,7 +379,7 @@ export default function RegisterPage() {
             {/* 4 FEATURE BULLETS EXACT MATCH FROM IMAGE */}
             <div className="mt-8 space-y-4">
               <div className="flex items-start gap-3.5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-emerald-100 dark:bg-emerald-950/80 text-[#059669]">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-sky-100 dark:bg-sky-950/80 text-[#0284C7]">
                   <Leaf size={18} />
                 </div>
                 <div>
@@ -391,7 +391,7 @@ export default function RegisterPage() {
               </div>
 
               <div className="flex items-start gap-3.5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-emerald-100 dark:bg-emerald-950/80 text-[#059669]">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-sky-100 dark:bg-sky-950/80 text-[#0284C7]">
                   <Users size={18} />
                 </div>
                 <div>
@@ -403,7 +403,7 @@ export default function RegisterPage() {
               </div>
 
               <div className="flex items-start gap-3.5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-emerald-100 dark:bg-emerald-950/80 text-[#059669]">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-sky-100 dark:bg-sky-950/80 text-[#0284C7]">
                   <ShieldCheck size={18} />
                 </div>
                 <div>
@@ -415,7 +415,7 @@ export default function RegisterPage() {
               </div>
 
               <div className="flex items-start gap-3.5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-emerald-100 dark:bg-emerald-950/80 text-[#059669]">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-sky-100 dark:bg-sky-950/80 text-[#0284C7]">
                   <Globe size={18} />
                 </div>
                 <div>
@@ -433,7 +433,7 @@ export default function RegisterPage() {
             <img
               src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=700&q=80"
               alt="Fresh Sustainable Vegetables Crate"
-              className="w-full rounded-2xl object-cover h-44 shadow-md border border-emerald-200 dark:border-slate-800"
+              className="w-full rounded-2xl object-cover h-44 shadow-md border border-sky-200 dark:border-slate-800"
             />
           </div>
         </div>
@@ -447,7 +447,7 @@ export default function RegisterPage() {
               <span>Already have an account?</span>
               <Link
                 to="/login"
-                className="ml-2 rounded-xl border border-emerald-300 dark:border-emerald-700 bg-white dark:bg-slate-800 px-4 py-1.5 font-bold text-[#059669] dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-slate-700 transition"
+                className="ml-2 rounded-xl border border-sky-300 dark:border-sky-700 bg-white dark:bg-slate-800 px-4 py-1.5 font-bold text-[#0284C7] dark:text-sky-400 hover:bg-sky-50 dark:hover:bg-slate-700 transition"
               >
                 Login
               </Link>
@@ -465,8 +465,8 @@ export default function RegisterPage() {
 
             {/* SINGLE STEP INDICATOR */}
             <div className="flex items-center justify-center my-6">
-              <div className="inline-flex items-center gap-2 rounded-full bg-emerald-50 dark:bg-emerald-950/80 border border-emerald-200 dark:border-emerald-800 px-4 py-1.5 text-xs font-black text-[#059669] dark:text-emerald-400">
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#059669] text-white text-[10px] font-black">
+              <div className="inline-flex items-center gap-2 rounded-full bg-sky-50 dark:bg-sky-950/80 border border-sky-200 dark:border-sky-800 px-4 py-1.5 text-xs font-black text-[#0284C7] dark:text-sky-400">
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#0EA5E9] text-white text-[10px] font-black">
                   1
                 </span>
                 <span>Account Registration</span>
@@ -507,11 +507,11 @@ export default function RegisterPage() {
                         onClick={() => setForm((prev) => ({ ...prev, role: r.value }))}
                         className={`p-4 rounded-2xl cursor-pointer transition-all duration-200 text-center flex flex-col items-center justify-between min-h-[140px] relative ${
                           selected
-                            ? "border-2 border-[#059669] bg-[#F0FDF4] dark:bg-emerald-950/50 shadow-xs"
-                            : "border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/60 hover:border-emerald-300"
+                            ? "border-2 border-[#0EA5E9] bg-[#F0F9FF] dark:bg-sky-950/50 shadow-xs"
+                            : "border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/60 hover:border-sky-300"
                         }`}
                       >
-                        <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${selected ? "text-[#059669]" : "text-slate-600 dark:text-slate-400"}`}>
+                        <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${selected ? "text-[#0284C7]" : "text-slate-600 dark:text-slate-400"}`}>
                           <Icon size={26} />
                         </div>
 
@@ -543,7 +543,7 @@ export default function RegisterPage() {
                       value={form.organization_name}
                       onChange={handleChange}
                       placeholder="Enter organization or business name"
-                      className="h-11 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 text-xs font-bold text-slate-900 dark:text-white placeholder-slate-400 outline-none focus:border-[#059669] focus:ring-2 focus:ring-[#059669]/15"
+                      className="h-11 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 text-xs font-bold text-slate-900 dark:text-white placeholder-slate-400 outline-none focus:border-[#0EA5E9] focus:ring-2 focus:ring-[#0EA5E9]/15"
                     />
                   </div>
                 )}
@@ -559,7 +559,7 @@ export default function RegisterPage() {
                     value={form.full_name}
                     onChange={handleChange}
                     placeholder="Enter your full name"
-                    className="h-11 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 text-xs font-bold text-slate-900 dark:text-white placeholder-slate-400 outline-none focus:border-[#059669] focus:ring-2 focus:ring-[#059669]/15"
+                    className="h-11 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 text-xs font-bold text-slate-900 dark:text-white placeholder-slate-400 outline-none focus:border-[#0EA5E9] focus:ring-2 focus:ring-[#0EA5E9]/15"
                   />
                 </div>
 
@@ -575,7 +575,7 @@ export default function RegisterPage() {
                     value={form.email}
                     onChange={handleChange}
                     placeholder="Enter email address"
-                    className="h-11 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 text-xs font-bold text-slate-900 dark:text-white placeholder-slate-400 outline-none focus:border-[#059669] focus:ring-2 focus:ring-[#059669]/15"
+                    className="h-11 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 text-xs font-bold text-slate-900 dark:text-white placeholder-slate-400 outline-none focus:border-[#0EA5E9] focus:ring-2 focus:ring-[#0EA5E9]/15"
                   />
                 </div>
 
@@ -594,13 +594,13 @@ export default function RegisterPage() {
                       value={form.phone_number}
                       onChange={handleChange}
                       placeholder="Enter mobile number"
-                      className="h-11 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 text-xs font-bold text-slate-900 dark:text-white placeholder-slate-400 outline-none focus:border-[#059669] focus:ring-2 focus:ring-[#059669]/15"
+                      className="h-11 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 text-xs font-bold text-slate-900 dark:text-white placeholder-slate-400 outline-none focus:border-[#0EA5E9] focus:ring-2 focus:ring-[#0EA5E9]/15"
                     />
                     {form.role === "DELIVERY_PARTNER" && !form.is_otp_verified && (
                       <button
                         type="button"
                         onClick={handleSendOtp}
-                        className="rounded-xl bg-[#059669] px-3 text-xs font-bold text-white hover:bg-emerald-700 transition shrink-0 cursor-pointer"
+                        className="rounded-xl bg-[#0EA5E9] px-3 text-xs font-bold text-white hover:bg-sky-600 transition shrink-0 cursor-pointer"
                       >
                         {otpStep === "SENT" ? "Resend" : "OTP"}
                       </button>
@@ -619,7 +619,7 @@ export default function RegisterPage() {
                     value={form.address}
                     onChange={handleChange}
                     placeholder="Street, area, city, and pin code"
-                    className="h-11 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 text-xs font-bold text-slate-900 dark:text-white placeholder-slate-400 outline-none focus:border-[#059669] focus:ring-2 focus:ring-[#059669]/15"
+                    className="h-11 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 text-xs font-bold text-slate-900 dark:text-white placeholder-slate-400 outline-none focus:border-[#0EA5E9] focus:ring-2 focus:ring-[#0EA5E9]/15"
                   />
                 </div>
 
@@ -636,7 +636,7 @@ export default function RegisterPage() {
                       value={form.password}
                       onChange={handleChange}
                       placeholder="Enter password"
-                      className="h-11 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 pl-3.5 pr-10 text-xs font-bold text-slate-900 dark:text-white placeholder-slate-400 outline-none focus:border-[#059669] focus:ring-2 focus:ring-[#059669]/15"
+                      className="h-11 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 pl-3.5 pr-10 text-xs font-bold text-slate-900 dark:text-white placeholder-slate-400 outline-none focus:border-[#0EA5E9] focus:ring-2 focus:ring-[#0EA5E9]/15"
                     />
                     <button
                       type="button"
@@ -661,7 +661,7 @@ export default function RegisterPage() {
                       value={form.confirm_password}
                       onChange={handleChange}
                       placeholder="Confirm password"
-                      className="h-11 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 pl-3.5 pr-10 text-xs font-bold text-slate-900 dark:text-white placeholder-slate-400 outline-none focus:border-[#059669] focus:ring-2 focus:ring-[#059669]/15"
+                      className="h-11 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 pl-3.5 pr-10 text-xs font-bold text-slate-900 dark:text-white placeholder-slate-400 outline-none focus:border-[#0EA5E9] focus:ring-2 focus:ring-[#0EA5E9]/15"
                     />
                     <button
                       type="button"
@@ -677,9 +677,9 @@ export default function RegisterPage() {
 
               {/* IDENTITY & DOCUMENT VERIFICATION SUITE FOR DELIVERY & INDIVIDUAL */}
               {(form.role === "DELIVERY_PARTNER" || form.role === "INDIVIDUAL_DONOR") && (
-                <div className="rounded-2xl border border-emerald-200 dark:border-emerald-900/60 bg-emerald-50/50 dark:bg-emerald-950/40 p-4 space-y-4">
-                  <div className="flex items-center gap-2 border-b border-emerald-200/60 pb-2">
-                    <ShieldCheck className="text-[#059669]" size={20} />
+                <div className="rounded-2xl border border-sky-200 dark:border-sky-900/60 bg-sky-50/50 dark:bg-sky-950/40 p-4 space-y-4">
+                  <div className="flex items-center gap-2 border-b border-sky-200/60 pb-2">
+                    <ShieldCheck className="text-[#0EA5E9]" size={20} />
                     <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">
                       Identity & Document Verification
                     </h4>
@@ -754,18 +754,18 @@ export default function RegisterPage() {
                   required
                   checked={form.agree_terms}
                   onChange={handleChange}
-                  className="mt-0.5 h-4 w-4 rounded border-slate-300 text-[#059669] focus:ring-[#059669] cursor-pointer shrink-0"
+                  className="mt-0.5 h-4 w-4 rounded border-slate-300 text-[#0EA5E9] focus:ring-[#0EA5E9] cursor-pointer shrink-0"
                 />
                 <label htmlFor="agree_terms" className="text-[11px] font-medium text-slate-500 dark:text-slate-400 leading-normal cursor-pointer select-none">
-                  I agree to the <span className="text-[#059669] font-bold hover:underline">Terms & Conditions</span> and <span className="text-[#059669] font-bold hover:underline">Privacy Policy</span> of Aura Food. I certify that all identity details, driving records, and food transport information provided are authentic and valid.
+                  I agree to the <span className="text-[#0EA5E9] font-bold hover:underline">Terms & Conditions</span> and <span className="text-[#0EA5E9] font-bold hover:underline">Privacy Policy</span> of Aura Food. I certify that all identity details, driving records, and food transport information provided are authentic and valid.
                 </label>
               </div>
 
-              {/* FULL WIDTH GREEN BUTTON EXACT MATCH */}
+              {/* FULL WIDTH BUTTON */}
               <button
                 type="submit"
                 disabled={submitting}
-                className="h-12 w-full rounded-xl bg-[#059669] hover:bg-[#047857] text-white font-bold text-sm shadow-md transition-all duration-200 cursor-pointer disabled:opacity-60 flex items-center justify-center gap-2 mt-2"
+                className="h-12 w-full rounded-xl bg-[#0EA5E9] hover:bg-[#0284C7] text-white font-bold text-sm shadow-md transition-all duration-200 cursor-pointer disabled:opacity-60 flex items-center justify-center gap-2 mt-2"
               >
                 {submitting ? (
                   <span>Creating Account...</span>

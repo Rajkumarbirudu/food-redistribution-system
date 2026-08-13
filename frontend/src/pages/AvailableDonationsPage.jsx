@@ -71,7 +71,13 @@ export default function AvailableDonationsPage() {
   async function submitClaim(e) {
     if (e) e.preventDefault();
     try {
-      await api.post(`/donations/${claimId}/claim`, claimForm);
+      const payload = {
+        ...claimForm,
+        pickup_date: claimForm.pickup_date.includes("T")
+          ? claimForm.pickup_date
+          : `${claimForm.pickup_date}T12:00:00Z`,
+      };
+      await api.post(`/donations/${claimId}/claim`, payload);
       setShowClaimModal(false);
       loadDonations();
     } catch (error) {
@@ -110,7 +116,7 @@ export default function AvailableDonationsPage() {
               {t(donation.food_name)}
             </h3>
 
-            <p className="mt-2 text-sm font-semibold text-green-600">
+            <p className="mt-2 text-sm font-semibold text-sky-600">
               {donation.donor_organization_name}
             </p>
 
@@ -133,7 +139,7 @@ export default function AvailableDonationsPage() {
             <button
               type="button"
               onClick={() => openClaimModal(donation.id)}
-              className="mt-6 w-full rounded-2xl bg-green-600 px-4 py-3 font-semibold text-white hover:bg-green-700 transition"
+              className="mt-6 w-full rounded-2xl bg-sky-600 px-4 py-3 font-semibold text-white hover:bg-sky-700 transition"
             >
               {t("Claim Donation")}
             </button>
@@ -174,7 +180,7 @@ export default function AvailableDonationsPage() {
                         pickup_date: e.target.value,
                       })
                     }
-                    className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-800 focus:border-emerald-500 focus:bg-white focus:outline-none transition-all"
+                    className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-800 focus:border-sky-500 focus:bg-white focus:outline-none transition-all"
                   />
                 </div>
 
@@ -192,7 +198,7 @@ export default function AvailableDonationsPage() {
                         pickup_time: e.target.value,
                       })
                     }
-                    className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-800 focus:border-emerald-500 focus:bg-white focus:outline-none transition-all"
+                    className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-800 focus:border-sky-500 focus:bg-white focus:outline-none transition-all"
                   />
                 </div>
               </div>
@@ -212,7 +218,7 @@ export default function AvailableDonationsPage() {
                         driver_name: e.target.value,
                       })
                     }
-                    className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-800 focus:border-emerald-500 focus:bg-white focus:outline-none transition-all"
+                    className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-800 focus:border-sky-500 focus:bg-white focus:outline-none transition-all"
                   />
                 </div>
 
@@ -230,7 +236,7 @@ export default function AvailableDonationsPage() {
                         vehicle_number: e.target.value,
                       })
                     }
-                    className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-800 focus:border-emerald-500 focus:bg-white focus:outline-none transition-all"
+                    className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-800 focus:border-sky-500 focus:bg-white focus:outline-none transition-all"
                   />
                 </div>
               </div>
@@ -249,7 +255,7 @@ export default function AvailableDonationsPage() {
                       volunteer_name: e.target.value,
                     })
                   }
-                  className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-800 focus:border-emerald-500 focus:bg-white focus:outline-none transition-all"
+                  className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-800 focus:border-sky-500 focus:bg-white focus:outline-none transition-all"
                 />
               </div>
 
@@ -266,7 +272,7 @@ export default function AvailableDonationsPage() {
                       special_instructions: e.target.value,
                     })
                   }
-                  className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-800 focus:border-emerald-500 focus:bg-white focus:outline-none transition-all resize-none"
+                  className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-800 focus:border-sky-500 focus:bg-white focus:outline-none transition-all resize-none"
                 />
               </div>
 
@@ -280,7 +286,7 @@ export default function AvailableDonationsPage() {
                 </button>
                 <button
                   type="submit"
-                  className="rounded-2xl bg-emerald-600 px-5 py-3 text-sm font-black text-white hover:bg-emerald-700 transition-all"
+                  className="rounded-2xl bg-sky-600 px-5 py-3 text-sm font-black text-white hover:bg-sky-700 transition-all"
                 >
                   Confirm Claim
                 </button>

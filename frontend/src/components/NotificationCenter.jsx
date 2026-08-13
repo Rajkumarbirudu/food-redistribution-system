@@ -70,11 +70,11 @@ export default function NotificationCenter() {
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
         aria-label="Open notifications"
-        className="relative flex h-10 w-10 items-center justify-center rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 text-slate-700 dark:text-slate-200 hover:border-emerald-400 hover:text-emerald-600 transition shadow-xs cursor-pointer"
+        className="relative flex h-10 w-10 items-center justify-center rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 text-slate-700 dark:text-slate-200 hover:border-sky-400 hover:text-sky-600 transition shadow-xs cursor-pointer"
       >
         <Bell size={18} />
         {unreadCount > 0 && (
-          <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500 text-[10px] font-black text-white ring-2 ring-white dark:ring-slate-900 animate-pulse">
+          <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-sky-500 text-[10px] font-black text-white ring-2 ring-white dark:ring-slate-900 animate-pulse">
             {unreadCount}
           </span>
         )}
@@ -90,7 +90,7 @@ export default function NotificationCenter() {
                 {t("Notifications") || "Notifications"}
               </h4>
               {unreadCount > 0 && (
-                <span className="text-[10px] font-extrabold bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 px-2 py-0.5 rounded-full">
+                <span className="text-[10px] font-extrabold bg-sky-100 dark:bg-sky-950/80 text-sky-700 dark:text-sky-300 px-2 py-0.5 rounded-full">
                   {unreadCount} New
                 </span>
               )}
@@ -101,7 +101,7 @@ export default function NotificationCenter() {
                 <button
                   type="button"
                   onClick={markAllAsRead}
-                  className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:underline"
+                  className="text-[11px] font-bold text-sky-600 dark:text-sky-400 hover:underline"
                 >
                   Mark read
                 </button>
@@ -125,7 +125,7 @@ export default function NotificationCenter() {
                   className={`p-3 rounded-2xl border transition flex items-start gap-3 ${
                     n.read
                       ? "bg-slate-50/60 dark:bg-slate-800/40 border-slate-100 dark:border-slate-800"
-                      : "bg-emerald-50/40 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-800"
+                      : "bg-sky-50/40 dark:bg-sky-950/20 border-sky-200 dark:border-sky-800"
                   }`}
                 >
                   <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border ${n.color}`}>

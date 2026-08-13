@@ -39,16 +39,16 @@ function StatCard({ icon: Icon, title, value, description, onClick }) {
     <button
       type="button"
       onClick={onClick}
-      className="group w-full rounded-[28px] border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-6 text-left shadow-[0_18px_50px_rgba(15,118,110,0.08)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-emerald-300 dark:hover:border-emerald-700 hover:shadow-lg focus:outline-none cursor-pointer"
+      className="group w-full rounded-[28px] border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-6 text-left shadow-[0_18px_50px_rgba(14,165,233,0.06)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-sky-300 dark:hover:border-sky-700 hover:shadow-lg focus:outline-none cursor-pointer"
     >
       <div className="flex items-start justify-between">
-        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400">
+        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-50 dark:bg-sky-950/60 text-sky-700 dark:text-sky-400">
           <Icon size={23} />
         </div>
 
         <ArrowRight
           size={18}
-          className="text-slate-300 dark:text-slate-600 transition group-hover:translate-x-1 group-hover:text-emerald-600 dark:group-hover:text-emerald-400"
+          className="text-slate-300 dark:text-slate-600 transition group-hover:translate-x-1 group-hover:text-sky-600 dark:group-hover:text-sky-400"
         />
       </div>
 
@@ -245,11 +245,11 @@ export default function DonorDashboard() {
       </section>
 
       {/* ADDED REQUESTED ACTIVE DONATIONS SECTION */}
-      <section id="active-donations-section" className="mt-7 rounded-[30px] border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-7 shadow-[0_18px_50px_rgba(15,118,110,0.08)] backdrop-blur-xl space-y-4">
+      <section id="active-donations-section" className="mt-7 rounded-[30px] border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-7 shadow-[0_18px_50px_rgba(14,165,233,0.06)] backdrop-blur-xl space-y-4">
         <div className="flex items-center justify-between">
           <div>
             <h3 className="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
-              <Truck className="text-emerald-600 dark:text-emerald-400" size={20} /> {t("Ongoing Dispatches in Transit")} ({activeDonations.length})
+              <Truck className="text-sky-600 dark:text-sky-400" size={20} /> {t("Ongoing Dispatches in Transit")} ({activeDonations.length})
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold mt-0.5">
               {t("Track delivery partners currently on the way with your food items in real time.")}
@@ -257,7 +257,7 @@ export default function DonorDashboard() {
           </div>
           <button
             onClick={() => navigate("/donations")}
-            className="text-xs font-bold text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-300 flex items-center gap-1"
+            className="text-xs font-bold text-sky-700 dark:text-sky-400 hover:text-sky-800 dark:hover:text-sky-300 flex items-center gap-1"
           >
             {t("View All Dispatches")} <ArrowRight size={14} />
           </button>
@@ -270,7 +270,7 @@ export default function DonorDashboard() {
               className="flex flex-col sm:flex-row sm:items-center justify-between p-4 border border-slate-100 rounded-2xl bg-slate-50/70 gap-4"
             >
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-emerald-800 font-black text-base">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-100 text-sky-800 font-black text-base">
                   🍲
                 </div>
 
@@ -288,7 +288,7 @@ export default function DonorDashboard() {
                     ? "bg-amber-100 text-amber-800 animate-pulse"
                     : don.status === "CLAIMED"
                     ? "bg-blue-100 text-blue-800"
-                    : "bg-emerald-100 text-emerald-800"
+                    : "bg-sky-100 text-sky-800"
                 }`}>
                   {don.status === "IN_TRANSIT" 
                     ? `🚚 ${t("In Transit")}`
@@ -323,9 +323,9 @@ export default function DonorDashboard() {
         <button
           type="button"
           onClick={() => navigate("/inventory")}
-          className="group rounded-[28px] border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-6 text-left shadow-[0_18px_50px_rgba(15,118,110,0.08)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-emerald-300 dark:hover:border-emerald-700 hover:shadow-lg cursor-pointer"
+          className="group rounded-[28px] border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-6 text-left shadow-[0_18px_50px_rgba(14,165,233,0.06)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-sky-300 dark:hover:border-sky-700 hover:shadow-lg cursor-pointer"
         >
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-50 dark:bg-sky-950/60 text-sky-700 dark:text-sky-400">
             <PlusCircle size={23} />
           </div>
 
@@ -337,7 +337,7 @@ export default function DonorDashboard() {
             {t("Manually enter home food stock items with real product photos and snapshots.")}
           </p>
 
-          <div className="mt-5 flex items-center gap-2 text-sm font-black text-emerald-700 dark:text-emerald-400">
+          <div className="mt-5 flex items-center gap-2 text-sm font-black text-sky-700 dark:text-sky-400">
             {t("Manage inventory")}
             <ArrowRight size={16} />
           </div>
@@ -346,9 +346,9 @@ export default function DonorDashboard() {
         <button
           type="button"
           onClick={() => navigate("/inventory?openCsvUpload=true")}
-          className="group rounded-[28px] border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-6 text-left shadow-[0_18px_50px_rgba(15,118,110,0.08)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-emerald-300 dark:hover:border-emerald-700 hover:shadow-lg cursor-pointer"
+          className="group rounded-[28px] border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-6 text-left shadow-[0_18px_50px_rgba(14,165,233,0.06)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-sky-300 dark:hover:border-sky-700 hover:shadow-lg cursor-pointer"
         >
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-50 dark:bg-sky-950/60 text-sky-700 dark:text-sky-400">
             <Upload size={23} />
           </div>
 
@@ -360,7 +360,7 @@ export default function DonorDashboard() {
             {t("Upload multiple food inventory records using the Aura Food CSV bulk import feature.")}
           </p>
 
-          <div className="mt-5 flex items-center gap-2 text-sm font-black text-emerald-700 dark:text-emerald-400">
+          <div className="mt-5 flex items-center gap-2 text-sm font-black text-sky-700 dark:text-sky-400">
             {t("Open inventory")}
             <ArrowRight size={16} />
           </div>
@@ -369,9 +369,9 @@ export default function DonorDashboard() {
         <button
           type="button"
           onClick={() => navigate("/donor/barcode")}
-          className="group rounded-[28px] border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-6 text-left shadow-[0_18px_50px_rgba(15,118,110,0.08)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-emerald-300 dark:hover:border-emerald-700 hover:shadow-lg cursor-pointer"
+          className="group rounded-[28px] border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-6 text-left shadow-[0_18px_50px_rgba(14,165,233,0.06)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-sky-300 dark:hover:border-sky-700 hover:shadow-lg cursor-pointer"
         >
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-50 dark:bg-sky-950/60 text-sky-700 dark:text-sky-400">
             <ScanLine size={23} />
           </div>
 
@@ -383,7 +383,7 @@ export default function DonorDashboard() {
             {t("Scan packaged food barcodes using the device camera and continue to inventory registration.")}
           </p>
 
-          <div className="mt-5 flex items-center gap-2 text-sm font-black text-emerald-700 dark:text-emerald-400">
+          <div className="mt-5 flex items-center gap-2 text-sm font-black text-sky-700 dark:text-sky-400">
             {t("Open scanner")}
             <ArrowRight size={16} />
           </div>

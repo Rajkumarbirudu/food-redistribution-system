@@ -107,13 +107,13 @@ function MainStatCard({
     <button
       type="button"
       onClick={onClick}
-      className="group w-full rounded-[28px] border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-6 text-left shadow-[0_18px_50px_rgba(15,118,110,0.08)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-emerald-300 dark:hover:border-emerald-700 hover:shadow-xl cursor-pointer"
+      className="group w-full rounded-[28px] border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-6 text-left shadow-[0_18px_50px_rgba(14,165,233,0.06)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-sky-300 dark:hover:border-sky-700 hover:shadow-xl cursor-pointer"
     >
 
 
       <div className="flex items-start justify-between">
 
-        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300">
+        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-50 dark:bg-sky-950/80 text-sky-700 dark:text-sky-300">
 
           <Icon size={23} />
 
@@ -122,7 +122,7 @@ function MainStatCard({
 
         <ArrowRight
           size={18}
-          className="text-slate-300 dark:text-slate-600 transition group-hover:translate-x-1 group-hover:text-emerald-600 dark:group-hover:text-emerald-400"
+          className="text-slate-300 dark:text-slate-600 transition group-hover:translate-x-1 group-hover:text-sky-600 dark:group-hover:text-sky-400"
         />
 
       </div>
@@ -143,7 +143,7 @@ function MainStatCard({
       </p>
 
 
-      <div className="mt-5 flex items-center gap-2 text-sm font-black text-emerald-700 dark:text-emerald-400">
+      <div className="mt-5 flex items-center gap-2 text-sm font-black text-sky-700 dark:text-sky-400">
 
         View details
 
@@ -171,12 +171,12 @@ function OverviewCard({
     <button
       type="button"
       onClick={onClick}
-      className="group rounded-[24px] border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-5 text-left shadow-sm transition hover:-translate-y-1 hover:border-emerald-300 dark:hover:border-emerald-700 hover:shadow-md cursor-pointer"
+      className="group rounded-[24px] border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-5 text-left shadow-sm transition hover:-translate-y-1 hover:border-sky-300 dark:hover:border-sky-700 hover:shadow-md cursor-pointer"
     >
 
       <div className="flex items-center justify-between">
 
-        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300">
+        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-sky-50 dark:bg-sky-950/80 text-sky-700 dark:text-sky-300">
 
           <Icon size={21} />
 
@@ -185,7 +185,7 @@ function OverviewCard({
 
         <ArrowRight
           size={17}
-          className="text-slate-300 dark:text-slate-600 transition group-hover:translate-x-1 group-hover:text-emerald-600 dark:group-hover:text-emerald-400"
+          className="text-slate-300 dark:text-slate-600 transition group-hover:translate-x-1 group-hover:text-sky-600 dark:group-hover:text-sky-400"
         />
 
       </div>
@@ -709,18 +709,18 @@ export default function AdminDashboard() {
 
   if (authLoading) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[#f6fbf7]">
+      <main className="flex min-h-screen items-center justify-center bg-[#F8FCFF] dark:bg-[#020617]">
 
-        <div className="rounded-[30px] border border-emerald-100 bg-white px-10 py-8 text-center shadow-xl">
+        <div className="rounded-[30px] border border-sky-100 dark:border-sky-900 bg-white dark:bg-slate-900 px-10 py-8 text-center shadow-xl">
 
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-600 text-white">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-sky-600 text-white">
 
             <ShieldCheck size={27} />
 
           </div>
 
 
-          <p className="mt-5 font-black text-slate-800">
+          <p className="mt-5 font-black text-slate-800 dark:text-slate-200">
             Checking administrator session...
           </p>
 
@@ -966,13 +966,13 @@ export default function AdminDashboard() {
           PENDING APPROVALS
       ==================================================== */}
 
-      <section className="mt-7 overflow-hidden rounded-[30px] border border-amber-100 bg-gradient-to-r from-amber-50 via-white to-emerald-50 p-7 shadow-[0_18px_50px_rgba(15,118,110,0.07)]">
+      <section className="mt-7 overflow-hidden rounded-[30px] border border-sky-100 dark:border-sky-900/60 bg-gradient-to-r from-sky-50/80 via-white dark:via-slate-900 to-sky-50/80 dark:to-slate-900 p-7 shadow-[0_18px_50px_rgba(14,165,233,0.06)]">
 
         <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
 
           <div className="flex items-start gap-4">
 
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-amber-100 text-amber-700">
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-amber-100 dark:bg-amber-950/80 text-amber-700 dark:text-amber-300">
 
               <UserCheck size={26} />
 
@@ -981,12 +981,12 @@ export default function AdminDashboard() {
 
             <div>
 
-              <h2 className="text-xl font-black text-slate-900">
+              <h2 className="text-xl font-black text-slate-900 dark:text-white">
                 {t("Pending Account Approvals")}
               </h2>
 
 
-              <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500 dark:text-slate-400">
                 {t("Review Donor and NGO registrations before granting access to Aura Food.")}
               </p>
 
@@ -997,9 +997,9 @@ export default function AdminDashboard() {
 
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
 
-            <div className="rounded-2xl border border-amber-200 bg-white px-6 py-3 text-center">
+            <div className="rounded-2xl border border-amber-200 dark:border-amber-800 bg-white dark:bg-slate-800 px-6 py-3 text-center">
 
-              <p className="text-3xl font-black text-amber-700">
+              <p className="text-3xl font-black text-amber-700 dark:text-amber-400">
                 {
                   dashboardData
                     .pending_users
@@ -1023,7 +1023,7 @@ export default function AdminDashboard() {
                 )
               }
 
-              className="inline-flex items-center justify-center gap-2 rounded-2xl bg-slate-900 px-5 py-4 text-sm font-black text-white transition hover:bg-emerald-700"
+              className="inline-flex items-center justify-center gap-2 rounded-2xl bg-slate-900 dark:bg-sky-600 px-5 py-4 text-sm font-black text-white transition hover:bg-sky-700"
             >
 
               {t("Review registrations")}
@@ -1188,7 +1188,7 @@ export default function AdminDashboard() {
 
                       onClick={() => handleResolveComplaint(complaint.id)}
 
-                      className="rounded-xl bg-emerald-600 px-4 py-2 text-xs font-bold text-white shadow-md shadow-emerald-600/10 hover:bg-emerald-700 transition"
+                      className="rounded-xl bg-sky-600 px-4 py-2 text-xs font-bold text-white shadow-md shadow-sky-600/10 hover:bg-sky-700 transition"
 
                     >
 
@@ -1435,16 +1435,16 @@ export default function AdminDashboard() {
               )
             }
 
-            className="flex items-center justify-between rounded-2xl border border-white/80 bg-white/80 p-5 text-left shadow-sm transition hover:-translate-y-1 hover:border-emerald-200 hover:shadow-md"
+            className="flex items-center justify-between rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 p-5 text-left shadow-sm transition hover:-translate-y-1 hover:border-sky-200 dark:hover:border-sky-800 hover:shadow-md"
           >
 
             <div>
 
-              <p className="font-black text-slate-900">
+              <p className="font-black text-slate-900 dark:text-white">
                 {t("Manage Users")}
               </p>
 
-              <p className="mt-1 text-xs text-slate-500">
+              <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
                 {t("Accounts and approvals")}
               </p>
 
@@ -1453,7 +1453,7 @@ export default function AdminDashboard() {
 
             <Users
               size={22}
-              className="text-emerald-700"
+              className="text-sky-700 dark:text-sky-400"
             />
 
           </button>
@@ -1468,16 +1468,16 @@ export default function AdminDashboard() {
               )
             }
 
-            className="flex items-center justify-between rounded-2xl border border-white/80 bg-white/80 p-5 text-left shadow-sm transition hover:-translate-y-1 hover:border-emerald-200 hover:shadow-md"
+            className="flex items-center justify-between rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 p-5 text-left shadow-sm transition hover:-translate-y-1 hover:border-sky-200 dark:hover:border-sky-800 hover:shadow-md"
           >
 
             <div>
 
-              <p className="font-black text-slate-900">
+              <p className="font-black text-slate-900 dark:text-white">
                 {t("Organizations")}
               </p>
 
-              <p className="mt-1 text-xs text-slate-500">
+              <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
                 {t("Donors and NGOs")}
               </p>
 
@@ -1486,7 +1486,7 @@ export default function AdminDashboard() {
 
             <Building2
               size={22}
-              className="text-emerald-700"
+              className="text-sky-700 dark:text-sky-400"
             />
 
           </button>
@@ -1501,16 +1501,16 @@ export default function AdminDashboard() {
               )
             }
 
-            className="flex items-center justify-between rounded-2xl border border-white/80 bg-white/80 p-5 text-left shadow-sm transition hover:-translate-y-1 hover:border-emerald-200 hover:shadow-md"
+            className="flex items-center justify-between rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 p-5 text-left shadow-sm transition hover:-translate-y-1 hover:border-sky-200 dark:hover:border-sky-800 hover:shadow-md"
           >
 
             <div>
 
-              <p className="font-black text-slate-900">
+              <p className="font-black text-slate-900 dark:text-white">
                 {t("Inventory")}
               </p>
 
-              <p className="mt-1 text-xs text-slate-500">
+              <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
                 {t("Platform food records")}
               </p>
 
@@ -1519,7 +1519,7 @@ export default function AdminDashboard() {
 
             <PackageOpen
               size={22}
-              className="text-emerald-700"
+              className="text-sky-700 dark:text-sky-400"
             />
 
           </button>
@@ -1534,16 +1534,16 @@ export default function AdminDashboard() {
               )
             }
 
-            className="flex items-center justify-between rounded-2xl border border-white/80 bg-white/80 p-5 text-left shadow-sm transition hover:-translate-y-1 hover:border-emerald-200 hover:shadow-md"
+            className="flex items-center justify-between rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 p-5 text-left shadow-sm transition hover:-translate-y-1 hover:border-sky-200 dark:hover:border-sky-800 hover:shadow-md"
           >
 
             <div>
 
-              <p className="font-black text-slate-900">
+              <p className="font-black text-slate-900 dark:text-white">
                 {t("Donations")}
               </p>
 
-              <p className="mt-1 text-xs text-slate-500">
+              <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
                 {t("Redistribution activity")}
               </p>
 
@@ -1552,7 +1552,7 @@ export default function AdminDashboard() {
 
             <Gift
               size={22}
-              className="text-emerald-700"
+              className="text-sky-700 dark:text-sky-400"
             />
 
           </button>

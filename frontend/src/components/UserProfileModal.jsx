@@ -94,13 +94,13 @@ export default function UserProfileModal({ isOpen, onClose }) {
         {/* MODAL HEADER */}
         <div className="flex items-center justify-between border-b border-slate-100 pb-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-600 font-black text-white text-lg shadow-md shadow-emerald-600/20">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-600 font-black text-white text-lg shadow-md shadow-sky-600/20">
               {initials}
             </div>
             <div>
               <h2 className="text-lg font-black text-slate-900 flex items-center gap-2">
                 {t("User Profile & Account")}
-                <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-[10px] font-black text-emerald-800 uppercase">
+                <span className="rounded-full bg-sky-100 px-2.5 py-0.5 text-[10px] font-black text-sky-800 uppercase">
                   {t(user.role?.replace("_", " "))}
                 </span>
               </h2>
@@ -127,7 +127,7 @@ export default function UserProfileModal({ isOpen, onClose }) {
             <FileCheck size={15} />
             <span>{t("PAN Card Verified ✓")}</span>
           </div>
-          <div className="flex items-center gap-1.5 text-blue-700 bg-blue-50 px-3 py-1 rounded-xl border border-blue-200">
+          <div className="flex items-center gap-1.5 text-sky-700 bg-sky-50 px-3 py-1 rounded-xl border border-sky-200">
             <CheckCircle2 size={15} />
             <span>{t("Mobile OTP Security ✓")}</span>
           </div>
@@ -164,7 +164,7 @@ export default function UserProfileModal({ isOpen, onClose }) {
                   required
                   value={formData.full_name}
                   onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
-                  className="w-full rounded-xl border border-slate-200 bg-white pl-10 pr-3.5 py-2.5 text-xs font-bold text-slate-800 focus:border-emerald-500 focus:outline-none"
+                  className="w-full rounded-xl border border-slate-200 bg-white pl-10 pr-3.5 py-2.5 text-xs font-bold text-slate-800 focus:border-sky-500 focus:outline-none"
                 />
               </div>
             </div>
@@ -180,7 +180,7 @@ export default function UserProfileModal({ isOpen, onClose }) {
                   type="text"
                   value={formData.organization_name}
                   onChange={(e) => setFormData({ ...formData, organization_name: e.target.value })}
-                  className="w-full rounded-xl border border-slate-200 bg-white pl-10 pr-3.5 py-2.5 text-xs font-bold text-slate-800 focus:border-emerald-500 focus:outline-none"
+                  className="w-full rounded-xl border border-slate-200 bg-white pl-10 pr-3.5 py-2.5 text-xs font-bold text-slate-800 focus:border-sky-500 focus:outline-none"
                 />
               </div>
             </div>
@@ -216,7 +216,7 @@ export default function UserProfileModal({ isOpen, onClose }) {
                   required
                   value={formData.phone_number}
                   onChange={(e) => setFormData({ ...formData, phone_number: e.target.value })}
-                  className="w-full rounded-xl border border-slate-200 bg-white pl-10 pr-3.5 py-2.5 text-xs font-bold text-slate-800 focus:border-emerald-500 focus:outline-none"
+                  className="w-full rounded-xl border border-slate-200 bg-white pl-10 pr-3.5 py-2.5 text-xs font-bold text-slate-800 focus:border-sky-500 focus:outline-none"
                 />
               </div>
             </div>
@@ -234,7 +234,7 @@ export default function UserProfileModal({ isOpen, onClose }) {
                 required
                 value={formData.address}
                 onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                className="w-full rounded-xl border border-slate-200 bg-white pl-10 pr-3.5 py-2.5 text-xs font-bold text-slate-800 focus:border-emerald-500 focus:outline-none"
+                className="w-full rounded-xl border border-slate-200 bg-white pl-10 pr-3.5 py-2.5 text-xs font-bold text-slate-800 focus:border-sky-500 focus:outline-none"
               />
             </div>
           </div>
@@ -252,7 +252,7 @@ export default function UserProfileModal({ isOpen, onClose }) {
                   placeholder="XXXX-XXXX-XXXX"
                   value={formData.aadhar_number}
                   onChange={(e) => setFormData({ ...formData, aadhar_number: e.target.value })}
-                  className="w-full rounded-xl border border-slate-200 bg-white pl-10 pr-3.5 py-2.5 text-xs font-bold text-slate-800 focus:border-emerald-500 focus:outline-none"
+                  className="w-full rounded-xl border border-slate-200 bg-white pl-10 pr-3.5 py-2.5 text-xs font-bold text-slate-800 focus:border-sky-500 focus:outline-none"
                 />
               </div>
             </div>
@@ -269,7 +269,7 @@ export default function UserProfileModal({ isOpen, onClose }) {
                   placeholder="ABCDE1234F"
                   value={formData.pan_number}
                   onChange={(e) => setFormData({ ...formData, pan_number: e.target.value })}
-                  className="w-full rounded-xl border border-slate-200 bg-white pl-10 pr-3.5 py-2.5 text-xs font-bold text-slate-800 focus:border-emerald-500 focus:outline-none"
+                  className="w-full rounded-xl border border-slate-200 bg-white pl-10 pr-3.5 py-2.5 text-xs font-bold text-slate-800 focus:border-sky-500 focus:outline-none"
                 />
               </div>
             </div>
@@ -288,7 +288,7 @@ export default function UserProfileModal({ isOpen, onClose }) {
             <button
               type="submit"
               disabled={saving}
-              className="rounded-xl bg-emerald-600 px-5 py-2.5 text-xs font-black text-white hover:bg-emerald-700 transition shadow-md shadow-emerald-600/20 flex items-center gap-2 disabled:opacity-50"
+              className="rounded-xl bg-sky-600 px-5 py-2.5 text-xs font-black text-white hover:bg-sky-700 transition shadow-md shadow-sky-600/20 flex items-center gap-2 disabled:opacity-50"
             >
               <Save size={16} />
               <span>{saving ? t("Saving...") || "Saving..." : t("Save Profile") || "Save Profile"}</span>

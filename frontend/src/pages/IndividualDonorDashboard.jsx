@@ -45,19 +45,19 @@ function StatCard({ icon: Icon, title, value, description, onClick, active, colo
     <button
       type="button"
       onClick={onClick}
-      className={`group w-full rounded-[28px] border p-6 text-left shadow-[0_18px_50px_rgba(15,118,110,0.08)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:shadow-lg focus:outline-none cursor-pointer ${
+      className={`group w-full rounded-[28px] border p-6 text-left shadow-[0_18px_50px_rgba(14,165,233,0.06)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:shadow-lg focus:outline-none cursor-pointer ${
         active
-          ? "border-emerald-500 bg-emerald-50/90 dark:bg-emerald-950/60 dark:border-emerald-600 ring-2 ring-emerald-200 dark:ring-emerald-800"
-          : "border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 hover:border-emerald-300 dark:hover:border-emerald-700"
+          ? "border-sky-500 bg-sky-50/90 dark:bg-sky-950/60 dark:border-sky-600 ring-2 ring-sky-200 dark:ring-sky-800"
+          : "border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 hover:border-sky-300 dark:hover:border-sky-700"
       }`}
     >
       <div className="flex items-start justify-between">
-        <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${colorClass || "bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400"} group-hover:scale-105 transition`}>
+        <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${colorClass || "bg-sky-50 dark:bg-sky-950/60 text-sky-700 dark:text-sky-400"} group-hover:scale-105 transition`}>
           <Icon size={23} />
         </div>
         <ArrowRight
           size={18}
-          className="text-slate-300 dark:text-slate-600 transition group-hover:translate-x-1 group-hover:text-emerald-600 dark:group-hover:text-emerald-400"
+          className="text-slate-300 dark:text-slate-600 transition group-hover:translate-x-1 group-hover:text-sky-600 dark:group-hover:text-sky-400"
         />
       </div>
 
@@ -771,7 +771,7 @@ export default function IndividualDonorDashboard() {
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
-                <Truck className="text-emerald-600 dark:text-emerald-400" size={20} /> {t("Ongoing Dispatches in Transit")} ({activeDonations.length})
+                <Truck className="text-sky-600 dark:text-sky-400" size={20} /> {t("Ongoing Dispatches in Transit")} ({activeDonations.length})
               </h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold mt-0.5">
                 {t("Track delivery partners currently on the way with your food items in real time.")}
@@ -779,7 +779,7 @@ export default function IndividualDonorDashboard() {
             </div>
             <button
               onClick={() => navigate("/donations")}
-              className="text-xs font-bold text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-300 flex items-center gap-1"
+              className="text-xs font-bold text-sky-700 dark:text-sky-400 hover:text-sky-800 dark:hover:text-sky-300 flex items-center gap-1"
             >
               {t("View All Dispatches")} <ArrowRight size={14} />
             </button>
@@ -808,7 +808,7 @@ export default function IndividualDonorDashboard() {
                       </div>
                     </button>
                   ) : (
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 font-black text-lg">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-sky-100 dark:bg-sky-950/80 text-sky-800 dark:text-sky-300 font-black text-lg">
                       🍲
                     </div>
                   )}
@@ -831,7 +831,7 @@ export default function IndividualDonorDashboard() {
                         ? "bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 animate-pulse border border-amber-200 dark:border-amber-800"
                         : don.status === "ASSIGNED"
                         ? "bg-blue-100 dark:bg-blue-950/80 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800"
-                        : "bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800"
+                        : "bg-sky-100 dark:bg-sky-950/80 text-sky-800 dark:text-sky-300 border border-sky-200 dark:border-sky-800"
                     }`}>
                       {don.status === "CLAIMED"
                         ? t("Claimed by NGO — Scheduled for Pickup")
@@ -870,7 +870,7 @@ export default function IndividualDonorDashboard() {
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-4">
             <div>
               <h2 className="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
-                <PackageOpen className="text-emerald-600 dark:text-emerald-400" size={20} /> {t("Individual Home Pantry Inventory")}
+                <PackageOpen className="text-sky-600 dark:text-sky-400" size={20} /> {t("Individual Home Pantry Inventory")}
               </h2>
               <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold mt-0.5">
                 {t("Manually enter home food stock items with real product photos and snapshots.")}
@@ -882,7 +882,7 @@ export default function IndividualDonorDashboard() {
               <button
                 type="button"
                 onClick={handleExportCSV}
-                className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/80 px-4 py-2.5 text-xs font-black text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900/80 transition flex items-center gap-2 cursor-pointer"
+                className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50 dark:bg-sky-950/80 px-4 py-2.5 text-xs font-black text-sky-700 dark:text-sky-300 hover:bg-sky-100 dark:hover:bg-sky-900/80 transition flex items-center gap-2 cursor-pointer"
               >
                 <Download size={16} /> {t("Export CSV")}
               </button>
@@ -893,7 +893,7 @@ export default function IndividualDonorDashboard() {
                   setError("");
                   setShowAddInventoryModal(true);
                 }}
-                className="rounded-xl bg-emerald-600 px-4 py-2.5 text-xs font-extrabold text-white hover:bg-emerald-700 transition shadow-xs flex items-center gap-2"
+                className="rounded-xl bg-sky-600 px-4 py-2.5 text-xs font-extrabold text-white hover:bg-sky-700 transition shadow-xs flex items-center gap-2"
               >
                 <Plus size={16} /> {t("Add Inventory + Photo")}
               </button>
@@ -920,7 +920,7 @@ export default function IndividualDonorDashboard() {
                 placeholder={t("Search food item by name or category...")}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 pl-10 pr-4 py-2.5 text-xs font-semibold text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:border-emerald-500 focus:outline-none"
+                className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 pl-10 pr-4 py-2.5 text-xs font-semibold text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:border-sky-500 focus:outline-none"
               />
             </div>
 
@@ -929,7 +929,7 @@ export default function IndividualDonorDashboard() {
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-xs font-semibold text-slate-800 dark:text-slate-100 focus:border-emerald-500 focus:outline-none"
+                className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-xs font-semibold text-slate-800 dark:text-slate-100 focus:border-sky-500 focus:outline-none"
               >
                 <option value="ALL">{t("All Expiry Statuses")}</option>
                 <option value="FRESH">{t("Fresh Items Only")}</option>
@@ -1038,7 +1038,7 @@ export default function IndividualDonorDashboard() {
                         <button
                           type="button"
                           onClick={() => handleDirectDonate(item)}
-                          className="rounded-xl bg-emerald-600 px-3 py-1.5 text-xs font-bold text-white hover:bg-emerald-700 transition shadow-xs inline-flex items-center gap-1 cursor-pointer"
+                          className="rounded-xl bg-sky-600 px-3 py-1.5 text-xs font-bold text-white hover:bg-sky-700 transition shadow-xs inline-flex items-center gap-1 cursor-pointer"
                         >
                           <HeartHandshake size={13} /> {t("Donate")}
                         </button>
@@ -1083,7 +1083,7 @@ export default function IndividualDonorDashboard() {
             <div className="w-full max-w-lg rounded-3xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 md:p-8 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
               <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-100 dark:bg-sky-950/80 text-sky-700 dark:text-sky-300">
                     <Plus size={20} />
                   </div>
                   <div>
@@ -1106,7 +1106,7 @@ export default function IndividualDonorDashboard() {
                   </label>
                   <div className="flex items-center gap-3">
                     {inventoryPhoto ? (
-                      <div className="relative h-16 w-16 shrink-0 rounded-2xl border border-emerald-300 overflow-hidden shadow-xs">
+                      <div className="relative h-16 w-16 shrink-0 rounded-2xl border border-sky-300 overflow-hidden shadow-xs">
                         <img src={inventoryPhoto} alt="Product" className="h-full w-full object-cover" />
                         <button
                           type="button"
@@ -1124,7 +1124,7 @@ export default function IndividualDonorDashboard() {
 
                     <div className="flex gap-2 flex-1">
                       <label className="cursor-pointer rounded-xl bg-white border border-slate-200 px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition flex items-center gap-1.5 shadow-xs">
-                        <UploadCloud size={15} className="text-emerald-600" />
+                        <UploadCloud size={15} className="text-sky-600" />
                         <span>Upload Photo</span>
                         <input type="file" accept="image/*" className="hidden" onChange={(e) => handlePhotoSelect(e, "ADD_INV")} />
                       </label>
@@ -1132,7 +1132,7 @@ export default function IndividualDonorDashboard() {
                       <button
                         type="button"
                         onClick={() => startCamera("ADD_INV")}
-                        className="rounded-xl border border-emerald-300 bg-emerald-50 px-3 py-2 text-xs font-bold text-emerald-800 hover:bg-emerald-100 transition flex items-center gap-1.5 shadow-xs"
+                        className="rounded-xl border border-sky-300 bg-sky-50 px-3 py-2 text-xs font-bold text-sky-800 hover:bg-sky-100 transition flex items-center gap-1.5 shadow-xs"
                       >
                         <Camera size={15} />
                         <span>Take Snapshot</span>
@@ -1182,7 +1182,7 @@ export default function IndividualDonorDashboard() {
                         return next;
                       });
                     }}
-                    className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold focus:border-emerald-500 focus:outline-none"
+                    className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold focus:border-sky-500 focus:outline-none"
                   />
                 </div>
 
@@ -1214,7 +1214,7 @@ export default function IndividualDonorDashboard() {
                           return next;
                         });
                       }}
-                      className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold focus:border-emerald-500 focus:outline-none"
+                      className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold focus:border-sky-500 focus:outline-none"
                     >
                       {categories.map(c => (
                         <option key={c.id || c.name} value={c.id || c.name}>
@@ -1236,12 +1236,12 @@ export default function IndividualDonorDashboard() {
                         step="any"
                         value={inventoryForm.quantity}
                         onChange={(e) => setInventoryForm(p => ({ ...p, quantity: e.target.value }))}
-                        className="w-full rounded-xl border border-slate-200 px-3 py-3 font-semibold focus:border-emerald-500 focus:outline-none"
+                        className="w-full rounded-xl border border-slate-200 px-3 py-3 font-semibold focus:border-sky-500 focus:outline-none"
                       />
                       <select
                         value={inventoryForm.unit}
                         onChange={(e) => setInventoryForm(p => ({ ...p, unit: e.target.value }))}
-                        className="rounded-xl border border-slate-200 px-2 py-3 font-semibold focus:border-emerald-500 focus:outline-none"
+                        className="rounded-xl border border-slate-200 px-2 py-3 font-semibold focus:border-sky-500 focus:outline-none"
                       >
                         <option value="KG">KG</option>
                         <option value="GRAM">GRAM</option>
@@ -1284,7 +1284,7 @@ export default function IndividualDonorDashboard() {
                     type="datetime-local"
                     value={inventoryForm.expiry_date}
                     onChange={(e) => setInventoryForm(p => ({ ...p, expiry_date: e.target.value }))}
-                    className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold focus:border-emerald-500 focus:outline-none"
+                    className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold focus:border-sky-500 focus:outline-none"
                   />
                 </div>
 
@@ -1296,7 +1296,7 @@ export default function IndividualDonorDashboard() {
                     <select
                       value={inventoryForm.storage_requirement}
                       onChange={(e) => setInventoryForm(p => ({ ...p, storage_requirement: e.target.value }))}
-                      className="w-full rounded-xl border border-slate-200 px-3 py-3 font-semibold focus:border-emerald-500 focus:outline-none"
+                      className="w-full rounded-xl border border-slate-200 px-3 py-3 font-semibold focus:border-sky-500 focus:outline-none"
                     >
                       <option value="ROOM_TEMPERATURE">Room Temperature</option>
                       <option value="REFRIGERATED">Refrigerated</option>
@@ -1311,7 +1311,7 @@ export default function IndividualDonorDashboard() {
                     <select
                       value={inventoryForm.perishability_risk}
                       onChange={(e) => setInventoryForm(p => ({ ...p, perishability_risk: e.target.value }))}
-                      className="w-full rounded-xl border border-slate-200 px-3 py-3 font-semibold focus:border-emerald-500 focus:outline-none"
+                      className="w-full rounded-xl border border-slate-200 px-3 py-3 font-semibold focus:border-sky-500 focus:outline-none"
                     >
                       <option value="LOW">Low</option>
                       <option value="MEDIUM">Medium</option>
@@ -1329,7 +1329,7 @@ export default function IndividualDonorDashboard() {
                     placeholder="e.g. Keep sealed in airtight container"
                     value={inventoryForm.notes}
                     onChange={(e) => setInventoryForm(p => ({ ...p, notes: e.target.value }))}
-                    className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold focus:border-emerald-500 focus:outline-none"
+                    className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold focus:border-sky-500 focus:outline-none"
                   />
                 </div>
 
@@ -1344,7 +1344,7 @@ export default function IndividualDonorDashboard() {
                   <button
                     type="submit"
                     disabled={submittingInventory}
-                    className="rounded-xl bg-emerald-600 px-6 py-3 font-bold text-white shadow-lg shadow-emerald-600/20 hover:bg-emerald-700 transition"
+                    className="rounded-xl bg-sky-600 px-6 py-3 font-bold text-white shadow-lg shadow-sky-600/20 hover:bg-sky-700 transition"
                   >
                     {submittingInventory ? "Saving..." : "Add to Pantry"}
                   </button>
@@ -1510,7 +1510,7 @@ export default function IndividualDonorDashboard() {
             <div className="w-full max-w-lg rounded-3xl border border-slate-100 bg-white p-6 md:p-8 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
               <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-100 text-sky-700">
                     <Utensils size={20} />
                   </div>
                   <div>
@@ -1533,7 +1533,7 @@ export default function IndividualDonorDashboard() {
                   </label>
                   <div className="flex items-center gap-3">
                     {donationPhoto ? (
-                      <div className="relative h-16 w-16 shrink-0 rounded-2xl border border-emerald-300 overflow-hidden shadow-xs">
+                      <div className="relative h-16 w-16 shrink-0 rounded-2xl border border-sky-300 overflow-hidden shadow-xs">
                         <img src={donationPhoto} alt="Product" className="h-full w-full object-cover" />
                         <button
                           type="button"
@@ -1551,7 +1551,7 @@ export default function IndividualDonorDashboard() {
 
                     <div className="flex gap-2 flex-1">
                       <label className="cursor-pointer rounded-xl bg-white border border-slate-200 px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition flex items-center gap-1.5 shadow-xs">
-                        <UploadCloud size={15} className="text-emerald-600" />
+                        <UploadCloud size={15} className="text-sky-600" />
                         <span>Upload Photo</span>
                         <input type="file" accept="image/*" className="hidden" onChange={(e) => handlePhotoSelect(e, "DONATE")} />
                       </label>
@@ -1559,7 +1559,7 @@ export default function IndividualDonorDashboard() {
                       <button
                         type="button"
                         onClick={() => startCamera("DONATE")}
-                        className="rounded-xl border border-emerald-300 bg-emerald-50 px-3 py-2 text-xs font-bold text-emerald-800 hover:bg-emerald-100 transition flex items-center gap-1.5 shadow-xs"
+                        className="rounded-xl border border-sky-300 bg-sky-50 px-3 py-2 text-xs font-bold text-sky-800 hover:bg-sky-100 transition flex items-center gap-1.5 shadow-xs"
                       >
                         <Camera size={15} />
                         <span>Take Snapshot</span>
@@ -1578,7 +1578,7 @@ export default function IndividualDonorDashboard() {
                     placeholder="e.g. Home-Cooked Veg Meal (8 Portions) / Fresh Bread & Milk"
                     value={donationForm.name}
                     onChange={(e) => setDonationForm(p => ({ ...p, name: e.target.value }))}
-                    className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold focus:border-emerald-500 focus:outline-none"
+                    className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold focus:border-sky-500 focus:outline-none"
                   />
                 </div>
 
@@ -1591,7 +1591,7 @@ export default function IndividualDonorDashboard() {
                       required
                       value={donationForm.category_id}
                       onChange={(e) => setDonationForm(p => ({ ...p, category_id: e.target.value }))}
-                      className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold focus:border-emerald-500 focus:outline-none"
+                      className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold focus:border-sky-500 focus:outline-none"
                     >
                       {categories.map(c => (
                         <option key={c.id} value={c.id}>{c.name}</option>
@@ -1610,12 +1610,12 @@ export default function IndividualDonorDashboard() {
                         min="1"
                         value={donationForm.quantity}
                         onChange={(e) => setDonationForm(p => ({ ...p, quantity: e.target.value }))}
-                        className="w-full rounded-xl border border-slate-200 px-3 py-3 font-semibold focus:border-emerald-500 focus:outline-none"
+                        className="w-full rounded-xl border border-slate-200 px-3 py-3 font-semibold focus:border-sky-500 focus:outline-none"
                       />
                       <select
                         value={donationForm.unit}
                         onChange={(e) => setDonationForm(p => ({ ...p, unit: e.target.value }))}
-                        className="rounded-xl border border-slate-200 px-2 py-3 font-semibold focus:border-emerald-500 focus:outline-none"
+                        className="rounded-xl border border-slate-200 px-2 py-3 font-semibold focus:border-sky-500 focus:outline-none"
                       >
                         <option value="SERVING">Servings</option>
                         <option value="PACKET">Packets</option>
@@ -1635,7 +1635,7 @@ export default function IndividualDonorDashboard() {
                     type="datetime-local"
                     value={donationForm.expiry_date}
                     onChange={(e) => setDonationForm(p => ({ ...p, expiry_date: e.target.value }))}
-                    className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold focus:border-emerald-500 focus:outline-none"
+                    className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold focus:border-sky-500 focus:outline-none"
                   />
                 </div>
 
@@ -1648,7 +1648,7 @@ export default function IndividualDonorDashboard() {
                     value={donationForm.pickup_address}
                     onChange={(e) => setDonationForm(p => ({ ...p, pickup_address: e.target.value }))}
                     placeholder="Enter home pickup address..."
-                    className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold focus:border-emerald-500 focus:outline-none resize-none"
+                    className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold focus:border-sky-500 focus:outline-none resize-none"
                   />
                 </div>
 
@@ -1661,7 +1661,7 @@ export default function IndividualDonorDashboard() {
                     placeholder="e.g. Keep refrigerated, freshly prepared 2 hours ago"
                     value={donationForm.notes}
                     onChange={(e) => setDonationForm(p => ({ ...p, notes: e.target.value }))}
-                    className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold focus:border-emerald-500 focus:outline-none"
+                    className="w-full rounded-xl border border-slate-200 px-4 py-3 font-semibold focus:border-sky-500 focus:outline-none"
                   />
                 </div>
 
@@ -1676,7 +1676,7 @@ export default function IndividualDonorDashboard() {
                   <button
                     type="submit"
                     disabled={submittingDonation}
-                    className="rounded-xl bg-emerald-600 px-6 py-3 font-bold text-white shadow-lg shadow-emerald-600/20 hover:bg-emerald-700 transition"
+                    className="rounded-xl bg-sky-600 px-6 py-3 font-bold text-white shadow-lg shadow-sky-600/20 hover:bg-sky-700 transition"
                   >
                     {submittingDonation ? "Publishing..." : "Publish Home Food Donation"}
                   </button>
@@ -1706,7 +1706,7 @@ export default function IndividualDonorDashboard() {
           <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-sm">
             <div className="w-full max-w-md rounded-3xl bg-slate-900 p-6 text-white space-y-4 text-center">
               <h3 className="text-base font-bold flex items-center justify-center gap-2">
-                <Camera size={20} className="text-emerald-400 animate-pulse" /> Take Food Product Snapshot
+                <Camera size={20} className="text-sky-400 animate-pulse" /> Take Food Product Snapshot
               </h3>
               
               <div className="relative overflow-hidden rounded-2xl bg-black border border-slate-800 aspect-video">
@@ -1724,7 +1724,7 @@ export default function IndividualDonorDashboard() {
                 <button
                   type="button"
                   onClick={captureCameraPhoto}
-                  className="rounded-xl bg-emerald-500 px-6 py-2.5 text-xs font-extrabold text-slate-950 hover:bg-emerald-400"
+                  className="rounded-xl bg-sky-500 px-6 py-2.5 text-xs font-extrabold text-white hover:bg-sky-400"
                 >
                   Capture Photo
                 </button>

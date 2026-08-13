@@ -39,7 +39,7 @@ export default function AiExpiryPredictorCard({
     : "from-emerald-500 to-teal-500";
 
   return (
-    <div className="rounded-[24px] bg-white/95 dark:bg-slate-900/95 border border-slate-200/90 dark:border-slate-800 p-6 shadow-[0_15px_45px_rgba(15,23,42,0.04)] backdrop-blur-2xl relative overflow-hidden flex flex-col justify-between group hover:border-emerald-400 dark:hover:border-emerald-600 transition-all duration-300">
+    <div className="rounded-[24px] bg-white/95 dark:bg-slate-900/95 border border-slate-200/90 dark:border-slate-800 p-6 shadow-[0_15px_45px_rgba(15,23,42,0.04)] backdrop-blur-2xl relative overflow-hidden flex flex-col justify-between group hover:border-sky-400 dark:hover:border-sky-600 transition-all duration-300">
       
       {/* HEADER ROW */}
       <div className="flex items-center justify-between">
@@ -149,7 +149,7 @@ export default function AiExpiryPredictorCard({
 
           <button
             onClick={() => onActionClick && onActionClick("MARKDOWN", itemName)}
-            className="flex items-center justify-center gap-1.5 p-2 rounded-xl bg-emerald-600 text-white text-[11px] font-black hover:bg-emerald-700 transition shadow-xs cursor-pointer"
+            className="flex items-center justify-center gap-1.5 p-2 rounded-xl bg-sky-600 text-white text-[11px] font-black hover:bg-sky-700 transition shadow-xs cursor-pointer"
           >
             <Tag size={13} />
             <span>Markdown 50%</span>

@@ -16,6 +16,8 @@ import {
   Search,
   X,
   XCircle,
+  Barcode,
+  TrendingUp,
 } from "lucide-react";
 
 import api from "../api/axios";
@@ -136,21 +138,29 @@ export default function DonationsPage() {
 
   const navigation = [
     {
-      label: "Dashboard",
+      label: t("Dashboard"),
       path: "/donor",
       icon: LayoutDashboard,
     },
-
     {
-      label: "Inventory",
+      label: t("Inventory"),
       path: "/inventory",
       icon: PackageOpen,
     },
-
     {
-      label: "Donations",
+      label: t("Barcode Scanner"),
+      path: "/donor/barcode",
+      icon: Barcode,
+    },
+    {
+      label: t("Donations"),
       path: "/donations",
       icon: Gift,
+    },
+    {
+      label: t("Sales"),
+      path: "/sales",
+      icon: TrendingUp,
     },
   ];
 
@@ -381,9 +391,9 @@ export default function DonationsPage() {
           ]) => (
             <div
               key={title}
-              className="rounded-[28px] border border-white/80 bg-white/80 p-6 shadow-[0_18px_50px_rgba(15,118,110,0.08)] backdrop-blur-xl"
+              className="rounded-[28px] border border-white/80 bg-white/80 p-6 shadow-[0_18px_50px_rgba(14,165,233,0.06)] backdrop-blur-xl"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-50 text-sky-700">
                 <Icon size={22} />
               </div>
 
@@ -400,7 +410,7 @@ export default function DonationsPage() {
       </section>
 
 
-      <section className="mt-7 rounded-[30px] border border-white/80 bg-white/80 p-6 shadow-[0_18px_55px_rgba(15,118,110,0.08)] backdrop-blur-xl">
+      <section className="mt-7 rounded-[30px] border border-white/80 bg-white/80 p-6 shadow-[0_18px_55px_rgba(14,165,233,0.06)] backdrop-blur-xl">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <h3 className="text-2xl font-black text-slate-900">
@@ -428,7 +438,7 @@ export default function DonationsPage() {
                   )
                 }
                 placeholder="Search donations..."
-                className="h-12 rounded-xl border border-slate-200 bg-white pl-11 pr-4 outline-none focus:border-emerald-500"
+                className="h-12 rounded-xl border border-slate-200 bg-white pl-11 pr-4 outline-none focus:border-sky-500"
               />
             </div>
 
@@ -454,7 +464,7 @@ export default function DonationsPage() {
             <div className="flex min-h-[280px] flex-col items-center justify-center">
               <Loader2
                 size={34}
-                className="animate-spin text-emerald-700"
+                className="animate-spin text-sky-700"
               />
 
               <p className="mt-4 font-bold text-slate-500">
@@ -465,7 +475,7 @@ export default function DonationsPage() {
             <div className="flex min-h-[280px] flex-col items-center justify-center text-center">
               <Gift
                 size={40}
-                className="text-emerald-600"
+                className="text-sky-600"
               />
 
               <h4 className="mt-4 text-xl font-black text-slate-900">
@@ -479,8 +489,8 @@ export default function DonationsPage() {
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full min-w-[1000px]">
-                <thead className="bg-emerald-50/70">
-                  <tr className="text-left text-xs font-black uppercase text-emerald-800">
+                <thead className="bg-sky-50/70">
+                  <tr className="text-left text-xs font-black uppercase text-sky-800">
                     <th className="px-5 py-4">
                       Food
                     </th>

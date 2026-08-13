@@ -16,6 +16,7 @@ import {
   LayoutDashboard,
   PackageOpen,
   Barcode,
+  Boxes,
 } from "lucide-react";
 
 export default function SalesPage() {
@@ -96,6 +97,7 @@ export default function SalesPage() {
   }, [validDonations]);
 
   const uniqueProductsCount = Object.keys(productStatsMap).length;
+  const totalUniqueProducts = uniqueProductsCount;
 
   // Ranked product list (Sorted by count desc, then totalQty desc)
   const rankedProducts = useMemo(() => {
@@ -218,7 +220,7 @@ export default function SalesPage() {
           <button
             type="button"
             onClick={loadDonations}
-            className="mt-5 inline-flex items-center gap-2 rounded-2xl bg-emerald-600 px-5 py-2.5 text-sm font-bold text-white shadow-md hover:bg-emerald-700 transition cursor-pointer"
+            className="mt-5 inline-flex items-center gap-2 rounded-2xl bg-sky-600 px-5 py-2.5 text-sm font-bold text-white shadow-md hover:bg-sky-700 transition cursor-pointer"
           >
             <RefreshCw size={16} />
             Refresh Data
@@ -238,7 +240,7 @@ export default function SalesPage() {
                 {loading ? "..." : totalRecords.toLocaleString()}
               </h3>
             </div>
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-100 dark:bg-sky-950/80 text-sky-600 dark:text-sky-400">
               <Gift size={24} />
             </div>
           </div>
@@ -262,7 +264,7 @@ export default function SalesPage() {
             </div>
           </div>
           <p className="mt-3 text-xs font-semibold text-slate-500 dark:text-slate-400">
-            Sum of all items & servings donated
+            Cumulative units redistributed
           </p>
         </div>
 
@@ -273,15 +275,15 @@ export default function SalesPage() {
                 Unique Products Donated
               </p>
               <h3 className="mt-2 text-3xl font-black tracking-tight text-slate-900 dark:text-white">
-                {loading ? "..." : uniqueProductsCount.toLocaleString()}
+                {loading ? "..." : totalUniqueProducts.toLocaleString()}
               </h3>
             </div>
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-100 dark:bg-sky-950/80 text-sky-600 dark:text-sky-400">
-              <Layers size={24} />
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-100 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400">
+              <Boxes size={24} />
             </div>
           </div>
           <p className="mt-3 text-xs font-semibold text-slate-500 dark:text-slate-400">
-            Distinct food products in surplus logs
+            Distinct catalog items
           </p>
         </div>
       </section>
@@ -330,21 +332,21 @@ export default function SalesPage() {
         )}
       </section>
 
-      {/* ANALYTICS SECTION 2 & 4: MOST DONATED PRODUCTS RANKING & TOP 5 */}
+      {/* ANALYTICS SECTION 2: TOP DONATED PRODUCTS (RANKED LIST + TOP 5 + LEAST 5) */}
       <div className="grid gap-6 lg:grid-cols-2 mb-8">
         {/* RANKED LIST */}
         <section className="rounded-3xl border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-6 shadow-sm backdrop-blur-xl">
           <div className="flex items-center justify-between mb-5">
             <div>
               <h3 className="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
-                <ShoppingBag size={20} className="text-emerald-600" />
+                <ShoppingBag size={20} className="text-sky-600" />
                 Most Donated Products Ranking
               </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400">
                 Products ranked by donation history frequency
               </p>
             </div>
-            <span className="text-xs font-extrabold bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 px-3 py-1 rounded-full">
+            <span className="text-xs font-extrabold bg-sky-100 dark:bg-sky-950 text-sky-700 dark:text-sky-300 px-3 py-1 rounded-full">
               Ranked List
             </span>
           </div>
@@ -358,10 +360,10 @@ export default function SalesPage() {
               {rankedProducts.map((prod, idx) => (
                 <div
                   key={prod.name}
-                  className="flex items-center justify-between rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-800/40 p-3.5 transition hover:bg-emerald-50/40 dark:hover:bg-slate-800/80"
+                  className="flex items-center justify-between rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-800/40 p-3.5 transition hover:bg-sky-50/40 dark:hover:bg-slate-800/80"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-emerald-600 font-black text-xs text-white shadow-xs">
+                    <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-600 font-black text-xs text-white shadow-xs">
                       #{idx + 1}
                     </span>
                     <div>
@@ -374,7 +376,7 @@ export default function SalesPage() {
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-sm font-black text-emerald-700 dark:text-emerald-400">
+                    <p className="text-sm font-black text-sky-700 dark:text-sky-400">
                       {prod.totalQty.toLocaleString()} {prod.unit}
                     </p>
                     <p className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">
@@ -429,7 +431,7 @@ export default function SalesPage() {
                         {prod.name}
                       </td>
                       <td className="py-3 px-2 text-center">
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 font-bold">
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-sky-100 dark:bg-sky-950/80 text-sky-800 dark:text-sky-300 font-bold">
                           {prod.count}
                         </span>
                       </td>
@@ -496,14 +498,14 @@ export default function SalesPage() {
                           {prod.count}
                         </span>
                       </td>
-                      <td className="py-3.5 px-3 text-right font-black text-emerald-700 dark:text-emerald-400">
+                      <td className="py-3.5 px-3 text-right font-black text-sky-700 dark:text-sky-400">
                         {prod.totalQty.toLocaleString()} {prod.unit}
                       </td>
                       <td className="py-3.5 px-3 text-right">
                         <div className="flex items-center justify-end gap-2">
                           <div className="w-16 bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden">
                             <div
-                              className="bg-emerald-500 h-2 rounded-full"
+                              className="bg-sky-500 h-2 rounded-full"
                               style={{ width: `${Math.min(sharePercent, 100)}%` }}
                             />
                           </div>
@@ -557,13 +559,13 @@ export default function SalesPage() {
                         <span className="text-slate-700 dark:text-slate-200 truncate">
                           {prod.name}
                         </span>
-                        <span className="text-emerald-600 dark:text-emerald-400">
+                        <span className="text-sky-600 dark:text-sky-400">
                           {prod.count} donations
                         </span>
                       </div>
                       <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2.5 overflow-hidden">
                         <div
-                          className="bg-gradient-to-r from-emerald-500 to-teal-500 h-2.5 rounded-full transition-all duration-500"
+                          className="bg-gradient-to-r from-sky-500 to-cyan-500 h-2.5 rounded-full transition-all duration-500"
                           style={{ width: `${pct}%` }}
                         />
                       </div>
@@ -587,7 +589,7 @@ export default function SalesPage() {
                         {prod.count}
                       </span>
                       <div
-                        className="w-full bg-gradient-to-t from-teal-600 to-emerald-400 rounded-t-xl transition-all duration-500 shadow-xs"
+                        className="w-full bg-gradient-to-t from-sky-600 to-sky-400 rounded-t-xl transition-all duration-500 shadow-xs"
                         style={{ height: `${pct}%` }}
                       />
                       <span className="text-[9px] font-bold text-slate-500 truncate w-full text-center">

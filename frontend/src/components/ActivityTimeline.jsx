@@ -19,7 +19,7 @@ export default function ActivityTimeline() {
       details: "50 Servings Cooked Meals published for local NGOs",
       time: "12m ago",
       icon: PlusCircle,
-      color: "bg-emerald-50 text-emerald-600 dark:bg-emerald-950/60 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800",
+      color: "bg-sky-50 text-sky-600 dark:bg-sky-950/60 dark:text-sky-400 border-sky-200 dark:border-sky-800",
     },
     {
       type: "NGO_CLAIMED",
@@ -35,7 +35,7 @@ export default function ActivityTimeline() {
       display: "Rahul V. en route to pick up food items",
       time: "1h ago",
       icon: Truck,
-      color: "bg-sky-50 text-sky-600 dark:bg-sky-950/60 dark:text-sky-400 border-sky-200 dark:border-sky-800",
+      color: "bg-cyan-50 text-cyan-600 dark:bg-cyan-950/60 dark:text-cyan-400 border-cyan-200 dark:border-cyan-800",
     },
     {
       type: "BARCODE_SCANNED",
@@ -53,7 +53,7 @@ export default function ActivityTimeline() {
         <h3 className="text-base font-black text-slate-900 dark:text-white">
           {t("Recent Activity Timeline") || "Recent Activity Timeline"}
         </h3>
-        <span className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
+        <span className="text-[11px] font-bold text-sky-600 dark:text-sky-400">
           Live Feed
         </span>
       </div>

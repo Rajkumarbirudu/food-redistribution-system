@@ -312,7 +312,7 @@ export default function AdminDetailsPage() {
 
           <div>
 
-            <h1 className="text-2xl font-black text-emerald-700">
+            <h1 className="text-2xl font-black text-sky-700">
               Aura Food
             </h1>
 
@@ -344,7 +344,7 @@ export default function AdminDetailsPage() {
 
         <div>
 
-          <p className="text-sm font-black uppercase tracking-widest text-emerald-700">
+          <p className="text-sm font-black uppercase tracking-widest text-sky-700">
             {t("Administration")}
           </p>
 
@@ -378,7 +378,7 @@ export default function AdminDetailsPage() {
                   )
                 }
                 placeholder={`${t("Search")} ${t(page.title).toLowerCase()}...`}
-                className="w-full rounded-2xl border border-slate-200 py-3 pl-11 pr-4 outline-none focus:border-emerald-500 sm:w-96"
+                className="w-full rounded-2xl border border-slate-200 py-3 pl-11 pr-4 outline-none focus:border-sky-500 sm:w-96"
               />
 
             </div>
@@ -405,7 +405,7 @@ export default function AdminDetailsPage() {
 
 
           {location.search && (
-            <div className="mt-5 rounded-2xl bg-emerald-50 p-3 text-sm font-bold text-emerald-800">
+            <div className="mt-5 rounded-2xl bg-sky-50 p-3 text-sm font-bold text-sky-800">
               {t("Filter:")}{" "}
               {decodeURIComponent(
                 location.search.substring(1)
@@ -540,7 +540,7 @@ export default function AdminDetailsPage() {
                                     className={
                                       column ===
                                       "public_id"
-                                        ? "whitespace-nowrap font-black text-emerald-700"
+                                        ? "whitespace-nowrap font-black text-sky-700"
                                         : "max-w-[300px] truncate"
                                     }
                                   >
@@ -578,7 +578,7 @@ export default function AdminDetailsPage() {
                                         "approve"
                                       );
                                     }}
-                                    className="flex items-center gap-1 rounded-xl bg-emerald-600 px-3 py-2 text-xs font-black text-white disabled:opacity-50"
+                                    className="flex items-center gap-1 rounded-xl bg-sky-600 px-3 py-2 text-xs font-black text-white disabled:opacity-50 hover:bg-sky-700 transition"
                                   >
                                     <Check size={15} />
 
@@ -738,7 +738,7 @@ export default function AdminDetailsPage() {
                       </div>
                       <div>
                         <p className="text-slate-500 font-bold text-[10px]">Wallet Balance</p>
-                        <p className="mt-1 font-extrabold text-emerald-700 bg-white rounded-lg px-2.5 py-1 border border-emerald-200/60 w-fit">
+                        <p className="mt-1 font-extrabold text-sky-700 bg-white rounded-lg px-2.5 py-1 border border-sky-200/60 w-fit">
                           ₹{(selectedUserForDetail.wallet_balance ?? 1000.0).toFixed(2)}
                         </p>
                       </div>
@@ -784,7 +784,7 @@ export default function AdminDetailsPage() {
                       type="button"
                       disabled={actionUserId === (selectedUserForDetail.id || selectedUserForDetail._id)}
                       onClick={() => handleModalApproval(selectedUserForDetail.id || selectedUserForDetail._id, "approve")}
-                      className="rounded-xl bg-emerald-600 px-4 py-2.5 text-xs font-bold text-white shadow-lg shadow-emerald-600/10 hover:bg-emerald-700 transition flex items-center gap-1"
+                      className="rounded-xl bg-sky-600 px-4 py-2.5 text-xs font-bold text-white shadow-lg shadow-sky-600/10 hover:bg-sky-700 transition flex items-center gap-1"
                     >
                       <Check size={15} /> Approve Account
                     </button>

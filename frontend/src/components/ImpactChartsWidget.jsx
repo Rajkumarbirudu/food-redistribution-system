@@ -30,7 +30,7 @@ export default function ImpactChartsWidget() {
       {/* HEADER WITH TABS */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 border border-sky-200 dark:border-sky-800">
             <BarChart3 size={20} />
           </div>
           <div>
@@ -72,7 +72,7 @@ export default function ImpactChartsWidget() {
         <div className="space-y-4">
           <div className="flex items-center justify-between text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">
             <span className="flex items-center gap-1.5">
-              <TrendingUp size={14} className="text-emerald-500" />
+              <TrendingUp size={14} className="text-sky-500" />
               Surplus Food Rescued (kg)
             </span>
             <span className="text-emerald-600 dark:text-emerald-400 font-extrabold">+42% Growth vs Last Quarter</span>
@@ -90,7 +90,7 @@ export default function ImpactChartsWidget() {
 
                   <div className="w-full bg-slate-100 dark:bg-slate-800/80 rounded-t-xl h-full flex items-end p-1">
                     <div
-                      className="w-full bg-gradient-to-t from-emerald-600 to-teal-400 group-hover:from-emerald-500 group-hover:to-teal-300 rounded-t-lg transition-all duration-700 ease-out"
+                      className="w-full bg-gradient-to-t from-sky-600 to-sky-400 group-hover:from-sky-500 group-hover:to-sky-300 rounded-t-lg transition-all duration-700 ease-out"
                       style={{ height: `${heightPercent}%` }}
                     />
                   </div>

@@ -297,13 +297,13 @@ export default function DeliveryTrackingPage() {
         </div>
 
         {/* AURA FOOD LIVE ETA BANNER */}
-        <div className="rounded-3xl border border-emerald-200 bg-gradient-to-r from-emerald-900 via-teal-800 to-slate-900 p-6 text-white shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div className="rounded-3xl border border-sky-200 bg-gradient-to-r from-sky-900 via-sky-800 to-slate-900 p-6 text-white shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div className="flex items-center gap-4">
-            <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 backdrop-blur-md shrink-0">
+            <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-sky-500/20 border border-sky-400/40 text-sky-300 backdrop-blur-md shrink-0">
               <Bike size={30} className="animate-bounce" />
             </div>
             <div>
-              <span className="text-[10px] font-black uppercase tracking-wider text-emerald-300 flex items-center gap-1">
+              <span className="text-[10px] font-black uppercase tracking-wider text-sky-300 flex items-center gap-1">
                 <Zap size={12} fill="currentColor" /> Aura Food Express Live Fleet Radar
               </span>
               <h1 className="text-xl font-black text-white mt-0.5">
@@ -311,15 +311,15 @@ export default function DeliveryTrackingPage() {
                   ? "Food Delivered & Handed Over! 🎉"
                   : `Delivery Partner is on the way with ${donation.food_name}`}
               </h1>
-              <p className="text-xs text-emerald-100 mt-1 font-semibold">
-                Transporter: <strong className="text-white">{donation.delivery_boy_name || donation.driver_name || "Assigned Driver"}</strong> • Vehicle: <span className="font-mono text-emerald-200">{donation.vehicle_number || "TS-09-EQ-4523"}</span>
+              <p className="text-xs text-sky-100 mt-1 font-semibold">
+                Transporter: <strong className="text-white">{donation.delivery_boy_name || donation.driver_name || "Assigned Driver"}</strong> • Vehicle: <span className="font-mono text-sky-200">{donation.vehicle_number || "TS-09-EQ-4523"}</span>
               </p>
             </div>
           </div>
 
           <div className="rounded-2xl bg-white/10 border border-white/20 p-3 text-center backdrop-blur-md shrink-0 self-stretch sm:self-auto flex md:flex-col items-center justify-between md:justify-center gap-2">
-            <span className="text-[10px] font-extrabold uppercase text-emerald-200">Estimated Arrival</span>
-            <div className="text-2xl font-black text-emerald-300 tracking-tight">
+            <span className="text-[10px] font-extrabold uppercase text-sky-200">Estimated Arrival</span>
+            <div className="text-2xl font-black text-sky-300 tracking-tight">
               {donation.status === "COMPLETED" ? "Arrived ✓" : `${etaMins} mins ETA`}
             </div>
             <span className="text-[10px] font-bold text-white/80">{remainingDist} km remaining</span>
@@ -328,7 +328,7 @@ export default function DeliveryTrackingPage() {
 
         {/* FEEDBACK NOTICES */}
         {success && (
-          <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-xs font-bold text-emerald-800 flex items-center gap-2">
+          <div className="rounded-2xl border border-sky-200 bg-sky-50 p-4 text-xs font-bold text-sky-800 flex items-center gap-2">
             <CheckCircle size={16} /> {success}
           </div>
         )}
@@ -340,7 +340,7 @@ export default function DeliveryTrackingPage() {
             <div className="rounded-3xl border border-slate-100 bg-white p-5 shadow-xs space-y-3">
               <div className="flex items-center justify-between">
                 <h2 className="text-xs font-black uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-                  <Compass size={16} className="text-emerald-600" /> Interactive OpenStreetMap Live Telemetry
+                  <Compass size={16} className="text-sky-600" /> Interactive OpenStreetMap Live Telemetry
                 </h2>
                 <span className={`px-3 py-1 rounded-full text-xs font-black ${
                   donation.status === "COMPLETED" ? "bg-emerald-100 text-emerald-800" : "bg-amber-100 text-amber-800 animate-pulse"
@@ -369,7 +369,7 @@ export default function DeliveryTrackingPage() {
                 </div>
                 <div className="p-2 bg-slate-50 rounded-xl">
                   <p className="text-[9px] font-bold uppercase text-slate-400">GPS Accuracy</p>
-                  <p className="font-black text-emerald-700 mt-0.5">±5m (High Precision)</p>
+                  <p className="font-black text-sky-700 mt-0.5">±5m (High Precision)</p>
                 </div>
               </div>
             </div>
@@ -412,9 +412,9 @@ export default function DeliveryTrackingPage() {
             <div className="rounded-3xl border border-slate-100 bg-white p-5 shadow-xs space-y-4">
               <div className="flex items-center justify-between">
                 <h3 className="text-xs font-black uppercase tracking-wider text-slate-900 flex items-center gap-2">
-                  <Building size={16} className="text-emerald-600" /> Nearby Places & Landmarks Passed
+                  <Building size={16} className="text-sky-600" /> Nearby Places & Landmarks Passed
                 </h3>
-                <span className="text-[10px] font-extrabold bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full">Live Route</span>
+                <span className="text-[10px] font-extrabold bg-sky-50 text-sky-700 px-2 py-0.5 rounded-full">Live Route</span>
               </div>
 
               <div className="space-y-3 relative before:absolute before:left-3.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-200">
@@ -452,7 +452,7 @@ export default function DeliveryTrackingPage() {
               <h3 className="text-xs font-black uppercase tracking-wider text-slate-400">Transporter Profile</h3>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-800 font-black text-base">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-sky-100 text-sky-800 font-black text-base">
                     {(donation.delivery_boy_name || donation.driver_name || "D")[0]}
                   </div>
                   <div>
@@ -463,14 +463,14 @@ export default function DeliveryTrackingPage() {
 
                 <a
                   href={`tel:${donation.phone_number || "9876543210"}`}
-                  className="rounded-2xl bg-emerald-600 px-4 py-2 text-xs font-bold text-white hover:bg-emerald-700 transition flex items-center gap-1.5 shadow-xs"
+                  className="rounded-2xl bg-sky-600 px-4 py-2 text-xs font-bold text-white hover:bg-sky-700 transition flex items-center gap-1.5 shadow-xs"
                 >
                   <Phone size={14} /> Call
                 </a>
               </div>
 
-              <div className="rounded-2xl border border-emerald-100 bg-emerald-50/60 p-3 text-[11px] font-semibold text-emerald-800 flex items-center gap-2">
-                <ShieldAlert size={16} className="text-emerald-700 shrink-0" />
+              <div className="rounded-2xl border border-sky-100 bg-sky-50/60 p-3 text-[11px] font-semibold text-sky-800 flex items-center gap-2">
+                <ShieldAlert size={16} className="text-sky-700 shrink-0" />
                 <span>Insulated food transport compartment verified for temperature compliance.</span>
               </div>
             </div>

@@ -22,9 +22,9 @@ export default function GlobalSearch() {
       <button
         type="button"
         onClick={() => setIsOpen(true)}
-        className="hidden md:flex items-center gap-3 h-10 px-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 text-slate-500 dark:text-slate-400 hover:border-emerald-400 transition cursor-pointer text-xs font-semibold w-48 lg:w-64"
+        className="hidden md:flex items-center gap-3 h-10 px-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 text-slate-500 dark:text-slate-400 hover:border-sky-400 transition cursor-pointer text-xs font-semibold w-48 lg:w-64"
       >
-        <Search size={15} className="text-emerald-600 dark:text-emerald-400" />
+        <Search size={15} className="text-sky-600 dark:text-sky-400" />
         <span className="flex-1 text-left truncate">{t("Search platform...") || "Search platform..."}</span>
         <kbd className="hidden lg:inline-block px-1.5 py-0.5 text-[10px] font-black bg-slate-100 dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700 text-slate-400">
           ⌘K
@@ -38,7 +38,7 @@ export default function GlobalSearch() {
             
             {/* SEARCH INPUT */}
             <div className="flex items-center gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
-              <Search size={20} className="text-emerald-600 dark:text-emerald-400" />
+              <Search size={20} className="text-sky-600 dark:text-sky-400" />
               <input
                 type="text"
                 autoFocus
@@ -68,10 +68,10 @@ export default function GlobalSearch() {
                         setIsOpen(false);
                         navigate(r.path);
                       }}
-                      className="flex items-center justify-between p-3 rounded-2xl hover:bg-emerald-50 dark:hover:bg-emerald-950/40 transition cursor-pointer group border border-transparent hover:border-emerald-200 dark:hover:border-emerald-800"
+                      className="flex items-center justify-between p-3 rounded-2xl hover:bg-sky-50 dark:hover:bg-sky-950/40 transition cursor-pointer group border border-transparent hover:border-sky-200 dark:hover:border-sky-800"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 group-hover:bg-emerald-600 group-hover:text-white transition">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 group-hover:bg-sky-600 group-hover:text-white transition">
                           <IconComp size={16} />
                         </div>
                         <div>
@@ -79,7 +79,7 @@ export default function GlobalSearch() {
                           <span className="text-[10px] font-bold text-slate-400 uppercase">{r.type}</span>
                         </div>
                       </div>
-                      <ArrowRight size={15} className="opacity-0 group-hover:opacity-100 text-emerald-600 transition" />
+                      <ArrowRight size={15} className="opacity-0 group-hover:opacity-100 text-sky-600 transition" />
                     </div>
                   );
                 })

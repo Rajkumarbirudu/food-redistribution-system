@@ -396,8 +396,8 @@ export default function CsvUploadModal({
                 }
                 className={`relative flex flex-col items-center justify-center rounded-[24px] border-2 border-dashed py-12 px-6 text-center cursor-pointer transition duration-300 ${
                   dragActive
-                    ? "border-emerald-500 bg-emerald-50/50 scale-[0.99]"
-                    : "border-slate-200 bg-slate-50/50 hover:border-emerald-400 hover:bg-slate-50"
+                    ? "border-sky-500 bg-sky-50/50 scale-[0.99]"
+                    : "border-slate-200 bg-slate-50/50 hover:border-sky-400 hover:bg-slate-50"
                 }`}
               >
                 <input
@@ -409,7 +409,7 @@ export default function CsvUploadModal({
                 />
 
 
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-700 mb-4 transition duration-300 group-hover:scale-110">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-sky-100 text-sky-700 mb-4 transition duration-300 group-hover:scale-110">
                   <Upload size={26} />
                 </div>
 
@@ -539,7 +539,7 @@ export default function CsvUploadModal({
                                 className={`p-1.5 rounded transition ${
                                   copiedId ===
                                   category.id
-                                    ? "text-emerald-700 bg-emerald-50"
+                                    ? "text-sky-700 bg-sky-50"
                                     : "text-slate-400 hover:text-slate-700 hover:bg-slate-200"
                                 }`}
                               >
@@ -581,7 +581,7 @@ export default function CsvUploadModal({
             <div className="flex min-h-[220px] flex-col items-center justify-center text-center">
               <Loader2
                 size={40}
-                className="animate-spin text-emerald-700 mb-4"
+                className="animate-spin text-sky-600 mb-4"
               />
 
               <p className="font-black text-slate-800">
@@ -631,13 +631,13 @@ export default function CsvUploadModal({
 
 
                   <div className="rounded-2xl bg-slate-50 border border-slate-100 p-4 text-center">
-                    <p className="text-xs font-bold text-slate-500 uppercase">
-                      Total
+                    <p className="text-xs font-bold text-slate-400 uppercase">
+                      Total Rows
                     </p>
 
-                    <p className="mt-1 text-2xl font-black text-slate-950">
+                    <p className="mt-1 text-2xl font-black text-slate-900">
                       {
-                        uploadResult.total_processed
+                        uploadResult.total_rows
                       }
                     </p>
                   </div>
@@ -738,7 +738,7 @@ export default function CsvUploadModal({
                 status === "uploading"
               }
               onClick={handleUpload}
-              className="h-11 rounded-xl bg-emerald-700 px-6 font-black text-sm text-white hover:bg-emerald-800 transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="h-11 rounded-xl bg-sky-600 px-6 font-black text-sm text-white hover:bg-sky-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Start Import
             </button>

@@ -36,7 +36,7 @@ export default function MobileBottomNav() {
               <button
                 key={i}
                 onClick={() => navigate(item.path)}
-                className="-mt-5 flex h-13 w-13 items-center justify-center rounded-2xl bg-emerald-600 text-white shadow-lg shadow-emerald-600/40 ring-4 ring-white dark:ring-slate-900 active:scale-90 transition cursor-pointer"
+                className="-mt-5 flex h-13 w-13 items-center justify-center rounded-2xl bg-sky-600 text-white shadow-lg shadow-sky-600/40 ring-4 ring-white dark:ring-slate-900 active:scale-90 transition cursor-pointer"
               >
                 <IconComp size={22} />
               </button>
@@ -49,7 +49,7 @@ export default function MobileBottomNav() {
               onClick={() => navigate(item.path)}
               className={`flex flex-col items-center gap-0.5 py-1 px-3 rounded-xl transition cursor-pointer ${
                 isActive
-                  ? "text-emerald-600 dark:text-emerald-400 font-black"
+                  ? "text-sky-600 dark:text-sky-400 font-black"
                   : "text-slate-500 dark:text-slate-400 font-semibold hover:text-slate-900"
               }`}
             >

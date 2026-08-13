@@ -20,12 +20,12 @@ export default function AiFoodHealthScore({
   const theme = getScoreColor(score);
 
   return (
-    <div className="rounded-[24px] bg-white/95 dark:bg-slate-900/95 border border-slate-200/90 dark:border-slate-800 p-6 shadow-[0_15px_45px_rgba(15,23,42,0.04)] backdrop-blur-2xl relative overflow-hidden flex flex-col justify-between group hover:border-emerald-400 dark:hover:border-emerald-600 transition-all duration-300">
+    <div className="rounded-[24px] bg-white/95 dark:bg-slate-900/95 border border-slate-200/90 dark:border-slate-800 p-6 shadow-[0_15px_45px_rgba(15,23,42,0.04)] backdrop-blur-2xl relative overflow-hidden flex flex-col justify-between group hover:border-sky-400 dark:hover:border-sky-600 transition-all duration-300">
       
       {/* HEADER */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 border border-sky-200 dark:border-sky-800">
             <ShieldCheck size={18} />
           </div>
           <div>

@@ -141,7 +141,7 @@ export default function NgoClaimsPage() {
               {/* Delivery Partner Pickup Details Box */}
               <div className="mt-4 rounded-2xl border border-slate-100 bg-[#f8fafc] p-4 space-y-2">
                 <h4 className="text-xs font-extrabold text-slate-800 flex items-center gap-1.5">
-                  <Truck size={16} className="text-green-600" /> Delivery Partner Pickup Details
+                  <Truck size={16} className="text-sky-600" /> Delivery Partner Pickup Details
                 </h4>
 
                 <div className="grid grid-cols-2 gap-2 text-xs">
@@ -198,7 +198,7 @@ export default function NgoClaimsPage() {
                 <button
                   type="button"
                   onClick={() => completeDonation(donation.id || donation._id)}
-                  className="w-full rounded-2xl bg-green-600 px-4 py-3 text-xs font-extrabold text-white hover:bg-green-700 transition shadow-md shadow-green-600/10"
+                  className="w-full rounded-2xl bg-sky-600 px-4 py-3 text-xs font-extrabold text-white hover:bg-sky-700 transition shadow-md shadow-sky-600/10"
                 >
                   Mark as Received & Completed
                 </button>

@@ -8,8 +8,8 @@ export default function QuickActionCenter() {
 
   const actions = [
     { label: "Scan Barcode", path: "/donor/barcode", icon: Barcode, color: "bg-purple-600 hover:bg-purple-700" },
-    { label: "Add Inventory", path: "/donor/inventory", icon: PackagePlus, color: "bg-emerald-600 hover:bg-emerald-700" },
-    { label: "Create Donation", path: "/donor/donations", icon: HeartHandshake, color: "bg-sky-600 hover:bg-sky-700" },
+    { label: "Add Inventory", path: "/donor/inventory", icon: PackagePlus, color: "bg-sky-600 hover:bg-sky-700" },
+    { label: "Create Donation", path: "/donor/donations", icon: HeartHandshake, color: "bg-blue-600 hover:bg-blue-700" },
     { label: "Export CSV", path: "/inventory", icon: FileSpreadsheet, color: "bg-amber-600 hover:bg-amber-700" },
   ];
 
@@ -42,7 +42,7 @@ export default function QuickActionCenter() {
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
         aria-label="Quick Actions"
-        className={`flex h-13 w-13 items-center justify-center rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white shadow-2xl shadow-emerald-600/40 hover:scale-105 transition-all duration-300 cursor-pointer ${
+        className={`flex h-13 w-13 items-center justify-center rounded-2xl bg-gradient-to-tr from-sky-600 to-sky-500 text-white shadow-2xl shadow-sky-600/40 hover:scale-105 transition-all duration-300 cursor-pointer ${
           isOpen ? "rotate-45" : ""
         }`}
       >

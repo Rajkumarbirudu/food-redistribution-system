@@ -54,25 +54,25 @@ export default function DashboardSelectPage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#F7F9F8] text-slate-900 font-sans overflow-x-hidden selection:bg-emerald-500 selection:text-white flex flex-col justify-between">
+    <div className="relative min-h-screen bg-[#F8FCFF] text-slate-900 font-sans overflow-x-hidden selection:bg-sky-500 selection:text-white flex flex-col justify-between">
       
       {/* BACKGROUND DECORATIVE GLOWS */}
-      <div className="pointer-events-none absolute -left-40 -top-40 h-[550px] w-[550px] rounded-full bg-emerald-200/35 blur-3xl" />
-      <div className="pointer-events-none absolute top-1/4 right-0 h-[600px] w-[600px] rounded-full bg-amber-100/40 blur-3xl" />
+      <div className="pointer-events-none absolute -left-40 -top-40 h-[550px] w-[550px] rounded-full bg-sky-200/35 blur-3xl" />
+      <div className="pointer-events-none absolute top-1/4 right-0 h-[600px] w-[600px] rounded-full bg-blue-100/40 blur-3xl" />
       <div className="pointer-events-none absolute bottom-0 left-1/3 h-[500px] w-[500px] rounded-full bg-sky-100/40 blur-3xl" />
 
       {/* TOP NAVBAR */}
       <header className="relative z-50 max-w-[1750px] mx-auto w-full px-4 sm:px-8 lg:px-12 py-5 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-600 text-white shadow-lg shadow-emerald-600/25 ring-4 ring-emerald-500/10">
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-sky-600 text-white shadow-lg shadow-sky-600/25 ring-4 ring-sky-500/10">
             <Leaf size={22} className="animate-pulse" />
           </div>
           <div>
             <h1 className="text-xl font-black tracking-tight text-slate-900 flex items-center gap-1.5">
               {t("Aura Food") || "Aura Food"}
-              <Globe size={16} className="text-emerald-600 shrink-0" />
+              <Globe size={16} className="text-sky-600 shrink-0" />
             </h1>
-            <p className="text-[11px] font-bold text-emerald-700 tracking-wide">
+            <p className="text-[11px] font-bold text-sky-700 tracking-wide">
               {t("Share food. Spread hope.") || "Share food. Spread hope."}
             </p>
           </div>
@@ -84,7 +84,7 @@ export default function DashboardSelectPage() {
           {user ? (
             <button
               onClick={() => navigate("/login")}
-              className="hidden sm:inline-flex items-center gap-2 rounded-2xl bg-emerald-600 px-4 py-2.5 text-xs font-black text-white shadow-md shadow-emerald-600/20 hover:bg-emerald-700 transition cursor-pointer"
+              className="hidden sm:inline-flex items-center gap-2 rounded-2xl bg-sky-600 px-4 py-2.5 text-xs font-black text-white shadow-md shadow-sky-600/20 hover:bg-sky-700 transition cursor-pointer"
             >
               <User size={15} />
               {t("My Account") || "My Account"}
@@ -94,7 +94,7 @@ export default function DashboardSelectPage() {
               to="/login"
               className="inline-flex items-center gap-2 rounded-2xl border border-slate-300 bg-white/90 px-4 py-2.5 text-xs font-black text-slate-800 shadow-sm hover:bg-slate-50 transition backdrop-blur-md"
             >
-              <LogIn size={15} className="text-emerald-600" />
+              <LogIn size={15} className="text-sky-600" />
               {t("Sign In") || "Sign In"}
             </Link>
           )}
@@ -106,14 +106,14 @@ export default function DashboardSelectPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 w-full items-stretch">
           
           {/* LEFT HERO CARD - Matches exact left pane in photo */}
-          <div className="lg:col-span-5 bg-white/70 backdrop-blur-xl border border-emerald-900/10 rounded-[32px] p-8 sm:p-10 lg:p-12 shadow-[0_15px_50px_rgba(0,0,0,0.03)] flex flex-col justify-between relative overflow-hidden group">
+          <div className="lg:col-span-5 bg-white/70 backdrop-blur-xl border border-sky-900/10 rounded-[32px] p-8 sm:p-10 lg:p-12 shadow-[0_15px_50px_rgba(0,0,0,0.03)] flex flex-col justify-between relative overflow-hidden group">
             
             {/* Subtle background glow inside left card */}
-            <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-gradient-to-br from-emerald-100/60 to-amber-100/40 rounded-full blur-2xl pointer-events-none" />
+            <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-gradient-to-br from-sky-100/60 to-blue-100/40 rounded-full blur-2xl pointer-events-none" />
 
             <div className="relative z-10">
               {/* Badge Button "FoodStore" */}
-              <div className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 text-sm font-black text-white shadow-md shadow-emerald-600/20 tracking-wide border border-emerald-500/30">
+              <div className="inline-flex items-center gap-2 rounded-xl bg-sky-600 px-4 py-2 text-sm font-black text-white shadow-md shadow-sky-600/20 tracking-wide border border-sky-500/30">
                 <Sparkles size={16} />
                 FoodStore
               </div>
@@ -138,10 +138,10 @@ export default function DashboardSelectPage() {
             {/* Bottom section with interactive indicator & mouse pointer icon matching photo */}
             <div className="relative z-10 mt-10 pt-6 border-t border-slate-200/60 flex items-center justify-between">
               <div className="flex items-center gap-2 text-xs font-bold text-slate-500">
-                <MousePointer2 size={16} className="text-emerald-600 animate-bounce" />
+                <MousePointer2 size={16} className="text-sky-600 animate-bounce" />
                 <span>{t("Select any workspace card to launch") || "Select any workspace card to launch"}</span>
               </div>
-              <div className="flex items-center gap-1.5 text-xs font-black text-emerald-700">
+              <div className="flex items-center gap-1.5 text-xs font-black text-sky-700">
                 <Layers size={15} />
                 <span>v2.5 Live</span>
               </div>
@@ -151,32 +151,32 @@ export default function DashboardSelectPage() {
           {/* RIGHT 2X2 GRID OF DASHBOARD CARDS - Matches exact 4 cards in photo */}
           <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5 lg:gap-6">
             
-            {/* CARD 1: BUSINESS DASHBOARD (Green Theme "B") */}
+            {/* CARD 1: BUSINESS DASHBOARD (Light Blue Theme "B") */}
             <div
               onClick={() => handleDashboardClick("/donor", "donor@aura.com", "DONOR")}
-              className="bg-white/90 backdrop-blur-xl border border-slate-200/90 rounded-[28px] p-6 sm:p-7 shadow-sm hover:shadow-2xl hover:border-emerald-300 hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer flex flex-col justify-between relative overflow-hidden"
+              className="bg-white/90 backdrop-blur-xl border border-slate-200/90 rounded-[28px] p-6 sm:p-7 shadow-sm hover:shadow-2xl hover:border-sky-300 hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer flex flex-col justify-between relative overflow-hidden"
             >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-50 rounded-full blur-xl pointer-events-none group-hover:bg-emerald-100 transition" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-sky-50 rounded-full blur-xl pointer-events-none group-hover:bg-sky-100 transition" />
 
               <div className="relative z-10">
                 {/* Header row: Icon Box "B" + Bar Chart Graphic */}
                 <div className="flex items-center justify-between">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-600 text-white font-black text-xl shadow-lg shadow-emerald-600/25 ring-4 ring-emerald-500/10">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-600 text-white font-black text-xl shadow-lg shadow-sky-600/25 ring-4 ring-sky-500/10">
                     B
                   </div>
                   
                   {/* 3-Bar Chart Graphic */}
-                  <div className="flex items-end gap-1.5 h-10 px-2.5 py-1.5 bg-emerald-50/80 rounded-xl border border-emerald-100">
-                    <span className="w-2.5 h-[50%] bg-emerald-400 rounded-sm group-hover:h-[65%] transition-all duration-300" />
-                    <span className="w-2.5 h-[100%] bg-emerald-600 rounded-sm group-hover:h-[90%] transition-all duration-300" />
-                    <span className="w-2.5 h-[75%] bg-emerald-500 rounded-sm group-hover:h-[100%] transition-all duration-300" />
+                  <div className="flex items-end gap-1.5 h-10 px-2.5 py-1.5 bg-sky-50/80 rounded-xl border border-sky-100">
+                    <span className="w-2.5 h-[50%] bg-sky-400 rounded-sm group-hover:h-[65%] transition-all duration-300" />
+                    <span className="w-2.5 h-[100%] bg-sky-600 rounded-sm group-hover:h-[90%] transition-all duration-300" />
+                    <span className="w-2.5 h-[75%] bg-sky-500 rounded-sm group-hover:h-[100%] transition-all duration-300" />
                   </div>
                 </div>
 
                 {/* Title */}
-                <h3 className="mt-6 text-xl font-black text-slate-900 group-hover:text-emerald-600 transition-colors flex items-center justify-between">
+                <h3 className="mt-6 text-xl font-black text-slate-900 group-hover:text-sky-600 transition-colors flex items-center justify-between">
                   <span>{t("Business Dashboard") || "Business Dashboard"}</span>
-                  <ArrowRight size={18} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-emerald-600" />
+                  <ArrowRight size={18} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-sky-600" />
                 </h3>
 
                 {/* Description */}
@@ -186,12 +186,12 @@ export default function DashboardSelectPage() {
                 </p>
               </div>
 
-              <div className="relative z-10 mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-emerald-700">
+              <div className="relative z-10 mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-sky-700">
                 <span className="flex items-center gap-1.5">
                   <Building2 size={15} />
                   {t("Commercial Donors") || "Commercial Donors"}
                 </span>
-                <span className="text-[11px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-lg">
+                <span className="text-[11px] font-black uppercase tracking-wider bg-sky-100 text-sky-800 px-2.5 py-1 rounded-lg">
                   {loadingRole === "DONOR" ? "Opening..." : "Launch →"}
                 </span>
               </div>

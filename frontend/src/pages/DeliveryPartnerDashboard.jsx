@@ -243,7 +243,7 @@ export default function DeliveryPartnerDashboard() {
         <header className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200/80 dark:border-slate-800 pb-5">
           <div>
             <h1 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
-              <Truck className="text-emerald-600 dark:text-emerald-400" size={32} /> {t("Delivery Operations Desk")}
+              <Truck className="text-sky-600 dark:text-sky-400" size={32} /> {t("Delivery Operations Desk")}
             </h1>
             <p className="text-slate-500 dark:text-slate-400 mt-1">
               {t("Welcome back,")} <span className="font-bold text-slate-700 dark:text-slate-200">{user?.full_name}</span>. {t("Claim food shipments, execute runs, and track transit logs.")}
@@ -307,9 +307,9 @@ export default function DeliveryPartnerDashboard() {
 
         {/* Wallet & Compliance Row */}
         <div className="grid gap-5 sm:grid-cols-2">
-          <div className="rounded-3xl border border-slate-100 dark:border-slate-800 bg-gradient-to-br from-emerald-500 to-teal-700 p-6 text-white shadow-lg">
+          <div className="rounded-3xl border border-slate-100 dark:border-slate-800 bg-gradient-to-br from-sky-500 to-sky-700 p-6 text-white shadow-lg shadow-sky-600/20">
             <div className="flex items-center justify-between">
-              <p className="text-xs font-black uppercase tracking-wider text-emerald-100">Transporter Wallet Balance</p>
+              <p className="text-xs font-black uppercase tracking-wider text-sky-100">Transporter Wallet Balance</p>
               <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/20 backdrop-blur-xs text-white">
                 <Wallet size={20} />
               </div>
@@ -317,7 +317,7 @@ export default function DeliveryPartnerDashboard() {
             <h2 className="text-3xl font-black mt-2">
               ₹{(user?.wallet_balance ?? 1000.0).toFixed(2)}
             </h2>
-            <p className="text-[11px] font-semibold text-emerald-100/90 mt-2">
+            <p className="text-[11px] font-semibold text-sky-100/90 mt-2">
               ₹100.00 penalty fine is automatically deducted from your wallet for every warning issued.
             </p>
           </div>

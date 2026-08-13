@@ -375,7 +375,7 @@ export default function BarcodeScannerModal({
           <button
             type="button"
             onClick={startCamera}
-            className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 font-bold text-emerald-700 transition hover:bg-emerald-100"
+            className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl border border-sky-200 bg-sky-50 px-4 py-3 font-bold text-sky-700 transition hover:bg-sky-100"
           >
             <Camera size={18} />
 
@@ -426,7 +426,7 @@ export default function BarcodeScannerModal({
                     setError("");
                   }}
                   placeholder="Example: 8901234567890"
-                  className="w-full rounded-2xl border border-slate-200 py-3 pl-11 pr-4 outline-none transition focus:border-emerald-500"
+                  className="w-full rounded-2xl border border-slate-200 py-3 pl-11 pr-4 outline-none transition focus:border-sky-500"
                 />
 
               </div>
@@ -434,7 +434,7 @@ export default function BarcodeScannerModal({
 
               <button
                 type="submit"
-                className="rounded-2xl bg-emerald-600 px-5 py-3 font-bold text-white transition hover:bg-emerald-700"
+                className="rounded-2xl bg-sky-600 px-5 py-3 font-bold text-white transition hover:bg-sky-700"
               >
                 Continue
               </button>

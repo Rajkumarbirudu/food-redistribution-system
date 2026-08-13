@@ -1611,7 +1611,7 @@ export default function InventoryPage() {
           <div className="flex flex-col items-center rounded-3xl border border-white/20 bg-white/95 p-8 shadow-2xl backdrop-blur-xl text-center max-w-sm">
             <Loader2
               size={48}
-              className="animate-spin text-emerald-700"
+              className="animate-spin text-sky-700"
             />
             <h3 className="mt-6 text-xl font-black text-slate-900">
               Resolving Barcode...
@@ -1642,7 +1642,7 @@ export default function InventoryPage() {
 
 
       {success && (
-        <div className="mb-6 flex items-start gap-3 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-emerald-700">
+        <div className="mb-6 flex items-start gap-3 rounded-2xl border border-sky-200 bg-sky-50 p-4 text-sky-700">
 
           <CheckCircle2
             size={20}
@@ -1697,7 +1697,7 @@ export default function InventoryPage() {
 
 
       {/* TOOLBAR */}
-      <section className="mt-6 rounded-[28px] border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-5 shadow-[0_18px_50px_rgba(15,118,110,0.08)]">
+      <section className="mt-6 rounded-[28px] border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-5 shadow-[0_18px_50px_rgba(14,165,233,0.06)]">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div className="relative flex-1">
             <Search
@@ -1713,7 +1713,7 @@ export default function InventoryPage() {
                 )
               }
               placeholder="Search inventory, barcode, category or pickup address..."
-              className="h-12 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 pl-11 pr-4 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 dark:focus:ring-emerald-950"
+              className="h-12 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 pl-11 pr-4 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-100 dark:focus:ring-sky-950"
             />
           </div>
 
@@ -1725,7 +1725,7 @@ export default function InventoryPage() {
                   "/donor/barcode"
                 )
               }
-              className="flex h-12 items-center justify-center gap-2 rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/80 px-5 font-black text-emerald-700 dark:text-emerald-300 transition hover:bg-emerald-100 dark:hover:bg-emerald-900/80 cursor-pointer"
+              className="flex h-12 items-center justify-center gap-2 rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50 dark:bg-sky-950/80 px-5 font-black text-sky-700 dark:text-sky-300 transition hover:bg-sky-100 dark:hover:bg-sky-900/80 cursor-pointer"
             >
               <Barcode size={18} />
               Scan Barcode
@@ -1734,7 +1734,7 @@ export default function InventoryPage() {
             <button
               type="button"
               onClick={() => setShowCsvUpload(true)}
-              className="flex h-12 items-center justify-center gap-2 rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/80 px-5 font-black text-emerald-700 dark:text-emerald-300 transition hover:bg-emerald-100 dark:hover:bg-emerald-900/80 cursor-pointer"
+              className="flex h-12 items-center justify-center gap-2 rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50 dark:bg-sky-950/80 px-5 font-black text-sky-700 dark:text-sky-300 transition hover:bg-sky-100 dark:hover:bg-sky-900/80 cursor-pointer"
             >
               <Upload size={18} />
               Bulk Upload
@@ -1743,7 +1743,7 @@ export default function InventoryPage() {
             <button
               type="button"
               onClick={handleExportCSV}
-              className="flex h-12 items-center justify-center gap-2 rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/80 px-5 font-black text-emerald-700 dark:text-emerald-300 transition hover:bg-emerald-100 dark:hover:bg-emerald-900/80 cursor-pointer"
+              className="flex h-12 items-center justify-center gap-2 rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50 dark:bg-sky-950/80 px-5 font-black text-sky-700 dark:text-sky-300 transition hover:bg-sky-100 dark:hover:bg-sky-900/80 cursor-pointer"
             >
               <Download size={18} />
               Export CSV
@@ -1752,7 +1752,7 @@ export default function InventoryPage() {
             <button
               type="button"
               onClick={openForm}
-              className="flex h-12 items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 px-5 font-black text-white transition shadow-lg shadow-emerald-600/20 cursor-pointer"
+              className="flex h-12 items-center justify-center gap-2 rounded-xl bg-sky-600 hover:bg-sky-700 px-5 font-black text-white transition shadow-lg shadow-sky-600/20 cursor-pointer"
             >
               <Plus size={18} />
               Add Inventory
@@ -1785,7 +1785,7 @@ export default function InventoryPage() {
 
         {expiryFilter && (
           <div className="mt-4 flex flex-wrap items-center gap-3">
-            <span className="rounded-full bg-emerald-100 dark:bg-emerald-950/80 border border-emerald-200 dark:border-emerald-800 px-4 py-2 text-sm font-black text-emerald-700 dark:text-emerald-300">
+            <span className="rounded-full bg-sky-100 dark:bg-sky-950/80 border border-sky-200 dark:border-sky-800 px-4 py-2 text-sm font-black text-sky-700 dark:text-sky-300">
               Expiry Filter: {
                 formatStatus(
                   expiryFilter
@@ -1808,7 +1808,7 @@ export default function InventoryPage() {
       </section>
 
       {/* INVENTORY TABLE */}
-      <section className="mt-6 overflow-hidden rounded-[28px] border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 shadow-[0_18px_50px_rgba(15,118,110,0.08)]">
+      <section className="mt-6 overflow-hidden rounded-[28px] border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 shadow-[0_18px_50px_rgba(14,165,233,0.06)]">
 
 
         {loading ? (
@@ -1817,7 +1817,7 @@ export default function InventoryPage() {
 
             <Loader2
               size={38}
-              className="animate-spin text-emerald-700"
+              className="animate-spin text-sky-700"
             />
 
             <p className="mt-4 font-bold text-slate-500">
@@ -2014,7 +2014,7 @@ export default function InventoryPage() {
                                 onClick={() =>
                                   openDonateModal(item)
                                 }
-                                className="flex h-10 w-10 items-center justify-center rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-700 transition hover:bg-emerald-100"
+                                className="flex h-10 w-10 items-center justify-center rounded-xl border border-sky-200 bg-sky-50 text-sky-700 transition hover:bg-sky-100"
                                 title="Donate Item"
                               >
                                 <Gift size={17} />
@@ -2148,7 +2148,7 @@ export default function InventoryPage() {
 
                     <Barcode
                       size={18}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 text-emerald-600"
+                      className="absolute left-4 top-1/2 -translate-y-1/2 text-sky-600"
                     />
 
 
@@ -2162,7 +2162,7 @@ export default function InventoryPage() {
                         handleInputChange
                       }
                       placeholder="Scan or enter barcode if applicable"
-                      className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-11 pr-4 outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+                      className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-11 pr-4 outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-100"
                     />
 
                   </div>
@@ -2179,7 +2179,7 @@ export default function InventoryPage() {
                       "/donor/barcode"
                     );
                   }}
-                  className="flex h-12 items-center justify-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-5 font-black text-emerald-700 hover:bg-emerald-100"
+                  className="flex h-12 items-center justify-center gap-2 rounded-xl border border-sky-200 bg-sky-50 px-5 font-black text-sky-700 hover:bg-sky-100"
                 >
 
                   <Barcode size={18} />
@@ -2521,7 +2521,7 @@ export default function InventoryPage() {
                         handleInputChange
                       }
                       placeholder="Storage requirements, pickup instructions or other notes..."
-                      className="w-full resize-none rounded-xl border border-slate-200 bg-white px-4 py-3 outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+                      className="w-full resize-none rounded-xl border border-slate-200 bg-white px-4 py-3 outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-100"
                     />
 
                   </FormField>
@@ -2554,7 +2554,7 @@ export default function InventoryPage() {
                     submitting ||
                     categoriesLoading
                   }
-                  className="flex h-12 items-center justify-center gap-2 rounded-xl bg-emerald-700 px-7 font-black text-white hover:bg-emerald-800 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="flex h-12 items-center justify-center gap-2 rounded-xl bg-sky-600 px-7 font-black text-white hover:bg-sky-700 shadow-md shadow-sky-600/20 disabled:cursor-not-allowed disabled:opacity-50"
                 >
 
                   {submitting ? (
@@ -2603,7 +2603,7 @@ export default function InventoryPage() {
           <div className="max-h-[92vh] w-full max-w-lg overflow-y-auto rounded-[30px] bg-white p-6 shadow-2xl">
             <div className="flex items-center justify-between border-b border-slate-100 pb-4">
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-50 text-sky-700">
                   <Gift size={20} />
                 </div>
                 <div>
@@ -2631,7 +2631,7 @@ export default function InventoryPage() {
             )}
 
             {donateSuccess && (
-              <div className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-sm font-semibold text-emerald-700">
+              <div className="mt-4 rounded-xl border border-sky-200 bg-sky-50 p-3 text-sm font-semibold text-sky-700">
                 {donateSuccess}
               </div>
             )}
@@ -2686,7 +2686,7 @@ export default function InventoryPage() {
                   value={donateNotes}
                   onChange={(e) => setDonateNotes(e.target.value)}
                   placeholder="E.g., Please pick up before 5 PM, fragile boxes, requires cold storage..."
-                  className="w-full resize-none rounded-xl border border-slate-200 bg-white px-4 py-3 outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+                  className="w-full resize-none rounded-xl border border-slate-200 bg-white px-4 py-3 outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-100"
                 />
               </FormField>
 
@@ -2702,7 +2702,7 @@ export default function InventoryPage() {
                 <button
                   type="submit"
                   disabled={donating}
-                  className="flex h-11 items-center justify-center gap-2 rounded-xl bg-emerald-600 px-6 text-sm font-black text-white hover:bg-emerald-700 disabled:opacity-50"
+                  className="flex h-11 items-center justify-center gap-2 rounded-xl bg-sky-600 px-6 text-sm font-black text-white hover:bg-sky-700 shadow-md shadow-sky-600/20 disabled:opacity-50"
                 >
                   {donating ? (
                     <Loader2 size={16} className="animate-spin" />
@@ -2727,7 +2727,7 @@ export default function InventoryPage() {
 // ============================================================
 
 const inputClass =
-  "h-12 w-full rounded-xl border border-slate-200 bg-white px-4 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100";
+  "h-12 w-full rounded-xl border border-slate-200 bg-white px-4 outline-none transition focus:border-sky-500 focus:ring-4 focus:ring-sky-100";
 
 
 function StatCard({ icon: Icon, label, value, active, onClick }) {
@@ -2735,13 +2735,13 @@ function StatCard({ icon: Icon, label, value, active, onClick }) {
     <button
       type="button"
       onClick={onClick}
-      className={`group w-full rounded-[26px] border p-5 text-left shadow-[0_18px_50px_rgba(15,118,110,0.07)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:shadow-md focus:outline-none cursor-pointer ${
+      className={`group w-full rounded-[26px] border p-5 text-left shadow-[0_18px_50px_rgba(14,165,233,0.06)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:shadow-md focus:outline-none cursor-pointer ${
         active
-          ? "border-emerald-500 bg-emerald-50/90 dark:bg-emerald-950/80 ring-2 ring-emerald-200 dark:ring-emerald-800"
-          : "border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 hover:border-emerald-300 dark:hover:border-emerald-700"
+          ? "border-sky-500 bg-sky-50/90 dark:bg-sky-950/80 ring-2 ring-sky-200 dark:ring-sky-800"
+          : "border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 hover:border-sky-300 dark:hover:border-sky-700"
       }`}
     >
-      <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400">
+      <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-sky-50 dark:bg-sky-950/60 text-sky-700 dark:text-sky-400">
         <Icon size={21} />
       </div>
 

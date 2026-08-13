@@ -108,21 +108,21 @@ export default function BarcodeInventoryPage() {
         )}
 
 
-        <div className="rounded-[32px] border border-white/80 bg-white/80 p-8 shadow-[0_18px_50px_rgba(15,118,110,0.08)]">
+        <div className="rounded-[32px] border border-white/80 bg-white/80 dark:bg-slate-900/80 p-8 shadow-[0_18px_50px_rgba(14,165,233,0.06)]">
 
-          <div className="flex h-16 w-16 items-center justify-center rounded-3xl bg-emerald-100 text-emerald-700">
+          <div className="flex h-16 w-16 items-center justify-center rounded-3xl bg-sky-100 dark:bg-sky-950/80 text-sky-700 dark:text-sky-300">
 
             <Barcode size={32} />
 
           </div>
 
 
-          <h2 className="mt-6 text-2xl font-black text-slate-900">
+          <h2 className="mt-6 text-2xl font-black text-slate-900 dark:text-white">
             Add Inventory Using Barcode
           </h2>
 
 
-          <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-500">
+          <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-500 dark:text-slate-400">
             Scan the barcode printed on the food package.
             After scanning, Aura Food opens the existing inventory form where you can enter quantity, dates, pickup information and other required details.
           </p>
@@ -134,7 +134,7 @@ export default function BarcodeInventoryPage() {
               setError("");
               setScannerOpen(true);
             }}
-            className="mt-7 flex w-full items-center justify-center gap-3 rounded-2xl bg-emerald-600 px-6 py-4 font-black text-white transition hover:bg-emerald-700"
+            className="mt-7 flex w-full items-center justify-center gap-3 rounded-2xl bg-sky-600 px-6 py-4 font-black text-white transition hover:bg-sky-700 shadow-md shadow-sky-600/20"
           >
             <ScanLine size={22} />
 
@@ -144,13 +144,13 @@ export default function BarcodeInventoryPage() {
 
           <div className="my-7 flex items-center gap-4">
 
-            <div className="h-px flex-1 bg-slate-200" />
+            <div className="h-px flex-1 bg-slate-200 dark:bg-slate-800" />
 
             <span className="text-xs font-black uppercase tracking-wider text-slate-400">
               Manual Entry
             </span>
 
-            <div className="h-px flex-1 bg-slate-200" />
+            <div className="h-px flex-1 bg-slate-200 dark:bg-slate-800" />
 
           </div>
 
@@ -159,7 +159,7 @@ export default function BarcodeInventoryPage() {
             onSubmit={handleManualSubmit}
           >
 
-            <label className="mb-2 block text-sm font-bold text-slate-700">
+            <label className="mb-2 block text-sm font-bold text-slate-700 dark:text-slate-300">
               Barcode Number
             </label>
 
@@ -185,7 +185,7 @@ export default function BarcodeInventoryPage() {
                     setError("");
                   }}
                   placeholder="Enter barcode number"
-                  className="w-full rounded-2xl border border-slate-200 py-3 pl-11 pr-4 outline-none transition focus:border-emerald-500"
+                  className="w-full rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 py-3 pl-11 pr-4 outline-none transition focus:border-sky-500 text-slate-900 dark:text-white"
                 />
 
               </div>
@@ -193,7 +193,7 @@ export default function BarcodeInventoryPage() {
 
               <button
                 type="submit"
-                className="rounded-2xl bg-slate-900 px-6 py-3 font-bold text-white transition hover:bg-slate-800"
+                className="rounded-2xl bg-slate-900 dark:bg-sky-600 px-6 py-3 font-bold text-white transition hover:bg-slate-800 dark:hover:bg-sky-700"
               >
                 Continue
               </button>
@@ -208,7 +208,7 @@ export default function BarcodeInventoryPage() {
             onClick={() =>
               navigate("/donor")
             }
-            className="mt-7 flex items-center gap-2 text-sm font-bold text-slate-500 transition hover:text-emerald-700"
+            className="mt-7 flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-sky-700 dark:hover:text-sky-400 transition"
           >
             <ArrowLeft size={17} />
 

@@ -147,45 +147,45 @@ export default function DashboardLayout({
 
   // ==========================================================
   // NAVIGATION
-  // Determine unique ambient background theme by user role
+  // Determination of ambient background theme by user role
   const ambientTheme = (() => {
     if (userRole === "DONOR") {
-      // Business Donor: Emerald + Mint
+      // Business Donor: Sky + Blue
       return {
-        blob1: "from-emerald-500/10 via-emerald-400/8 to-teal-400/5 dark:from-emerald-500/15 dark:to-teal-400/10",
-        blob2: "from-teal-400/10 via-emerald-300/8 to-emerald-500/5 dark:from-teal-400/15 dark:to-emerald-500/10",
-        blob3: "from-emerald-400/10 via-teal-300/8 to-emerald-300/5 dark:from-emerald-400/15 dark:to-teal-300/10",
+        blob1: "from-sky-500/10 via-sky-400/8 to-blue-400/5 dark:from-sky-500/15 dark:to-blue-400/10",
+        blob2: "from-blue-400/10 via-sky-300/8 to-sky-500/5 dark:from-blue-400/15 dark:to-sky-500/10",
+        blob3: "from-sky-400/10 via-blue-300/8 to-sky-300/5 dark:from-sky-400/15 dark:to-blue-300/10",
       };
     }
     if (userRole === "INDIVIDUAL_DONOR") {
-      // Individual Donor: Sky + Emerald
+      // Individual Donor: Sky + Indigo
       return {
-        blob1: "from-sky-500/10 via-emerald-400/8 to-teal-400/5 dark:from-sky-500/15 dark:to-emerald-400/10",
-        blob2: "from-emerald-400/10 via-sky-400/8 to-emerald-500/5 dark:from-emerald-400/15 dark:to-sky-400/10",
-        blob3: "from-sky-400/10 via-emerald-500/8 to-teal-400/5 dark:from-sky-400/15 dark:to-emerald-500/10",
+        blob1: "from-sky-500/10 via-blue-400/8 to-indigo-400/5 dark:from-sky-500/15 dark:to-blue-400/10",
+        blob2: "from-blue-400/10 via-sky-400/8 to-sky-500/5 dark:from-blue-400/15 dark:to-sky-400/10",
+        blob3: "from-sky-400/10 via-blue-500/8 to-indigo-400/5 dark:from-sky-400/15 dark:to-blue-500/10",
       };
     }
     if (userRole === "NGO") {
-      // NGO: Emerald + Teal
+      // NGO: Sky + Cyan
       return {
-        blob1: "from-emerald-500/10 via-teal-500/8 to-emerald-400/5 dark:from-emerald-500/15 dark:to-teal-500/10",
-        blob2: "from-teal-500/10 via-emerald-400/8 to-teal-600/5 dark:from-teal-500/15 dark:to-emerald-400/10",
-        blob3: "from-emerald-400/10 via-teal-400/8 to-emerald-600/5 dark:from-emerald-400/15 dark:to-teal-400/10",
+        blob1: "from-sky-500/10 via-cyan-500/8 to-sky-400/5 dark:from-sky-500/15 dark:to-cyan-500/10",
+        blob2: "from-cyan-500/10 via-sky-400/8 to-blue-600/5 dark:from-cyan-500/15 dark:to-sky-400/10",
+        blob3: "from-sky-400/10 via-cyan-400/8 to-blue-600/5 dark:from-sky-400/15 dark:to-cyan-400/10",
       };
     }
     if (userRole === "DELIVERY_PARTNER" || userRole === "DELIVERY_BOY") {
-      // Delivery Partner: Emerald + Amber
+      // Delivery Partner: Sky + Amber
       return {
-        blob1: "from-emerald-500/10 via-amber-500/8 to-teal-400/5 dark:from-emerald-500/15 dark:to-amber-500/10",
-        blob2: "from-amber-500/10 via-emerald-400/8 to-amber-600/5 dark:from-amber-500/15 dark:to-emerald-400/10",
-        blob3: "from-emerald-400/10 via-amber-400/8 to-teal-500/5 dark:from-emerald-400/15 dark:to-amber-400/10",
+        blob1: "from-sky-500/10 via-amber-500/8 to-blue-400/5 dark:from-sky-500/15 dark:to-amber-500/10",
+        blob2: "from-amber-500/10 via-sky-400/8 to-blue-600/5 dark:from-amber-500/15 dark:to-sky-400/10",
+        blob3: "from-sky-400/10 via-amber-400/8 to-blue-500/5 dark:from-sky-400/15 dark:to-amber-400/10",
       };
     }
     // Default fallback
     return {
-      blob1: "from-emerald-500/10 via-teal-400/8 to-emerald-300/5 dark:from-emerald-500/15 dark:to-teal-400/10",
-      blob2: "from-teal-400/10 via-emerald-300/8 to-teal-500/5 dark:from-teal-400/15 dark:to-emerald-300/10",
-      blob3: "from-emerald-300/10 via-teal-500/8 to-emerald-400/5 dark:from-emerald-300/15 dark:to-teal-500/10",
+      blob1: "from-sky-500/10 via-blue-400/8 to-sky-300/5 dark:from-sky-500/15 dark:to-blue-400/10",
+      blob2: "from-blue-400/10 via-sky-300/8 to-blue-500/5 dark:from-blue-400/15 dark:to-sky-300/10",
+      blob3: "from-sky-300/10 via-blue-500/8 to-sky-400/5 dark:from-sky-300/15 dark:to-blue-500/10",
     };
   })();
 
@@ -196,16 +196,16 @@ export default function DashboardLayout({
   }
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden bg-gradient-to-br from-[#F0FDF4] via-[#F8FAFC] to-[#ECFDF5] dark:from-[#020617] dark:via-[#0F172A] dark:to-[#111827] text-slate-900 dark:text-slate-100 font-sans transition-colors duration-500">
+    <div className="relative min-h-screen overflow-x-hidden bg-gradient-to-br from-[#F8FCFF] via-[#EFF8FF] to-[#F0F9FF] dark:from-[#020617] dark:via-[#0F172A] dark:to-[#111827] text-slate-900 dark:text-slate-100 font-sans transition-colors duration-500">
 
       {/* RADIAL GRADIENT OVERLAY FOR DEPTH & VISUAL RICHNESS */}
       <div 
         className="pointer-events-none fixed inset-0 z-0 opacity-100"
         style={{
           backgroundImage: `
-            radial-gradient(circle at 15% 15%, rgba(16, 185, 129, 0.08) 0%, transparent 45%),
-            radial-gradient(circle at 85% 85%, rgba(52, 211, 153, 0.06) 0%, transparent 50%),
-            radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.04) 0%, transparent 60%)
+            radial-gradient(circle at 15% 15%, rgba(14, 165, 233, 0.08) 0%, transparent 45%),
+            radial-gradient(circle at 85% 85%, rgba(56, 189, 248, 0.06) 0%, transparent 50%),
+            radial-gradient(circle at 50% 50%, rgba(14, 165, 233, 0.04) 0%, transparent 60%)
           `
         }}
       />
@@ -228,8 +228,8 @@ export default function DashboardLayout({
               title={t("Toggle Sidebar Menu")}
               className={`flex h-11 w-11 items-center justify-center rounded-2xl border transition-all duration-300 shadow-sm cursor-pointer active:scale-90 group shrink-0 ${
                 sidebarOpen
-                  ? "bg-emerald-600 border-emerald-600 text-white shadow-emerald-600/30 ring-4 ring-emerald-500/20"
-                  : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 hover:border-emerald-400 hover:bg-emerald-50/80 dark:hover:bg-slate-700 hover:text-emerald-700 dark:hover:text-emerald-400"
+                  ? "bg-sky-600 border-sky-600 text-white shadow-sky-600/30 ring-4 ring-sky-500/20"
+                  : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 hover:border-sky-400 hover:bg-sky-50/80 dark:hover:bg-slate-700 hover:text-sky-700 dark:hover:text-sky-400"
               }`}
             >
               {/* ANIMATED 3 HORIZONTAL LINES THAT MORPH INTO 'X' ON CLICK */}
@@ -238,21 +238,21 @@ export default function DashboardLayout({
                   className={`h-0.5 w-5 rounded-full transition-all duration-300 ease-in-out transform origin-center ${
                     sidebarOpen
                       ? "bg-white translate-y-[7px] rotate-45"
-                      : "bg-slate-800 dark:bg-slate-200 group-hover:bg-emerald-600"
+                      : "bg-slate-800 dark:bg-slate-200 group-hover:bg-sky-600"
                   }`}
                 />
                 <span
                   className={`h-0.5 w-5 rounded-full transition-all duration-300 ease-in-out ${
                     sidebarOpen
                       ? "bg-white opacity-0 scale-x-0"
-                      : "bg-slate-800 dark:bg-slate-200 group-hover:bg-emerald-600 opacity-100"
+                      : "bg-slate-800 dark:bg-slate-200 group-hover:bg-sky-600 opacity-100"
                   }`}
                 />
                 <span
                   className={`h-0.5 w-5 rounded-full transition-all duration-300 ease-in-out transform origin-center ${
                     sidebarOpen
                       ? "bg-white -translate-y-[7px] -rotate-45"
-                      : "bg-slate-800 dark:bg-slate-200 group-hover:bg-emerald-600"
+                      : "bg-slate-800 dark:bg-slate-200 group-hover:bg-sky-600"
                   }`}
                 />
               </div>
@@ -272,7 +272,7 @@ export default function DashboardLayout({
               }}
               className="flex items-center gap-3 text-left group shrink-0"
             >
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-tr from-[#059669] via-[#10B981] to-[#007CC3] text-white shadow-md shadow-emerald-500/25 group-hover:scale-105 transition-all duration-300">
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-tr from-[#0284C7] via-[#0EA5E9] to-[#38BDF8] text-white shadow-md shadow-sky-500/25 group-hover:scale-105 transition-all duration-300">
                 <Leaf size={23} />
               </div>
 
@@ -280,11 +280,11 @@ export default function DashboardLayout({
                 <h1 className="text-xl font-black tracking-tight text-slate-900 dark:text-white flex items-center gap-1.5 whitespace-nowrap">
                   Aura Food
                   <span className="flex h-2 w-2 relative">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-500" />
                   </span>
                 </h1>
-                <p className="text-xs font-bold text-emerald-700 dark:text-emerald-400 whitespace-nowrap">
+                <p className="text-xs font-bold text-sky-700 dark:text-sky-400 whitespace-nowrap">
                   {displayTagline}
                 </p>
               </div>
@@ -303,7 +303,7 @@ export default function DashboardLayout({
               onClick={() => setDarkMode((prev) => !prev)}
               aria-label="Toggle dark mode"
               title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-              className="flex h-10 w-10 items-center justify-center rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 text-slate-700 dark:text-slate-200 hover:border-emerald-400 hover:text-emerald-600 transition shadow-xs cursor-pointer active:scale-95"
+              className="flex h-10 w-10 items-center justify-center rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 text-slate-700 dark:text-slate-200 hover:border-sky-400 hover:text-sky-600 transition shadow-xs cursor-pointer active:scale-95"
             >
               {darkMode ? <Sun size={18} className="text-amber-400" /> : <Moon size={18} className="text-slate-700" />}
             </button>
@@ -314,7 +314,7 @@ export default function DashboardLayout({
                 onClick={onRefresh}
                 disabled={refreshing}
                 title={t("nav.refresh")}
-                className="flex h-10 w-10 items-center justify-center rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 text-slate-700 dark:text-slate-200 hover:border-emerald-400 hover:text-emerald-600 transition shadow-xs cursor-pointer disabled:opacity-50"
+                className="flex h-10 w-10 items-center justify-center rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 text-slate-700 dark:text-slate-200 hover:border-sky-400 hover:text-sky-600 transition shadow-xs cursor-pointer disabled:opacity-50"
               >
                 <RefreshCw
                   size={17}
@@ -344,20 +344,20 @@ export default function DashboardLayout({
             <aside className="w-80 sm:w-88 max-w-[88vw] bg-white shadow-2xl flex flex-col justify-between border-r border-slate-200/80 animate-slide-left">
               
               {/* SIDEBAR HEADER */}
-              <div className="p-5 border-b border-slate-100 flex items-center justify-between bg-gradient-to-r from-slate-900 via-slate-800 to-emerald-950 text-white">
+              <div className="p-5 border-b border-slate-100 flex items-center justify-between bg-gradient-to-r from-slate-900 via-slate-800 to-sky-950 text-white">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-tr from-[#059669] via-[#10B981] to-[#007CC3] text-white shadow-md">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-tr from-[#0284C7] via-[#0EA5E9] to-[#38BDF8] text-white shadow-md">
                     <Leaf size={22} />
                   </div>
                   <div>
                     <h2 className="text-lg font-black tracking-tight text-white flex items-center gap-1.5">
                       Aura Food
                       <span className="flex h-2 w-2 relative">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75" />
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-400" />
                       </span>
                     </h2>
-                    <p className="text-[11px] font-bold text-emerald-300">
+                    <p className="text-[11px] font-bold text-sky-300">
                       {displayTagline}
                     </p>
                   </div>
@@ -382,20 +382,20 @@ export default function DashboardLayout({
                     setSidebarOpen(false);
                     setShowProfileModal(true);
                   }}
-                  className="group flex items-center gap-3 rounded-2xl border border-emerald-100 bg-emerald-50/60 p-3.5 hover:border-emerald-300 hover:bg-emerald-100/60 transition cursor-pointer"
+                  className="group flex items-center gap-3 rounded-2xl border border-sky-100 bg-sky-50/60 p-3.5 hover:border-sky-300 hover:bg-sky-100/60 transition cursor-pointer"
                 >
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-600 font-black text-white shadow-xs group-hover:scale-105 transition">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-sky-600 font-black text-white shadow-xs group-hover:scale-105 transition">
                     {initials || "A"}
                   </div>
                   <div className="flex-1 min-w-0 pr-1">
                     <p className="truncate text-sm font-black text-slate-800">
                       {userName}
                     </p>
-                    <p className="text-[10px] font-black uppercase tracking-wider text-emerald-700 truncate">
+                    <p className="text-[10px] font-black uppercase tracking-wider text-sky-700 truncate">
                       {userRoleDisplay} • {t("Edit")}
                     </p>
                   </div>
-                  <User size={18} className="text-emerald-600 group-hover:translate-x-0.5 transition shrink-0" />
+                  <User size={18} className="text-sky-600 group-hover:translate-x-0.5 transition shrink-0" />
                 </div>
 
 
@@ -405,9 +405,9 @@ export default function DashboardLayout({
                   <div className="flex items-center justify-between mb-3 px-1">
                     <div className="flex items-center gap-2">
                       <div className="flex flex-col gap-0.5">
-                        <span className="h-0.5 w-3 bg-emerald-600 rounded-full" />
-                        <span className="h-0.5 w-4 bg-[#007CC3] rounded-full" />
-                        <span className="h-0.5 w-3 bg-emerald-600 rounded-full" />
+                        <span className="h-0.5 w-3 bg-sky-600 rounded-full" />
+                        <span className="h-0.5 w-4 bg-[#0EA5E9] rounded-full" />
+                        <span className="h-0.5 w-3 bg-sky-600 rounded-full" />
                       </div>
                       <h3 className="text-xs font-black uppercase tracking-wider text-slate-400">
                         {t("Navigation Menu")}
@@ -465,11 +465,11 @@ export default function DashboardLayout({
                             }}
                             className={
                               active
-                                ? "flex w-full items-center gap-3.5 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 px-4 py-3 text-left text-sm font-black text-white shadow-md shadow-emerald-600/20 transition-all cursor-pointer"
-                                : "flex w-full items-center gap-3.5 rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-800/40 px-4 py-3 text-left text-sm font-bold text-slate-700 dark:text-slate-300 hover:border-emerald-300 hover:bg-emerald-50/60 dark:hover:bg-slate-800 hover:text-emerald-600 transition-all cursor-pointer"
+                                ? "flex w-full items-center gap-3.5 rounded-2xl bg-gradient-to-r from-sky-600 to-sky-700 px-4 py-3 text-left text-sm font-black text-white shadow-md shadow-sky-600/20 transition-all cursor-pointer"
+                                : "flex w-full items-center gap-3.5 rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-800/40 px-4 py-3 text-left text-sm font-bold text-slate-700 dark:text-slate-300 hover:border-sky-300 hover:bg-sky-50/60 dark:hover:bg-slate-800 hover:text-sky-600 transition-all cursor-pointer"
                             }
                           >
-                            {Icon && <Icon size={20} className={active ? "text-white" : "text-slate-500 dark:text-slate-400 group-hover:text-emerald-600"} />}
+                            {Icon && <Icon size={20} className={active ? "text-white" : "text-slate-500 dark:text-slate-400 group-hover:text-sky-600"} />}
                             <span className="flex-1">{t(item.label)}</span>
                             {active && (
                               <span className="h-2 w-2 rounded-full bg-white animate-pulse" />
@@ -530,12 +530,12 @@ export default function DashboardLayout({
 
         {/* HERO HEADER - COMPACT DENSITY FOR ENTERPRISE EXPERIENCE */}
         <section className="relative overflow-hidden rounded-[28px] border border-slate-200/80 dark:border-slate-800 bg-white/85 dark:bg-slate-900/90 p-5 sm:p-6 md:p-7 shadow-[0_16px_50px_rgba(15,23,42,0.04)] backdrop-blur-xl transition-all duration-300">
-          <div className="absolute right-0 top-0 h-40 w-40 translate-x-12 -translate-y-12 rounded-full bg-emerald-100/60 dark:bg-emerald-950/40 blur-2xl" />
+          <div className="absolute right-0 top-0 h-40 w-40 translate-x-12 -translate-y-12 rounded-full bg-sky-100/60 dark:bg-sky-950/40 blur-2xl" />
 
           <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div className="space-y-2 max-w-3xl">
-              <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200/80 dark:border-emerald-800/80 bg-emerald-50/90 dark:bg-emerald-950/80 px-3.5 py-1 text-[11px] font-extrabold uppercase tracking-wider text-emerald-700 dark:text-emerald-300">
-                <Leaf size={14} className="text-emerald-600 dark:text-emerald-400" />
+              <div className="inline-flex items-center gap-2 rounded-full border border-sky-200/80 dark:border-sky-800/80 bg-sky-50/90 dark:bg-sky-950/80 px-3.5 py-1 text-[11px] font-extrabold uppercase tracking-wider text-sky-700 dark:text-sky-300">
+                <Leaf size={14} className="text-sky-600 dark:text-sky-400" />
                 {t(badge)}
               </div>
 
@@ -551,9 +551,9 @@ export default function DashboardLayout({
             </div>
 
             {quote && (
-              <div className="md:max-w-xs shrink-0 flex items-start gap-2.5 rounded-2xl border border-emerald-200/60 dark:border-emerald-900/50 bg-emerald-50/60 dark:bg-emerald-950/40 p-3.5">
-                <Sparkles size={16} className="mt-0.5 shrink-0 text-emerald-600 dark:text-emerald-400" />
-                <p className="text-xs font-semibold leading-snug text-emerald-900 dark:text-emerald-200">
+              <div className="md:max-w-xs shrink-0 flex items-start gap-2.5 rounded-2xl border border-sky-200/60 dark:border-sky-900/50 bg-sky-50/60 dark:bg-sky-950/40 p-3.5">
+                <Sparkles size={16} className="mt-0.5 shrink-0 text-sky-600 dark:text-sky-400" />
+                <p className="text-xs font-semibold leading-snug text-sky-900 dark:text-sky-200">
                   {t(quote)}
                 </p>
               </div>
@@ -569,17 +569,17 @@ export default function DashboardLayout({
 
 
         {/* FOOTER */}
-        <footer className="mt-8 flex flex-col gap-4 rounded-[24px] border border-emerald-200/40 dark:border-slate-800 bg-gradient-to-r from-slate-900 via-slate-900 to-emerald-950 p-5 sm:p-6 text-white shadow-xl sm:flex-row sm:items-center sm:justify-between">
+        <footer className="mt-8 flex flex-col gap-4 rounded-[24px] border border-sky-200/40 dark:border-slate-800 bg-gradient-to-r from-slate-900 via-slate-900 to-sky-950 p-5 sm:p-6 text-white shadow-xl sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-base font-black tracking-tight text-white flex items-center gap-2">
-              Aura Food <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold border border-emerald-500/30">v4.0 Enterprise</span>
+              Aura Food <span className="text-xs px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-400 font-bold border border-sky-500/30">v4.0 Enterprise</span>
             </p>
             <p className="mt-1 text-xs text-slate-300 max-w-xl">
               Zero-waste food rescue network powering real-time surplus inventory redistribution, community safety, and environmental impact.
             </p>
           </div>
 
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-emerald-500/20 border border-emerald-500/30 text-emerald-400">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-sky-500/20 border border-sky-500/30 text-sky-400">
             <Leaf size={20} />
           </div>
         </footer>

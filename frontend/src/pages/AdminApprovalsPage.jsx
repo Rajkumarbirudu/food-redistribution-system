@@ -159,7 +159,7 @@ export default function AdminApprovalsPage() {
                             "approve"
                           )
                         }
-                        className="flex items-center gap-2 rounded-xl bg-green-50 px-3 py-2 text-sm font-semibold text-green-700 disabled:opacity-50"
+                        className="flex items-center gap-2 rounded-xl bg-sky-50 px-3 py-2 text-sm font-semibold text-sky-700 hover:bg-sky-100 transition disabled:opacity-50"
                       >
                         <CheckCircle2 size={16} />
                         Approve

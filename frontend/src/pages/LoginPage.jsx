@@ -69,11 +69,11 @@ const ROLE_PORTALS = {
     defaultEmail: "donor@aura.com",
     path: "/donor",
     letter: "B",
-    themeColor: "emerald",
-    bgBadge: "bg-emerald-600",
-    btnColor: "bg-emerald-600 hover:bg-emerald-700 shadow-emerald-600/25",
-    textColor: "text-emerald-700",
-    borderColor: "border-emerald-500",
+    themeColor: "sky",
+    bgBadge: "bg-sky-600",
+    btnColor: "bg-sky-600 hover:bg-sky-700 shadow-sky-600/25",
+    textColor: "text-sky-700",
+    borderColor: "border-sky-500",
   },
   INDIVIDUAL_DONOR: {
     key: "INDIVIDUAL_DONOR",
@@ -235,33 +235,33 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="relative min-h-screen bg-gradient-to-br from-[#F0FDF4] via-[#F8FAFC] to-[#ECFDF5] dark:from-[#020617] dark:via-[#0F172A] dark:to-[#111827] text-slate-900 dark:text-slate-100 font-sans overflow-x-hidden flex flex-col justify-between selection:bg-emerald-500 selection:text-white transition-colors duration-500">
+    <main className="relative min-h-screen bg-gradient-to-br from-[#F8FCFF] via-[#EFF8FF] to-[#F0F9FF] dark:from-[#020617] dark:via-[#0F172A] dark:to-[#111827] text-slate-900 dark:text-slate-100 font-sans overflow-x-hidden flex flex-col justify-between selection:bg-sky-500 selection:text-white transition-colors duration-500">
       {/* RADIAL OVERLAY & BACKGROUND DECORATIVE ANIMATED GLOWS */}
       <div 
         className="pointer-events-none fixed inset-0 z-0 opacity-100"
         style={{
           backgroundImage: `
-            radial-gradient(circle at 15% 15%, rgba(16, 185, 129, 0.08) 0%, transparent 45%),
-            radial-gradient(circle at 85% 85%, rgba(52, 211, 153, 0.06) 0%, transparent 50%)
+            radial-gradient(circle at 15% 15%, rgba(14, 165, 233, 0.08) 0%, transparent 45%),
+            radial-gradient(circle at 85% 85%, rgba(56, 189, 248, 0.06) 0%, transparent 50%)
           `
         }}
       />
-      <div className="pointer-events-none absolute -left-40 -top-40 h-[600px] w-[600px] rounded-full bg-emerald-500/10 dark:bg-emerald-500/15 blur-[120px] animate-ambient-blob" />
-      <div className="pointer-events-none absolute top-1/4 -right-40 h-[650px] w-[650px] rounded-full bg-teal-400/10 dark:bg-teal-400/15 blur-[130px] animate-ambient-blob" style={{ animationDelay: '-6s' }} />
-      <div className="pointer-events-none absolute bottom-0 left-1/3 h-[550px] w-[550px] rounded-full bg-emerald-300/10 dark:bg-emerald-300/15 blur-[110px] animate-ambient-blob" style={{ animationDelay: '-3s' }} />
+      <div className="pointer-events-none absolute -left-40 -top-40 h-[600px] w-[600px] rounded-full bg-sky-500/10 dark:bg-sky-500/15 blur-[120px] animate-ambient-blob" />
+      <div className="pointer-events-none absolute top-1/4 -right-40 h-[650px] w-[650px] rounded-full bg-blue-400/10 dark:bg-blue-400/15 blur-[130px] animate-ambient-blob" style={{ animationDelay: '-6s' }} />
+      <div className="pointer-events-none absolute bottom-0 left-1/3 h-[550px] w-[550px] rounded-full bg-sky-300/10 dark:bg-sky-300/15 blur-[110px] animate-ambient-blob" style={{ animationDelay: '-3s' }} />
 
       {/* TOP HEADER / NAVBAR */}
       <header className="relative z-50 max-w-[1750px] mx-auto w-full px-4 sm:px-8 lg:px-12 py-5 flex items-center justify-between">
         <div className="flex items-center gap-3 cursor-pointer group" onClick={() => setActivePortal(null)}>
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-tr from-emerald-600 via-teal-600 to-sky-600 text-white shadow-xl shadow-emerald-600/30 ring-4 ring-emerald-500/10 group-hover:scale-105 transition-all duration-300">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-tr from-[#0284C7] via-[#0EA5E9] to-[#38BDF8] text-white shadow-xl shadow-sky-600/30 ring-4 ring-sky-500/10 group-hover:scale-105 transition-all duration-300">
             <Leaf size={24} className="animate-pulse" />
           </div>
           <div>
             <h1 className="text-xl font-black tracking-tight text-slate-900 flex items-center gap-1.5">
               {t("Aura Food") || "Aura Food"}
-              <Globe size={16} className="text-emerald-600 shrink-0" />
+              <Globe size={16} className="text-sky-600 shrink-0" />
             </h1>
-            <p className="text-[11px] font-extrabold text-emerald-700 tracking-wide">
+            <p className="text-[11px] font-extrabold text-sky-700 tracking-wide">
               {t("Share food. Spread hope.") || "Share food. Spread hope."}
             </p>
           </div>
@@ -278,13 +278,13 @@ export default function LoginPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 w-full items-stretch">
           
           {/* LEFT HERO CARD - Exact Hero Pane from Image */}
-          <div className="lg:col-span-5 bg-white/80 backdrop-blur-2xl border border-emerald-900/10 rounded-[32px] p-8 sm:p-10 lg:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.04)] flex flex-col justify-between relative overflow-hidden group corp-card-hover">
+          <div className="lg:col-span-5 bg-white/80 backdrop-blur-2xl border border-sky-900/10 rounded-[32px] p-8 sm:p-10 lg:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.04)] flex flex-col justify-between relative overflow-hidden group corp-card-hover">
             
-            <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-gradient-to-br from-emerald-200/50 via-amber-200/30 to-rose-200/20 rounded-full blur-2xl pointer-events-none" />
+            <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-gradient-to-br from-sky-200/50 via-blue-200/30 to-indigo-200/20 rounded-full blur-2xl pointer-events-none" />
 
             <div className="relative z-10">
               {/* Badge Button "FoodStore" */}
-              <div className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 px-4.5 py-2 text-sm font-black text-white shadow-lg shadow-emerald-600/30 tracking-wide border border-emerald-500/30">
+              <div className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-600 to-sky-700 px-4.5 py-2 text-sm font-black text-white shadow-lg shadow-sky-600/30 tracking-wide border border-sky-500/30">
                 <Sparkles size={16} className="animate-spin" style={{ animationDuration: '4s' }} />
                 FoodStore
               </div>
@@ -309,10 +309,10 @@ export default function LoginPage() {
             {/* Bottom Section */}
             <div className="relative z-10 mt-10 pt-6 border-t border-slate-200/60 flex items-center justify-between">
               <div className="flex items-center gap-2 text-xs font-bold text-slate-500">
-                <MousePointer2 size={16} className="text-emerald-600 animate-bounce" />
+                <MousePointer2 size={16} className="text-sky-600 animate-bounce" />
                 <span>{t("Click any card to open login portal") || "Click any card to open login portal"}</span>
               </div>
-              <div className="flex items-center gap-1.5 text-xs font-black text-emerald-700">
+              <div className="flex items-center gap-1.5 text-xs font-black text-sky-700">
                 <Layers size={15} />
                 <span>v2.5 Live</span>
               </div>
@@ -324,27 +324,27 @@ export default function LoginPage() {
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 lg:gap-6 h-full">
               
-              {/* CARD 1: BUSINESS DASHBOARD (Green Theme "B") */}
+              {/* CARD 1: BUSINESS DASHBOARD (Light Blue Theme "B") */}
               <div
                 onClick={() => handleCardClick(ROLE_PORTALS.DONOR)}
-                className="bg-white/90 backdrop-blur-xl border border-slate-200/90 rounded-[28px] p-6 sm:p-7 shadow-sm hover:shadow-2xl hover:border-emerald-300 hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer flex flex-col justify-between relative overflow-hidden"
+                className="bg-white/90 backdrop-blur-xl border border-slate-200/90 rounded-[28px] p-6 sm:p-7 shadow-sm hover:shadow-2xl hover:border-sky-300 hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer flex flex-col justify-between relative overflow-hidden"
               >
                 <div className="relative z-10">
                   <div className="flex items-center justify-between">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-600 text-white font-black text-xl shadow-lg shadow-emerald-600/25 ring-4 ring-emerald-500/10">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-600 text-white font-black text-xl shadow-lg shadow-sky-600/25 ring-4 ring-sky-500/10">
                       B
                     </div>
                     {/* Bar chart graphic */}
-                    <div className="flex items-end gap-1.5 h-10 px-2.5 py-1.5 bg-emerald-50/80 rounded-xl border border-emerald-100">
-                      <span className="w-2.5 h-[50%] bg-emerald-400 rounded-sm group-hover:h-[65%] transition-all" />
-                      <span className="w-2.5 h-[100%] bg-emerald-600 rounded-sm group-hover:h-[90%] transition-all" />
-                      <span className="w-2.5 h-[75%] bg-emerald-500 rounded-sm group-hover:h-[100%] transition-all" />
+                    <div className="flex items-end gap-1.5 h-10 px-2.5 py-1.5 bg-sky-50/80 rounded-xl border border-sky-100">
+                      <span className="w-2.5 h-[50%] bg-sky-400 rounded-sm group-hover:h-[65%] transition-all" />
+                      <span className="w-2.5 h-[100%] bg-sky-600 rounded-sm group-hover:h-[90%] transition-all" />
+                      <span className="w-2.5 h-[75%] bg-sky-500 rounded-sm group-hover:h-[100%] transition-all" />
                     </div>
                   </div>
 
-                  <h3 className="mt-6 text-xl font-black text-slate-900 group-hover:text-emerald-600 transition-colors flex items-center justify-between">
+                  <h3 className="mt-6 text-xl font-black text-slate-900 group-hover:text-sky-600 transition-colors flex items-center justify-between">
                     <span>{t("Business Dashboard") || "Business Dashboard"}</span>
-                    <ArrowRight size={18} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-emerald-600" />
+                    <ArrowRight size={18} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-sky-600" />
                   </h3>
 
                   <p className="mt-2.5 text-xs sm:text-sm font-medium text-slate-600 leading-relaxed">
@@ -352,12 +352,12 @@ export default function LoginPage() {
                   </p>
                 </div>
 
-                <div className="relative z-10 mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-emerald-700">
+                <div className="relative z-10 mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-sky-700">
                   <span className="flex items-center gap-1.5">
                     <Building2 size={15} />
                     {t("Commercial Donors")}
                   </span>
-                  <span className="text-[11px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-lg">
+                  <span className="text-[11px] font-black uppercase tracking-wider bg-sky-100 text-sky-800 px-2.5 py-1 rounded-lg">
                     Open Portal →
                   </span>
                 </div>
@@ -561,7 +561,7 @@ export default function LoginPage() {
                     placeholder="you@example.com"
                     disabled={submitting}
                     required
-                    className="h-12 w-full rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 pl-11 pr-4 text-xs font-bold text-slate-900 dark:text-white outline-none transition focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/20"
+                    className="h-12 w-full rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 pl-11 pr-4 text-xs font-bold text-slate-900 dark:text-white outline-none transition focus:border-sky-600 focus:ring-2 focus:ring-sky-500/20"
                   />
                 </div>
               </div>
@@ -583,7 +583,7 @@ export default function LoginPage() {
                     placeholder="Enter password"
                     disabled={submitting}
                     required
-                    className="h-12 w-full rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 pl-11 pr-11 text-xs font-bold text-slate-900 dark:text-white outline-none transition focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/20"
+                    className="h-12 w-full rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 pl-11 pr-11 text-xs font-bold text-slate-900 dark:text-white outline-none transition focus:border-sky-600 focus:ring-2 focus:ring-sky-500/20"
                   />
                   <button
                     type="button"
@@ -608,7 +608,7 @@ export default function LoginPage() {
             <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-slate-500">
               <span>
                 {t("Don't have an account?")}{" "}
-                <Link to="/register" className="font-black text-emerald-700 hover:underline">
+                <Link to="/register" className="font-black text-sky-700 hover:underline">
                   {t("Register here")}
                 </Link>
               </span>

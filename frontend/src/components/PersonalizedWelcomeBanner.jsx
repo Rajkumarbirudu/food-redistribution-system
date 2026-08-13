@@ -34,15 +34,15 @@ export default function PersonalizedWelcomeBanner({
   return (
     <div className="w-full mb-6 rounded-[24px] bg-white/95 dark:bg-slate-900/95 border border-slate-200/90 dark:border-slate-800 p-6 sm:p-7 shadow-[0_15px_45px_rgba(15,23,42,0.04)] backdrop-blur-2xl relative overflow-hidden">
       {/* GLOW DECORATIONS */}
-      <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-emerald-500/10 blur-3xl dark:bg-emerald-500/20" />
+      <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-sky-500/10 blur-3xl dark:bg-sky-500/20" />
       
       <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
         
         {/* LEFT COLUMN: GREETING & ROLE */}
         <div className="space-y-2 max-w-xl">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/80 px-3 py-1 text-xs font-black uppercase tracking-wider text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
-              <Sparkles size={13} className="text-emerald-600 animate-spin" style={{ animationDuration: "6s" }} />
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-sky-50 dark:bg-sky-950/80 px-3 py-1 text-xs font-black uppercase tracking-wider text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800">
+              <Sparkles size={13} className="text-sky-600 animate-spin" style={{ animationDuration: "6s" }} />
               {userRole.replace("_", " ")}
             </span>
             <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 dark:bg-slate-800 px-3 py-1 text-xs font-bold text-slate-600 dark:text-slate-300">

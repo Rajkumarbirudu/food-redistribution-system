@@ -3,10 +3,11 @@
 @layer base {
   :root {
     --font-primary: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    --corp-blue: #007CC3;
-    --corp-navy: #0A192C;
-    --corp-emerald: #059669;
-    --corp-[#F8FAFC]: #F8FAFC;
+    --corp-blue: #0EA5E9;
+    --corp-navy: #0F172A;
+    --corp-primary: #0EA5E9;
+    --corp-hover: #0284C7;
+    --corp-[#F8FAFC]: #F8FCFF;
   }
 
   html,
@@ -24,7 +25,7 @@
   }
 
   body {
-    background-color: #F8FAFC;
+    background-color: #F8FCFF;
     color: #0F172A;
     padding-top: env(safe-area-inset-top, 0px);
     padding-bottom: env(safe-area-inset-bottom, 0px);
@@ -40,11 +41,11 @@
   background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(226, 232, 240, 0.9);
+  border: 1px solid rgba(186, 230, 253, 0.9);
 }
 
 .corp-card-shadow {
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.02);
+  box-shadow: 0 10px 30px rgba(14, 165, 233, 0.04), 0 1px 3px rgba(14, 165, 233, 0.02);
 }
 
 .corp-card-hover {
@@ -53,8 +54,8 @@
 
 .corp-card-hover:hover {
   transform: translateY(-2px);
-  box-shadow: 0 20px 40px rgba(0, 124, 195, 0.08), 0 2px 6px rgba(0, 124, 195, 0.04);
-  border-color: rgba(0, 124, 195, 0.25);
+  box-shadow: 0 20px 40px rgba(14, 165, 233, 0.08), 0 2px 6px rgba(14, 165, 233, 0.04);
+  border-color: rgba(14, 165, 233, 0.25);
 }
 
 /* CLEAN SCROLLBAR */
@@ -73,5 +74,5 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #007CC3;
+  background: #0EA5E9;
 }
