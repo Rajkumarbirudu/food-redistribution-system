@@ -1,17 +1,168 @@
 import React, { useState } from "react";
-import { Plus, Barcode, PackagePlus, FileSpreadsheet, BarChart3, HeartHandshake, X } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import {
+  Plus,
+  Barcode,
+  PackagePlus,
+  FileSpreadsheet,
+  HeartHandshake,
+  Gift,
+  Truck,
+  ShieldCheck,
+  Users,
+  FileText,
+  PackageCheck,
+  Tags,
+  Search,
+  LayoutDashboard,
+  Utensils,
+  CheckCircle2,
+} from "lucide-react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { useTranslation } from "../context/LanguageContext";
 
 export default function QuickActionCenter() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { user } = useAuth();
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
 
-  const actions = [
-    { label: "Scan Barcode", path: "/donor/barcode", icon: Barcode, color: "bg-purple-600 hover:bg-purple-700" },
-    { label: "Add Inventory", path: "/donor/inventory", icon: PackagePlus, color: "bg-sky-600 hover:bg-sky-700" },
-    { label: "Create Donation", path: "/donor/donations", icon: HeartHandshake, color: "bg-blue-600 hover:bg-blue-700" },
-    { label: "Export CSV", path: "/inventory", icon: FileSpreadsheet, color: "bg-amber-600 hover:bg-amber-700" },
-  ];
+  const role = String(user?.role || "").toUpperCase();
+
+  const getActionsForRole = () => {
+    // 1. NGO Actions (Discover, Claims, Deliveries)
+    if (role === "NGO") {
+      return [
+        {
+          label: t("Discover Available Food"),
+          path: "/ngo/available",
+          icon: Search,
+          color: "bg-sky-600 hover:bg-sky-700",
+        },
+        {
+          label: t("My Claimed Requests"),
+          path: "/ngo/claims",
+          icon: HeartHandshake,
+          color: "bg-blue-600 hover:bg-blue-700",
+        },
+        {
+          label: t("Active Deliveries"),
+          path: "/ngo",
+          icon: Truck,
+          color: "bg-amber-600 hover:bg-amber-700",
+        },
+      ];
+    }
+
+    // 2. Delivery Partner Actions
+    if (role === "DELIVERY_PARTNER" || role === "DELIVERY_BOY") {
+      return [
+        {
+          label: t("Available Pickups"),
+          path: "/delivery/partner",
+          icon: Truck,
+          color: "bg-sky-600 hover:bg-sky-700",
+        },
+        {
+          label: t("Delivery Dashboard"),
+          path: "/delivery/partner",
+          icon: LayoutDashboard,
+          color: "bg-blue-600 hover:bg-blue-700",
+        },
+      ];
+    }
+
+    // 3. Individual Home Donor Actions
+    if (role === "INDIVIDUAL_DONOR") {
+      return [
+        {
+          label: t("Scan Grocery Barcode"),
+          path: "/donor/barcode",
+          icon: Barcode,
+          color: "bg-purple-600 hover:bg-purple-700",
+        },
+        {
+          label: t("My Home Pantry"),
+          path: "/individual",
+          icon: PackagePlus,
+          color: "bg-amber-500 hover:bg-amber-600",
+        },
+        {
+          label: t("Share Extra Food"),
+          path: "/individual",
+          icon: HeartHandshake,
+          color: "bg-sky-600 hover:bg-sky-700",
+        },
+        {
+          label: t("Discover Food"),
+          path: "/individual",
+          icon: Gift,
+          color: "bg-blue-600 hover:bg-blue-700",
+        },
+      ];
+    }
+
+    // 4. Admin Actions
+    if (role === "ADMIN") {
+      return [
+        {
+          label: t("User Approvals"),
+          path: "/admin/approvals",
+          icon: ShieldCheck,
+          color: "bg-amber-600 hover:bg-amber-700",
+        },
+        {
+          label: t("Manage Users"),
+          path: "/admin/details/users",
+          icon: Users,
+          color: "bg-sky-600 hover:bg-sky-700",
+        },
+        {
+          label: t("Donation Records"),
+          path: "/admin/details/donations",
+          icon: FileText,
+          color: "bg-blue-600 hover:bg-blue-700",
+        },
+        {
+          label: t("Inventory Records"),
+          path: "/admin/details/inventory",
+          icon: PackageCheck,
+          color: "bg-indigo-600 hover:bg-indigo-700",
+        },
+      ];
+    }
+
+    // 5. Commercial Business Donor (DONOR) Actions
+    return [
+      {
+        label: t("Scan Barcode"),
+        path: "/donor/barcode",
+        icon: Barcode,
+        color: "bg-purple-600 hover:bg-purple-700",
+      },
+      {
+        label: t("Manage Inventory"),
+        path: "/inventory",
+        icon: PackagePlus,
+        color: "bg-sky-600 hover:bg-sky-700",
+      },
+      {
+        label: t("Post Food Donation"),
+        path: "/donations",
+        icon: HeartHandshake,
+        color: "bg-blue-600 hover:bg-blue-700",
+      },
+      {
+        label: t("Discounted Sales"),
+        path: "/sales",
+        icon: Tags,
+        color: "bg-amber-600 hover:bg-amber-700",
+      },
+    ];
+  };
+
+  const actions = getActionsForRole();
 
   return (
     <div className="fixed bottom-6 right-6 z-40">
@@ -23,6 +174,7 @@ export default function QuickActionCenter() {
             return (
               <button
                 key={i}
+                type="button"
                 onClick={() => {
                   setIsOpen(false);
                   navigate(act.path);

@@ -19,6 +19,7 @@ import NgoClaimsPage from "./pages/NgoClaimsPage";
 import DonationsPage from "./pages/DonationsPage";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminDetailsPage from "./pages/Admindetailspage";
+import AdminApprovalsPage from "./pages/AdminApprovalsPage";
 import DeliveryPartnerDashboard from "./pages/DeliveryPartnerDashboard";
 import DeliveryBoyDashboard from "./pages/DeliveryBoyDashboard";
 import DeliveryTrackingPage from "./pages/DeliveryTrackingPage";
@@ -43,7 +44,7 @@ export default function App() {
         <Route
           path="/select"
           element={
-            <LoginPage />
+            <DashboardSelectPage />
           }
         />
 
@@ -170,6 +171,13 @@ export default function App() {
           path="/admin/details/:section"
           element={
             <AdminDetailsPage />
+          }
+        />
+
+        <Route
+          path="/admin/approvals"
+          element={
+            <AdminApprovalsPage />
           }
         />
 
