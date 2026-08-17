@@ -66,7 +66,6 @@ const ROLE_PORTALS = {
     title: "Business Dashboard Login Portal",
     subtitle: "For Restaurants, Hotels, Supermarkets & Cafeterias",
     description: "Access commercial surplus food publishing, automated expiry tracking, and NGO pickup coordination.",
-    defaultEmail: "donor@aura.com",
     path: "/donor",
     letter: "B",
     themeColor: "sky",
@@ -80,7 +79,6 @@ const ROLE_PORTALS = {
     title: "Individual User Dashboard Login Portal",
     subtitle: "For Household Members & Personal Donors",
     description: "Manage home grocery inventory, track expiry dates, share extra food, or claim items from local businesses.",
-    defaultEmail: "individual@aura.com",
     path: "/individual",
     letter: "I",
     themeColor: "amber",
@@ -94,7 +92,6 @@ const ROLE_PORTALS = {
     title: "Delivery Dashboard Login Portal",
     subtitle: "For Logistics Partners, Volunteers & Drivers",
     description: "Accept food pickup requests, optimize delivery routes, and log proof of food handover.",
-    defaultEmail: "delivery@aura.com",
     path: "/delivery/partner",
     letter: "D",
     themeColor: "sky",
@@ -108,7 +105,6 @@ const ROLE_PORTALS = {
     title: "NGO Dashboard Login Portal",
     subtitle: "For Food Banks, Community Kitchens & Charities",
     description: "Discover available food donations, request stock, and distribute meals to beneficiaries.",
-    defaultEmail: "ngo@aura.com",
     path: "/ngo",
     letter: "N",
     themeColor: "blue",
@@ -132,7 +128,7 @@ export default function LoginPage() {
   });
 
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("password123");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -145,8 +141,8 @@ export default function LoginPage() {
   // Open Portal Modal when clicking a card
   const handleCardClick = (portalConfig) => {
     setActivePortal(portalConfig);
-    setEmail(portalConfig.defaultEmail);
-    setPassword("password123");
+    setEmail("");
+    setPassword("");
     setError("");
   };
 

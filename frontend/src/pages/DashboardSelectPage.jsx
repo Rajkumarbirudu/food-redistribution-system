@@ -22,35 +22,16 @@ import InstallPwaButton from "../components/InstallPwaButton";
 
 export default function DashboardSelectPage() {
   const navigate = useNavigate();
-  const { user, login } = useAuth();
+  const { user } = useAuth();
   const { t } = useTranslation();
 
-  const [loadingRole, setLoadingRole] = useState(null);
-
-  // Quick Demo Auto-login or direct navigation
-  const handleDashboardClick = async (rolePath, demoEmail, demoRole) => {
+  // Direct navigation to dedicated login portal
+  const handleDashboardClick = (rolePath, demoRole) => {
     if (user) {
       navigate(rolePath);
       return;
     }
-
-    setLoadingRole(demoRole);
-    try {
-      if (demoEmail) {
-        try {
-          await login(demoEmail, "password123");
-          navigate(rolePath);
-          return;
-        } catch (e) {
-          console.log("Demo login fallback to login screen:", e);
-        }
-      }
-      navigate(`/login?role=${demoRole}`);
-    } catch (err) {
-      navigate("/login");
-    } finally {
-      setLoadingRole(null);
-    }
+    navigate(`/login?role=${demoRole}`);
   };
 
   return (
@@ -153,7 +134,7 @@ export default function DashboardSelectPage() {
             
             {/* CARD 1: BUSINESS DASHBOARD (Light Blue Theme "B") */}
             <div
-              onClick={() => handleDashboardClick("/donor", "donor@aura.com", "DONOR")}
+              onClick={() => handleDashboardClick("/donor", "DONOR")}
               className="bg-white/90 backdrop-blur-xl border border-slate-200/90 rounded-[28px] p-6 sm:p-7 shadow-sm hover:shadow-2xl hover:border-sky-300 hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer flex flex-col justify-between relative overflow-hidden"
             >
               <div className="absolute top-0 right-0 w-32 h-32 bg-sky-50 rounded-full blur-xl pointer-events-none group-hover:bg-sky-100 transition" />
@@ -192,14 +173,14 @@ export default function DashboardSelectPage() {
                   {t("Commercial Donors") || "Commercial Donors"}
                 </span>
                 <span className="text-[11px] font-black uppercase tracking-wider bg-sky-100 text-sky-800 px-2.5 py-1 rounded-lg">
-                  {loadingRole === "DONOR" ? "Opening..." : "Launch →"}
+                  Launch →
                 </span>
               </div>
             </div>
 
             {/* CARD 2: INDIVIDUAL USER DASHBOARD (Orange Theme "I") */}
             <div
-              onClick={() => handleDashboardClick("/individual", "individual@aura.com", "INDIVIDUAL_DONOR")}
+              onClick={() => handleDashboardClick("/individual", "INDIVIDUAL_DONOR")}
               className="bg-white/90 backdrop-blur-xl border border-slate-200/90 rounded-[28px] p-6 sm:p-7 shadow-sm hover:shadow-2xl hover:border-amber-300 hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer flex flex-col justify-between relative overflow-hidden"
             >
               <div className="absolute top-0 right-0 w-32 h-32 bg-amber-50 rounded-full blur-xl pointer-events-none group-hover:bg-amber-100 transition" />
@@ -238,14 +219,14 @@ export default function DashboardSelectPage() {
                   {t("Household & Individuals") || "Household & Individuals"}
                 </span>
                 <span className="text-[11px] font-black uppercase tracking-wider bg-amber-100 text-amber-800 px-2.5 py-1 rounded-lg">
-                  {loadingRole === "INDIVIDUAL_DONOR" ? "Opening..." : "Launch →"}
+                  Launch →
                 </span>
               </div>
             </div>
 
             {/* CARD 3: DELIVERY DASHBOARD (Sky/Cyan Logistics Theme "D") */}
             <div
-              onClick={() => handleDashboardClick("/delivery/partner", "delivery@aura.com", "DELIVERY_PARTNER")}
+              onClick={() => handleDashboardClick("/delivery/partner", "DELIVERY_PARTNER")}
               className="bg-white/90 backdrop-blur-xl border border-slate-200/90 rounded-[28px] p-6 sm:p-7 shadow-sm hover:shadow-2xl hover:border-sky-300 hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer flex flex-col justify-between relative overflow-hidden"
             >
               <div className="absolute top-0 right-0 w-32 h-32 bg-sky-50 rounded-full blur-xl pointer-events-none group-hover:bg-sky-100 transition" />
@@ -286,14 +267,14 @@ export default function DashboardSelectPage() {
                   {t("Volunteers & Logistics") || "Volunteers & Logistics"}
                 </span>
                 <span className="text-[11px] font-black uppercase tracking-wider bg-sky-100 text-sky-800 px-2.5 py-1 rounded-lg">
-                  {loadingRole === "DELIVERY_PARTNER" ? "Opening..." : "Launch →"}
+                  Launch →
                 </span>
               </div>
             </div>
 
             {/* CARD 4: NGO DASHBOARD (Light Blue Theme "N") */}
             <div
-              onClick={() => handleDashboardClick("/ngo", "ngo@aura.com", "NGO")}
+              onClick={() => handleDashboardClick("/ngo", "NGO")}
               className="bg-white/90 backdrop-blur-xl border border-slate-200/90 rounded-[28px] p-6 sm:p-7 shadow-sm hover:shadow-2xl hover:border-blue-300 hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer flex flex-col justify-between relative overflow-hidden"
             >
               <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-full blur-xl pointer-events-none group-hover:bg-blue-100 transition" />

@@ -9,16 +9,26 @@ import {
 import {
   ArrowRight,
   Building2,
+  Calendar,
   CheckCircle2,
   Clock3,
+  ExternalLink,
   Gift,
+  HeartHandshake,
+  Home,
   LayoutDashboard,
   Leaf,
+  Mail,
+  MapPin,
   PackageOpen,
+  Phone,
   RefreshCw,
   ShieldCheck,
+  Sparkles,
+  Store,
   Truck,
   UserCheck,
+  UserPlus,
   Users,
   XCircle,
 } from "lucide-react";
@@ -39,6 +49,7 @@ const EMPTY_DASHBOARD = {
   total_inventory_items: 0,
   total_donations: 0,
   pending_users: 0,
+  recent_users: [],
 
   donation_overview: {
     available: 0,
@@ -209,6 +220,43 @@ function OverviewCard({
   );
 }
 
+
+function getRoleConfig(role) {
+  const r = String(role || "").toUpperCase();
+  if (r === "DONOR") {
+    return {
+      label: "Commercial Donor",
+      icon: Store,
+      bg: "bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800",
+    };
+  }
+  if (r === "INDIVIDUAL_DONOR") {
+    return {
+      label: "Individual Donor",
+      icon: Home,
+      bg: "bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800",
+    };
+  }
+  if (r === "NGO") {
+    return {
+      label: "NGO / Food Bank",
+      icon: HeartHandshake,
+      bg: "bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800",
+    };
+  }
+  if (r === "DELIVERY_PARTNER" || r === "DELIVERY_BOY") {
+    return {
+      label: "Delivery Partner",
+      icon: Truck,
+      bg: "bg-sky-50 dark:bg-sky-950/60 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-800",
+    };
+  }
+  return {
+    label: role || "User",
+    icon: Users,
+    bg: "bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700",
+  };
+}
 
 
 export default function AdminDashboard() {
@@ -540,6 +588,13 @@ export default function AdminDashboard() {
                     0
                   ),
               },
+
+              recent_users:
+                Array.isArray(
+                  data.recent_users
+                )
+                  ? data.recent_users
+                  : [],
             });
           }
 
@@ -1035,6 +1090,135 @@ export default function AdminDashboard() {
           </div>
 
         </div>
+
+      </section>
+
+
+      {/* ====================================================
+          RECENTLY REGISTERED USERS & DONORS
+      ==================================================== */}
+
+      <section className="mt-7 rounded-[30px] border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 p-7 shadow-[0_18px_50px_rgba(14,165,233,0.06)] backdrop-blur-xl">
+
+        <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+
+          <div className="flex items-center gap-3">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-50 dark:bg-sky-950/80 text-sky-700 dark:text-sky-300">
+              <UserPlus size={24} />
+            </div>
+            <div>
+              <h2 className="text-xl font-black text-slate-900 dark:text-white">
+                {t("Recently Registered Users & Donors")}
+              </h2>
+              <p className="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
+                {t("Real-time feed of commercial donors, individual donors, NGOs and delivery partners joining Aura Food.")}
+              </p>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => navigate("/admin/details/users")}
+            className="inline-flex items-center gap-2 rounded-2xl border border-sky-200 dark:border-sky-800 bg-sky-50/50 dark:bg-sky-950/50 px-4 py-2.5 text-xs font-black text-sky-700 dark:text-sky-300 hover:bg-sky-100 dark:hover:bg-sky-900/60 transition cursor-pointer"
+          >
+            {t("View All Users")}
+            <ArrowRight size={15} />
+          </button>
+
+        </div>
+
+        {(!dashboardData.recent_users || dashboardData.recent_users.length === 0) ? (
+          <div className="rounded-2xl border-2 border-dashed border-slate-100 dark:border-slate-800 p-8 text-center text-sm font-semibold text-slate-400">
+            {t("No recently registered users found.")}
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[750px] text-left">
+              <thead>
+                <tr className="border-b border-slate-100 dark:border-slate-800 text-xs font-black uppercase text-slate-400">
+                  <th className="pb-3 pr-4">{t("User / Organization")}</th>
+                  <th className="pb-3 px-4">{t("Role")}</th>
+                  <th className="pb-3 px-4">{t("Contact Details")}</th>
+                  <th className="pb-3 px-4">{t("Registered")}</th>
+                  <th className="pb-3 px-4">{t("Status")}</th>
+                  <th className="pb-3 pl-4 text-right">{t("Action")}</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
+                {dashboardData.recent_users.map((u) => {
+                  const roleConfig = getRoleConfig(u.role);
+                  const RoleIcon = roleConfig.icon;
+                  const formattedDate = u.created_at
+                    ? new Date(u.created_at).toLocaleDateString(undefined, {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })
+                    : "Recently";
+
+                  return (
+                    <tr
+                      key={u.id || u._id || u.email}
+                      className="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition group"
+                    >
+                      <td className="py-4 pr-4">
+                        <div className="font-black text-slate-900 dark:text-white">
+                          {u.full_name || u.organization_name || "Unnamed User"}
+                        </div>
+                        {u.organization_name && u.organization_name !== u.full_name && (
+                          <div className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                            {u.organization_name}
+                          </div>
+                        )}
+                      </td>
+                      <td className="py-4 px-4">
+                        <span className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-bold ${roleConfig.bg}`}>
+                          <RoleIcon size={13} />
+                          {t(roleConfig.label)}
+                        </span>
+                      </td>
+                      <td className="py-4 px-4 text-xs font-semibold text-slate-600 dark:text-slate-300">
+                        <div>{u.email}</div>
+                        {u.phone_number && (
+                          <div className="text-slate-400 dark:text-slate-500">{u.phone_number}</div>
+                        )}
+                      </td>
+                      <td className="py-4 px-4 text-xs font-medium text-slate-500 dark:text-slate-400">
+                        {formattedDate}
+                      </td>
+                      <td className="py-4 px-4">
+                        <span
+                          className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-black ${
+                            String(u.approval_status).toUpperCase() === "PENDING"
+                              ? "bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300"
+                              : String(u.approval_status).toUpperCase() === "REJECTED"
+                              ? "bg-rose-100 text-rose-800 dark:bg-rose-950/60 dark:text-rose-300"
+                              : "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300"
+                          }`}
+                        >
+                          {String(u.approval_status).toUpperCase() === "APPROVED" && <CheckCircle2 size={12} />}
+                          {t(u.approval_status || (u.is_active ? "Active" : "Inactive"))}
+                        </span>
+                      </td>
+                      <td className="py-4 pl-4 text-right">
+                        <button
+                          type="button"
+                          onClick={() => navigate(`/admin/details/users`)}
+                          className="inline-flex items-center gap-1 text-xs font-black text-sky-600 dark:text-sky-400 hover:text-sky-700 dark:hover:text-sky-300"
+                        >
+                          {t("Manage")}
+                          <ArrowRight size={13} />
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
 
       </section>
 

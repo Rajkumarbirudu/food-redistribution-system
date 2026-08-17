@@ -162,6 +162,8 @@ export default function AdminDetailsPage() {
 
   const [search, setSearch] = useState("");
 
+  const [userFilterTab, setUserFilterTab] = useState("ALL");
+
   const [loading, setLoading] = useState(true);
 
   const [error, setError] = useState("");
@@ -248,22 +250,45 @@ export default function AdminDetailsPage() {
 
 
   const filteredRows = useMemo(() => {
+    let result = rows;
+
+    if (section === "users" && userFilterTab !== "ALL") {
+      if (userFilterTab === "PENDING") {
+        result = result.filter(
+          (r) =>
+            String(r.approval_status || "").toUpperCase() === "PENDING" ||
+            r.is_active === false
+        );
+      } else if (userFilterTab === "DELIVERY_PARTNER") {
+        result = result.filter((r) =>
+          ["DELIVERY_PARTNER", "DELIVERY_BOY"].includes(
+            String(r.role || "").toUpperCase()
+          )
+        );
+      } else {
+        result = result.filter(
+          (r) =>
+            String(r.role || "").toUpperCase() === userFilterTab
+        );
+      }
+    }
+
     const query = search
       .trim()
       .toLowerCase();
 
     if (!query) {
-      return rows;
+      return result;
     }
 
-    return rows.filter((row) =>
+    return result.filter((row) =>
       Object.values(row).some((value) =>
         formatValue(value)
           .toLowerCase()
           .includes(query)
       )
     );
-  }, [rows, search]);
+  }, [rows, search, section, userFilterTab]);
 
 
   const columns = useMemo(() => {
@@ -387,7 +412,7 @@ export default function AdminDetailsPage() {
             <button
               type="button"
               onClick={loadDetails}
-              className="flex items-center justify-center gap-2 rounded-2xl border border-slate-200 px-4 py-3 font-bold hover:bg-slate-50 transition"
+              className="flex items-center justify-center gap-2 rounded-2xl border border-slate-200 px-4 py-3 font-bold hover:bg-slate-50 transition cursor-pointer"
             >
               <RefreshCw
                 size={18}
@@ -403,6 +428,60 @@ export default function AdminDetailsPage() {
 
           </div>
 
+          {section === "users" && (
+            <div className="mt-5 flex flex-wrap items-center gap-2 border-t border-slate-100 pt-4">
+              {[
+                { key: "ALL", label: "All Users", count: rows.length },
+                {
+                  key: "DONOR",
+                  label: "Commercial Donors",
+                  count: rows.filter((r) => String(r.role || "").toUpperCase() === "DONOR").length,
+                },
+                {
+                  key: "INDIVIDUAL_DONOR",
+                  label: "Individual Donors",
+                  count: rows.filter((r) => String(r.role || "").toUpperCase() === "INDIVIDUAL_DONOR").length,
+                },
+                {
+                  key: "NGO",
+                  label: "NGOs",
+                  count: rows.filter((r) => String(r.role || "").toUpperCase() === "NGO").length,
+                },
+                {
+                  key: "DELIVERY_PARTNER",
+                  label: "Delivery Partners",
+                  count: rows.filter((r) => ["DELIVERY_PARTNER", "DELIVERY_BOY"].includes(String(r.role || "").toUpperCase())).length,
+                },
+                {
+                  key: "PENDING",
+                  label: "Pending Approvals",
+                  count: rows.filter((r) => String(r.approval_status || "").toUpperCase() === "PENDING" || r.is_active === false).length,
+                },
+              ].map((tab) => (
+                <button
+                  key={tab.key}
+                  type="button"
+                  onClick={() => setUserFilterTab(tab.key)}
+                  className={`inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-black transition cursor-pointer ${
+                    userFilterTab === tab.key
+                      ? "bg-sky-600 text-white shadow-sm shadow-sky-600/20"
+                      : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                  }`}
+                >
+                  {t(tab.label)}
+                  <span
+                    className={`rounded-full px-2 py-0.5 text-[10px] font-black ${
+                      userFilterTab === tab.key
+                        ? "bg-white/25 text-white"
+                        : "bg-slate-200 text-slate-700"
+                    }`}
+                  >
+                    {tab.count}
+                  </span>
+                </button>
+              ))}
+            </div>
+          )}
 
           {location.search && (
             <div className="mt-5 rounded-2xl bg-sky-50 p-3 text-sm font-bold text-sky-800">
