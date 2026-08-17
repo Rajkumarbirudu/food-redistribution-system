@@ -450,12 +450,12 @@ async def get_admin_dashboard(
 
     recent_users_cursor = (
         database.users
-        .find({})
+        .find({"role": {"$ne": "ADMIN"}})
         .sort(
             "created_at",
             -1,
         )
-        .limit(5)
+        .limit(10)
     )
 
 

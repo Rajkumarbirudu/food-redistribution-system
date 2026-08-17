@@ -81,98 +81,162 @@ async def seed_demo_users_internal(database=None) -> None:
 
     now = datetime.now(timezone.utc)
 
-    # 1. ADMIN
-    admin_email = "admin@example.com"
-    existing_admin = await database.users.find_one({"email": admin_email})
-    if not existing_admin:
-        await create_admin_account(
-            email=admin_email,
-            password="AdminPassword@123",
-            full_name="System Administrator",
-            phone_number="9876543212",
-            address="System HQ",
-            database=database,
-        )
-
-    # 2. DONOR
-    donor_email = "donor@example.com"
-    existing_donor = await database.users.find_one({"email": donor_email})
-    if not existing_donor:
-        donor_doc = {
-            "tenant_id": None,
-            "organization_id": None,
+    demo_accounts = [
+        # Aura.com accounts (used across frontend login portals)
+        {
+            "role": "ADMIN",
+            "organization_name": "Aura System Administration",
+            "organization_type": "OTHER",
+            "full_name": "System Administrator",
+            "email": "admin@aura.com",
+            "phone_number": "9876543210",
+            "address": "Aura Central HQ, Suite 100",
+            "password": "password123",
+        },
+        {
+            "role": "DONOR",
+            "organization_name": "Aura Fresh Supermarket & Eatery",
+            "organization_type": "RESTAURANT",
+            "full_name": "Aura Commercial Donor",
+            "email": "donor@aura.com",
+            "phone_number": "9876543211",
+            "address": "100 Market Way, Downtown",
+            "password": "password123",
+        },
+        {
+            "role": "INDIVIDUAL_DONOR",
+            "organization_name": "Individual Household - Sarah Jenkins",
+            "organization_type": "INDIVIDUAL",
+            "full_name": "Sarah Jenkins",
+            "email": "individual@aura.com",
+            "phone_number": "9876543214",
+            "address": "42 Pine Street, Apt 3B",
+            "password": "password123",
+        },
+        {
+            "role": "NGO",
+            "organization_name": "Aura Community Food Relief Bank",
+            "organization_type": "NGO",
+            "full_name": "Aura Food Bank Coordinator",
+            "email": "ngo@aura.com",
+            "phone_number": "9876543212",
+            "address": "500 Community Drive, City",
+            "password": "password123",
+        },
+        {
+            "role": "DELIVERY_PARTNER",
+            "organization_name": "Aura Swift Express Logistics",
+            "organization_type": "DELIVERY_PARTNER",
+            "full_name": "Swift Logistics Partner",
+            "email": "delivery@aura.com",
+            "phone_number": "9876543213",
+            "address": "789 Logistics Blvd, City",
+            "password": "password123",
+            "license_number": "DL-9988776655",
+            "vehicle_number": "MH-12-AB-1234",
+        },
+        # Example.com accounts (backup/testing credentials)
+        {
+            "role": "ADMIN",
+            "organization_name": "System Administration",
+            "organization_type": "OTHER",
+            "full_name": "System Administrator",
+            "email": "admin@example.com",
+            "phone_number": "9876543220",
+            "address": "System HQ",
+            "password": "AdminPassword@123",
+        },
+        {
             "role": "DONOR",
             "organization_name": "Green Harvest Supermarket",
             "organization_type": "RESTAURANT",
             "full_name": "Green Harvest Donor",
-            "email": donor_email,
-            "phone_number": "9876543210",
+            "email": "donor@example.com",
+            "phone_number": "9876543221",
             "address": "123 Market Street, City",
-            "password_hash": hash_password("DonorPassword@123"),
-            "is_active": True,
-            "approval_status": "APPROVED",
-            "warnings_count": 0,
-            "wallet_balance": 1000.0,
-            "is_suspended": False,
-            "created_at": now,
-            "updated_at": now,
-        }
-        await database.users.insert_one(donor_doc)
-        print("Created default demo donor user")
-
-    # 3. NGO
-    ngo_email = "ngo@example.com"
-    existing_ngo = await database.users.find_one({"email": ngo_email})
-    if not existing_ngo:
-        ngo_doc = {
-            "tenant_id": None,
-            "organization_id": None,
+            "password": "DonorPassword@123",
+        },
+        {
             "role": "NGO",
             "organization_name": "Hope Food Bank",
             "organization_type": "NGO",
             "full_name": "Hope Relief Foundation",
-            "email": ngo_email,
-            "phone_number": "9876543211",
+            "email": "ngo@example.com",
+            "phone_number": "9876543222",
             "address": "456 Community Lane, City",
-            "password_hash": hash_password("NgoPassword@123"),
-            "is_active": True,
-            "approval_status": "APPROVED",
-            "warnings_count": 0,
-            "wallet_balance": 1000.0,
-            "is_suspended": False,
-            "created_at": now,
-            "updated_at": now,
-        }
-        await database.users.insert_one(ngo_doc)
-        print("Created default demo NGO user")
-
-    # 4. DELIVERY PARTNER
-    delivery_email = "delivery@example.com"
-    existing_delivery = await database.users.find_one({"email": delivery_email})
-    if not existing_delivery:
-        delivery_doc = {
-            "tenant_id": None,
-            "organization_id": None,
+            "password": "NgoPassword@123",
+        },
+        {
             "role": "DELIVERY_PARTNER",
             "organization_name": "Swift Express Logistics",
             "organization_type": "DELIVERY_PARTNER",
             "full_name": "Swift Logistics Partner",
-            "email": delivery_email,
-            "phone_number": "9876543213",
+            "email": "delivery@example.com",
+            "phone_number": "9876543223",
             "address": "789 Logistics Blvd, City",
-            "password_hash": hash_password("DeliveryPassword@123"),
-            "is_active": True,
-            "approval_status": "APPROVED",
+            "password": "DeliveryPassword@123",
             "license_number": "DL-9988776655",
             "vehicle_number": "MH-12-AB-1234",
-            "warnings_count": 0,
-            "wallet_balance": 1000.0,
-            "is_suspended": False,
-            "created_at": now,
-            "updated_at": now,
-        }
-        await database.users.insert_one(delivery_doc)
-        print("Created default demo delivery partner user")
+        },
+    ]
+
+    for acc in demo_accounts:
+        clean_email = acc["email"].strip().lower()
+        existing = await database.users.find_one(
+            {"email": {"$regex": f"^{re.escape(clean_email)}$", "$options": "i"}}
+        )
+        if not existing:
+            # Create organization first if needed
+            org_id = None
+            if acc["organization_name"]:
+                org_doc = {
+                    "name": acc["organization_name"],
+                    "type": acc.get("organization_type", "OTHER"),
+                    "address": acc["address"],
+                    "phone_number": acc["phone_number"],
+                    "created_at": now,
+                    "updated_at": now,
+                }
+                org_res = await database.organizations.insert_one(org_doc)
+                org_id = str(org_res.inserted_id)
+
+            user_doc = {
+                "tenant_id": org_id,
+                "organization_id": org_id,
+                "role": acc["role"],
+                "organization_name": acc["organization_name"],
+                "full_name": acc["full_name"],
+                "email": clean_email,
+                "phone_number": acc["phone_number"],
+                "address": acc["address"],
+                "password_hash": hash_password(acc["password"]),
+                "is_active": True,
+                "approval_status": "APPROVED",
+                "license_number": acc.get("license_number"),
+                "vehicle_number": acc.get("vehicle_number"),
+                "warnings_count": 0,
+                "wallet_balance": 1000.0,
+                "is_suspended": False,
+                "created_at": now,
+                "updated_at": now,
+            }
+            await database.users.insert_one(user_doc)
+            print(f"[DEMO SEED] Created user: {clean_email} ({acc['role']})")
+        else:
+            # Update password hash, is_active, and approval_status to ensure demo user can sign in
+            await database.users.update_one(
+                {"_id": existing["_id"]},
+                {
+                    "$set": {
+                        "password_hash": hash_password(acc["password"]),
+                        "is_active": True,
+                        "approval_status": "APPROVED",
+                        "is_suspended": False,
+                        "updated_at": now,
+                    }
+                },
+            )
+            print(f"[DEMO SEED] Updated/verified user: {clean_email}")
 
 
 async def main_cli():

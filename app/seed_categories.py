@@ -76,6 +76,42 @@ DEFAULT_CATEGORIES = [
 ]
 
 
+async def seed_categories_internal(database=None):
+    if database is None:
+        database = get_database()
+
+    for category in DEFAULT_CATEGORIES:
+        category_name = category["name"]
+        normalized_name = category_name.strip().lower()
+        now = datetime.now(timezone.utc)
+
+        existing = await database.categories.find_one(
+            {"name_normalized": normalized_name}
+        )
+
+        if existing is not None:
+            await database.categories.update_one(
+                {"_id": existing["_id"]},
+                {
+                    "$set": {
+                        **category,
+                        "name_normalized": normalized_name,
+                        "is_active": True,
+                        "updated_at": now,
+                    }
+                },
+            )
+        else:
+            document = {
+                **category,
+                "name_normalized": normalized_name,
+                "is_active": True,
+                "created_at": now,
+                "updated_at": now,
+            }
+            await database.categories.insert_one(document)
+
+
 async def main():
     try:
         print("=" * 60)
@@ -83,84 +119,13 @@ async def main():
         print("=" * 60)
 
         await connect_to_mongodb()
-
         database = get_database()
-
         print("DATABASE NAME:", database.name)
 
-        for category in DEFAULT_CATEGORIES:
-            category_name = category["name"]
+        await seed_categories_internal(database)
 
-            normalized_name = (
-                category_name.strip().lower()
-            )
-
-            now = datetime.now(timezone.utc)
-
-            existing = (
-                await database.categories.find_one(
-                    {
-                        "name_normalized": (
-                            normalized_name
-                        )
-                    }
-                )
-            )
-
-            if existing is not None:
-                await database.categories.update_one(
-                    {
-                        "_id": existing["_id"],
-                    },
-                    {
-                        "$set": {
-                            **category,
-                            "name_normalized": (
-                                normalized_name
-                            ),
-                            "is_active": True,
-                            "updated_at": now,
-                        }
-                    },
-                )
-
-                print("UPDATED:", category_name)
-
-            else:
-                document = {
-                    **category,
-                    "name_normalized": normalized_name,
-                    "is_active": True,
-                    "created_at": now,
-                    "updated_at": now,
-                }
-
-                result = (
-                    await database.categories.insert_one(
-                        document
-                    )
-                )
-
-                print(
-                    "CREATED:",
-                    category_name,
-                    "| ID:",
-                    result.inserted_id,
-                )
-
-        total_count = (
-            await database.categories.count_documents({})
-        )
-
-        active_count = (
-            await database.categories.count_documents(
-                {
-                    "is_active": {
-                        "$ne": False,
-                    }
-                }
-            )
-        )
+        total_count = await database.categories.count_documents({})
+        active_count = await database.categories.count_documents({"is_active": {"$ne": False}})
 
         print("=" * 60)
         print("TOTAL CATEGORIES:", total_count)

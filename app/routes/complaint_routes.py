@@ -44,11 +44,11 @@ async def create_complaint(
 ):
     database = get_database()
 
-    role = current_user.get("role")
-    if role not in ["DONOR", "NGO"]:
+    role = str(current_user.get("role") or "").upper()
+    if role not in ["DONOR", "INDIVIDUAL_DONOR", "NGO", "ADMIN"]:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="Only Donors and NGOs can raise complaints.",
+            detail="Only Donors, Individual Donors, and NGOs can raise complaints.",
         )
 
     # 1. Verify donation exists
@@ -68,7 +68,7 @@ async def create_complaint(
         )
 
     # 2. Verify caller is part of the donation
-    if role == "DONOR":
+    if role in ["DONOR", "INDIVIDUAL_DONOR"]:
         donor_user_id = str(current_user["_id"])
         donor_tenant_id = str(current_user.get("tenant_id") or "")
         valid_donor_ids = [
@@ -76,6 +76,7 @@ async def create_complaint(
             str(donation.get("tenant_id")),
             str(donation.get("donor_tenant_id")),
             str(donation.get("organization_id")),
+            str(donation.get("created_by")),
         ]
         if donor_user_id not in valid_donor_ids and donor_tenant_id not in valid_donor_ids:
             raise HTTPException(

@@ -74,6 +74,12 @@ async def lifespan(
         except Exception as seed_err:
             print("Failed to auto-seed demo accounts:", seed_err)
 
+        try:
+            from app.seed_categories import seed_categories_internal
+            await seed_categories_internal()
+        except Exception as cat_err:
+            print("Failed to auto-seed categories:", cat_err)
+
         print(
             "Aura Food API startup completed"
         )

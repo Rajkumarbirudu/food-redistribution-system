@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aura Food - Tools & Technology Stack Presentation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --primary-light: #e0f2fe;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+      --emerald: #059669;
+      --emerald-light: #ecfdf5;
+      --amber: #d97706;
+      --amber-light: #fffbeb;
+      --purple: #7c3aed;
+      --purple-light: #f5f3ff;
+      --border: #e2e8f0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--slate-800);
+      background-color: #f1f5f9;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      padding: 40px 20px;
+    }
+
+    .doc-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 48px 56px;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+      border: 1px solid var(--border);
+    }
+
+    /* Print / PDF Action Bar */
+    .action-bar {
+      position: sticky;
+      top: 20px;
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 24px;
+      z-index: 100;
+    }
+
+    .btn-pdf {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 15px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 10px 20px rgba(2, 132, 199, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .btn-pdf:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(2, 132, 199, 0.4);
+    }
+
+    /* Header & Branding */
+    .header {
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 28px;
+      margin-bottom: 32px;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--slate-900);
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: var(--slate-600);
+      font-weight: 500;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+      padding: 16px;
+      background: var(--slate-50);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      font-size: 13px;
+    }
+
+    .meta-item strong {
+      color: var(--slate-900);
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--slate-600);
+      margin-bottom: 2px;
+    }
+
+    /* Section Styles */
+    .section {
+      margin-bottom: 36px;
+      page-break-inside: avoid;
+    }
+
+    .section-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--slate-900);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1.5px solid var(--border);
+    }
+
+    .section-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      font-size: 16px;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      margin-bottom: 12px;
+    }
+
+    th {
+      background: var(--slate-50);
+      color: var(--slate-700);
+      font-weight: 700;
+      text-align: left;
+      padding: 12px 14px;
+      border-top: 1px solid var(--border);
+      border-bottom: 2px solid var(--border);
+      font-size: 12.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .tech-name {
+      font-weight: 700;
+      color: var(--slate-900);
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      font-family: monospace;
+      background: var(--slate-100);
+      color: var(--slate-700);
+    }
+
+    .tag-ai {
+      background: var(--purple-light);
+      color: var(--purple);
+    }
+
+    .tag-sec {
+      background: var(--emerald-light);
+      color: var(--emerald);
+    }
+
+    /* Callout Card */
+    .pitch-card {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #ffffff;
+      padding: 24px 28px;
+      border-radius: 16px;
+      margin-top: 32px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.2);
+    }
+
+    .pitch-card h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #38bdf8;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pitch-card p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #e2e8f0;
+      font-style: italic;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 12px;
+      color: var(--slate-600);
+    }
+
+    /* Print-specific Rules */
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+
+      .action-bar {
+        display: none !important;
+      }
+
+      .doc-container {
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+        border-radius: 0;
+      }
+
+      .section {
+        page-break-inside: avoid;
+      }
+
+      .btn-pdf {
+        display: none !important;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="action-bar">
+    <button class="btn-pdf" onclick="window.print()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 9V2h12v7"></path>
+        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+        <rect x="6" y="14" width="12" height="8"></rect>
+      </svg>
+      Download / Print as PDF
+    </button>
+  </div>
+
+  <div class="doc-container">
+
+    <!-- HEADER -->
+    <div class="header">
+      <div class="badge-pill">Project Technical Specification & Architecture</div>
+      <h1>AI-Based Food Redistribution System for Waste Reduction & Surplus Inventory Management</h1>
+      <p class="subtitle">Aura Food Platform — Tools, Frameworks, AI Modules, and Tech Stack Breakdown</p>
+
+      <div class="meta-grid">
+        <div class="meta-item">
+          <strong>Architecture Pattern</strong>
+          Decoupled Async REST + SPA / PWA
+        </div>
+        <div class="meta-item">
+          <strong>Primary Runtime</strong>
+          Python 3.10+ & Node.js / React 19
+        </div>
+        <div class="meta-item">
+          <strong>Database</strong>
+          MongoDB Atlas (Async Driver)
+        </div>
+        <div class="meta-item">
+          <strong>Security Level</strong>
+          JWT Auth & Multi-Role RBAC
+        </div>
+      </div>
+    </div>
+
+    <!-- 1. FRONTEND STACK -->
+    <div class="section">
+      <div class="section-title">
+        <span class="section-icon">💻</span>
+        1. Frontend & Client-Side Stack
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 25%;">Tool / Library</th>
+            <th style="width: 18%;">Version / Type</th>
+            <th>Role & Purpose in Project</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="tech-name">React 19</td>
+            <td><span class="tag">v19.2.7</span></td>
+            <td>Core UI library for high-speed, reactive component state management and real-time dashboard updates.</td>
+          </tr>
+          <tr>
+            <td class="tech-name">Vite</td>
+            <td><span class="tag">v8.1.1</span></td>
+            <td>Next-generation frontend bundler, providing instant Hot Module Replacement (HMR) and optimized builds.</td>
+          </tr>
+          <tr>
+            <td class="tech-name">Tailwind CSS</td>
+            <td><span class="tag">v4.3.2</span></td>
+            <td>Modern utility-first styling engine powering responsive layouts, dark mode, and glassmorphism cards.</td>
+          </tr>
+          <tr>
+            <td class="tech-name">React Router DOM</td>
+            <td><span class="tag">v7.18.1</span></td>
+            <td>Declarative client-side routing, protected routes, and role-based navigation guards.</td>
+          </tr>
+          <tr>
+            <td class="tech-name">Axios</td>
+            <td><span class="tag">v1.18.1</span></td>
+            <td>Asynchronous HTTP client handling API requests, error formatting, and JWT auth headers.</td>
+          </tr>
+          <tr>
+            <td class="tech-name">Lucide React</td>
+            <td><span class="tag">v1.24.0</span></td>
+            <td>High-performance modern icon set utilized across dashboards, navigation, and modal systems.</td>
+          </tr>
+          <tr>
+            <td class="tech-name">Progressive Web App</td>
+            <td><span class="tag">PWA Standard</span></td>
+            <td>Service worker & web manifest enabling standalone desktop/mobile installation with offline indicators.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 2. BACKEND STACK -->
+    <div class="section">
+      <div class="section-title">
+        <span class="section-icon">⚙️</span>
+        2. Backend Core & API Architecture
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 25%;">Tool / Framework</th>
+            <th style="width: 18%;">Type</th>
+            <th>Role & Purpose in Project</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="tech-name">FastAPI</td>
+            <td><span class="tag">v0.100+</span></td>
+            <td>High-throughput asynchronous REST API framework with automatic Swagger / OpenAPI schema generation.</td>
+          </tr>
+          <tr>
+            <td class="tech-name">Python 3.10+</td>
+            <td><span class="tag">Core Engine</span></td>
+            <td>Backbone language powering business logic, data calculations, and background redistribution routines.</td>
+          </tr>
+          <tr>
+            <td class="tech-name">Uvicorn</td>
+            <td><span class="tag">ASGI Server</span></td>
+            <td>Production-grade ASGI web server handling concurrent non-blocking requests with low latency.</td>
+          </tr>
+          <tr>
+            <td class="tech-name">Pydantic v2</td>
+            <td><span class="tag">Data Validation</span></td>
+            <td>Strict type enforcement, payload serialization, and settings management via environment variables.</td>
+          </tr>
+          <tr>
+            <td class="tech-name">Python-Multipart</td>
+            <td><span class="tag">File Streaming</span></td>
+            <td>Processes multipart form requests for bulk CSV inventory importing and document uploads.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 3. DATABASE & STORAGE -->
+    <div class="section">
+      <div class="section-title">
+        <span class="section-icon">🗄️</span>
+        3. Database & Data Storage Layer
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 25%;">Technology</th>
+            <th style="width: 18%;">Driver / Engine</th>
+            <th>Role & Purpose in Project</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="tech-name">MongoDB Atlas</td>
+            <td><span class="tag">Cloud NoSQL</span></td>
+            <td>Scalable document database storing dynamic schema collections for Users, Inventory, Donations, and Claims.</td>
+          </tr>
+          <tr>
+            <td class="tech-name">Motor & PyMongo</td>
+            <td><span class="tag">Async Python</span></td>
+            <td>Asynchronous, non-blocking MongoDB driver for concurrent read/write transactions and pool management.</td>
+          </tr>
+          <tr>
+            <td class="tech-name">Compound Indexes</td>
+            <td><span class="tag">Query Engine</span></td>
+            <td>Optimized indexes on <code>status</code>, <code>tenant_id</code>, <code>email</code>, and timestamps for sub-millisecond lookups.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 4. AI & SMART INTELLIGENCE -->
+    <div class="section">
+      <div class="section-title">
+        <span class="section-icon">🧠</span>
+        4. AI & Smart Intelligence Features
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 30%;">Module / Algorithm</th>
+            <th style="width: 18%;">Type</th>
+            <th>Functionality & Business Impact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="tech-name">AI Expiry Risk Predictor</td>
+            <td><span class="tag tag-ai">Predictive AI</span></td>
+            <td>Calculates spoilage probability (%) using shelf life, category perishability, and storage conditions to prioritize dispatch.</td>
+          </tr>
+          <tr>
+            <td class="tech-name">Dynamic Food Health Score</td>
+            <td><span class="tag tag-ai">Quality Scoring</span></td>
+            <td>Generates a 0–100 safety score by evaluating storage temperature, package integrity, and freshness grade.</td>
+          </tr>
+          <tr>
+            <td class="tech-name">Smart NGO Recommender</td>
+            <td><span class="tag tag-ai">Matching Engine</span></td>
+            <td>Matches high-risk surplus batches to nearby verified NGOs, discounting channels, or direct community distribution.</td>
+          </tr>
+          <tr>
+            <td class="tech-name">Impact & ESG Analytics</td>
+            <td><span class="tag tag-ai">Analytics Engine</span></td>
+            <td>Computes live environmental savings metrics: Meals Saved, Carbon Emissions Averted (kg CO₂), and Waste Diverted.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 5. HARDWARE SCANNING, MAPS & LOCALIZATION -->
+    <div class="section">
+      <div class="section-title">
+        <span class="section-icon">📍</span>
+        5. Scanning, Geo-Tracking & Localization
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 30%;">Tool / Library</th>
+            <th style="width: 18%;">Type</th>
+            <th>Role in Application</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="tech-name">HTML5-QRCode / @zxing</td>
+            <td><span class="tag">Camera Scanner</span></td>
+            <td>In-browser camera barcode and QR reader for instant item check-ins and delivery handover verification.</td>
+          </tr>
+          <tr>
+            <td class="tech-name">Leaflet & OpenStreetMap</td>
+            <td><span class="tag">Geo-Mapping</span></td>
+            <td>Interactive map interface for real-time delivery tracking, donor pickup locations, and NGO route paths.</td>
+          </tr>
+          <tr>
+            <td class="tech-name">6-Language i18n Engine</td>
+            <td><span class="tag">Localization</span></td>
+            <td>Supports English, Hindi (हिंदी), Kannada (ಕನ್ನಡ), Marathi (मराठी), Telugu (తెలుగు), and Urdu (اردو).</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 6. SECURITY & RBAC -->
+    <div class="section">
+      <div class="section-title">
+        <span class="section-icon">🔐</span>
+        6. Security, Authentication & Role Access
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 30%;">Security Layer</th>
+            <th style="width: 18%;">Standard</th>
+            <th>Implementation Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="tech-name">JWT Authentication</td>
+            <td><span class="tag tag-sec">PyJWT</span></td>
+            <td>Cryptographically signed bearer tokens for stateless session verification.</td>
+          </tr>
+          <tr>
+            <td class="tech-name">Argon2 / Passlib Bcrypt</td>
+            <td><span class="tag tag-sec">Password Hash</span></td>
+            <td>Industry-standard salted password hashing with adaptive work factors.</td>
+          </tr>
+          <tr>
+            <td class="tech-name">Multi-Role RBAC</td>
+            <td><span class="tag tag-sec">Role Guard</span></td>
+            <td>Isolated dashboards and permissions for: Commercial Donors, Individual Donors, NGOs, Delivery Drivers, and Admins.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 7. PRESENTATION ELEVATOR PITCH -->
+    <div class="pitch-card">
+      <h3>🎯 30-Second Demo Pitch for Judges / Evaluators</h3>
+      <p>
+        "Aura Food is an end-to-end full-stack platform built with React 19, Tailwind CSS, FastAPI, and MongoDB Atlas. It addresses the global challenge of food surplus by pairing intelligent AI expiry prediction and quality scoring with hardware barcode scanning, live delivery map routing, and 6-language regional accessibility—ensuring surplus food reaches hungry people before it turns to waste."
+      </p>
+    </div>
+
+    <div class="footer">
+      Generated for Project Presentation & Technical Evaluation • Aura Food Redistribution System
+    </div>
+
+  </div>
+
+</body>
+</html>

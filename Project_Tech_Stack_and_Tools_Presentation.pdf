@@ -1,0 +1,666 @@
+%PDF-1.4
+1 0 obj
+<<
+  /Type /Catalog
+  /Pages 2 0 R
+>>
+endobj
+
+2 0 obj
+<<
+  /Type /Pages
+  /Kids [3 0 R 4 0 R 5 0 R]
+  /Count 3
+>>
+endobj
+
+6 0 obj
+<<
+  /Type /Font
+  /Subtype /Type1
+  /BaseFont /Helvetica-Bold
+>>
+endobj
+
+7 0 obj
+<<
+  /Type /Font
+  /Subtype /Type1
+  /BaseFont /Helvetica
+>>
+endobj
+
+8 0 obj
+<<
+  /Type /Font
+  /Subtype /Type1
+  /BaseFont /Helvetica-Oblique
+>>
+endobj
+
+3 0 obj
+<<
+  /Type /Page
+  /Parent 2 0 R
+  /MediaBox [0 0 595 842]
+  /Resources <<
+    /Font <<
+      /F1 6 0 R
+      /F2 7 0 R
+      /F3 8 0 R
+    >>
+  >>
+  /Contents 9 0 R
+>>
+endobj
+
+9 0 obj
+<< /Length 2780 >>
+stream
+0.06 0.09 0.16 rg
+0 710 595 132 re f
+0.01 0.52 0.78 rg
+0 706 595 4 re f
+
+BT
+/F1 10 Tf
+1 1 1 rg
+40 805 Td
+(PROJECT TECHNICAL SPECIFICATION & ARCHITECTURE SPECIFICATION) Tj
+ET
+
+BT
+/F1 18 Tf
+1 1 1 rg
+40 765 Td
+(Aura Food: AI-Based Food Redistribution System) Tj
+ET
+
+BT
+/F2 10.5 Tf
+0.75 0.85 0.95 rg
+40 740 Td
+(Comprehensive Tools, Libraries, AI Modules and Technology Stack Breakdown) Tj
+ET
+
+0.96 0.97 0.98 rg
+40 645 515 50 re f
+0.88 0.91 0.95 RG
+1 w
+40 645 515 50 re S
+
+BT
+/F1 8.5 Tf
+0.3 0.4 0.5 rg
+55 678 Td
+(SYSTEM ARCHITECTURE:) Tj
+140 0 Td
+(RUNTIME & APIS:) Tj
+125 0 Td
+(DATABASE:) Tj
+95 0 Td
+(SECURITY:) Tj
+ET
+
+BT
+/F1 9 Tf
+0.06 0.09 0.16 rg
+55 658 Td
+(Decoupled SPA + Async API) Tj
+140 0 Td
+(Python 3.10+ / React 19) Tj
+125 0 Td
+(MongoDB Atlas) Tj
+95 0 Td
+(JWT + RBAC) Tj
+ET
+
+0.01 0.52 0.78 rg
+40 605 515 24 re f
+
+BT
+/F1 11 Tf
+1 1 1 rg
+50 612 Td
+(1. FRONTEND & CLIENT-SIDE STACK) Tj
+ET
+
+BT
+/F1 9.5 Tf
+0.06 0.09 0.16 rg
+50 580 Td
+(React 19 (v19.2.7):) Tj
+/F2 9.5 Tf
+0.2 0.25 0.3 rg
+120 0 Td
+(Core UI library for high-speed reactive state and dashboard management.) Tj
+ET
+
+BT
+/F1 9.5 Tf
+0.06 0.09 0.16 rg
+50 558 Td
+(Vite (v8.1.1):) Tj
+/F2 9.5 Tf
+0.2 0.25 0.3 rg
+120 0 Td
+(Next-gen build tool and dev server with instant Hot Module Replacement.) Tj
+ET
+
+BT
+/F1 9.5 Tf
+0.06 0.09 0.16 rg
+50 536 Td
+(Tailwind CSS (v4):) Tj
+/F2 9.5 Tf
+0.2 0.25 0.3 rg
+120 0 Td
+(Modern utility styling engine powering responsive UI and dark mode.) Tj
+ET
+
+BT
+/F1 9.5 Tf
+0.06 0.09 0.16 rg
+50 514 Td
+(React Router DOM (v7):) Tj
+/F2 9.5 Tf
+0.2 0.25 0.3 rg
+120 0 Td
+(Declarative client routing, protected role guards, and navigation.) Tj
+ET
+
+BT
+/F1 9.5 Tf
+0.06 0.09 0.16 rg
+50 492 Td
+(Axios (v1.18.1):) Tj
+/F2 9.5 Tf
+0.2 0.25 0.3 rg
+120 0 Td
+(Promise-based HTTP client for backend REST APIs with JWT interceptors.) Tj
+ET
+
+BT
+/F1 9.5 Tf
+0.06 0.09 0.16 rg
+50 470 Td
+(Lucide React:) Tj
+/F2 9.5 Tf
+0.2 0.25 0.3 rg
+120 0 Td
+(High-performance icon system used across all navigation and modal flows.) Tj
+ET
+
+BT
+/F1 9.5 Tf
+0.06 0.09 0.16 rg
+50 448 Td
+(Progressive Web App:) Tj
+/F2 9.5 Tf
+0.2 0.25 0.3 rg
+120 0 Td
+(Service Worker & Web Manifest enabling installable mobile/desktop app.) Tj
+ET
+
+0.01 0.52 0.78 rg
+40 405 515 24 re f
+
+BT
+/F1 11 Tf
+1 1 1 rg
+50 412 Td
+(2. BACKEND CORE & REST API ARCHITECTURE) Tj
+ET
+
+BT
+/F1 9.5 Tf
+0.06 0.09 0.16 rg
+50 380 Td
+(FastAPI (v0.100+):) Tj
+/F2 9.5 Tf
+0.2 0.25 0.3 rg
+120 0 Td
+(High-throughput async Python REST framework with auto OpenAPI docs.) Tj
+ET
+
+BT
+/F1 9.5 Tf
+0.06 0.09 0.16 rg
+50 358 Td
+(Python 3.10+:) Tj
+/F2 9.5 Tf
+0.2 0.25 0.3 rg
+120 0 Td
+(Core backend language for business rules, AI logic, and data processing.) Tj
+ET
+
+BT
+/F1 9.5 Tf
+0.06 0.09 0.16 rg
+50 336 Td
+(Uvicorn (v0.22+):) Tj
+/F2 9.5 Tf
+0.2 0.25 0.3 rg
+120 0 Td
+(Production ASGI web server handling concurrent async requests.) Tj
+ET
+
+BT
+/F1 9.5 Tf
+0.06 0.09 0.16 rg
+50 314 Td
+(Pydantic v2:) Tj
+/F2 9.5 Tf
+0.2 0.25 0.3 rg
+120 0 Td
+(Strict data schema validation, serialization, and settings management.) Tj
+ET
+
+BT
+/F1 9.5 Tf
+0.06 0.09 0.16 rg
+50 292 Td
+(Python Multipart:) Tj
+/F2 9.5 Tf
+0.2 0.25 0.3 rg
+120 0 Td
+(Processes multipart form-data for bulk inventory CSV uploads.) Tj
+ET
+
+0.9 0.92 0.95 RG
+1 w
+40 60 515 0.5 re S
+
+BT
+/F2 8.5 Tf
+0.5 0.55 0.6 rg
+40 45 Td
+(Aura Food Technical Documentation - Page 1 of 3) Tj
+ET
+endstream
+endobj
+
+4 0 obj
+<<
+  /Type /Page
+  /Parent 2 0 R
+  /MediaBox [0 0 595 842]
+  /Resources <<
+    /Font <<
+      /F1 6 0 R
+      /F2 7 0 R
+      /F3 8 0 R
+    >>
+  >>
+  /Contents 10 0 R
+>>
+endobj
+
+10 0 obj
+<< /Length 2650 >>
+stream
+0.06 0.09 0.16 rg
+0 790 595 52 re f
+0.01 0.52 0.78 rg
+0 786 595 4 re f
+
+BT
+/F1 12 Tf
+1 1 1 rg
+40 808 Td
+(Aura Food: Database, AI Intelligence & Scanning Tools) Tj
+ET
+
+0.01 0.52 0.78 rg
+40 735 515 24 re f
+
+BT
+/F1 11 Tf
+1 1 1 rg
+50 742 Td
+(3. DATABASE & STORAGE LAYER) Tj
+ET
+
+BT
+/F1 9.5 Tf
+0.06 0.09 0.16 rg
+50 710 Td
+(MongoDB Atlas:) Tj
+/F2 9.5 Tf
+0.2 0.25 0.3 rg
+120 0 Td
+(Cloud NoSQL document database for Users, Inventory, Donations & Claims.) Tj
+ET
+
+BT
+/F1 9.5 Tf
+0.06 0.09 0.16 rg
+50 688 Td
+(Motor & PyMongo:) Tj
+/F2 9.5 Tf
+0.2 0.25 0.3 rg
+120 0 Td
+(Asynchronous Python driver providing non-blocking query execution.) Tj
+ET
+
+BT
+/F1 9.5 Tf
+0.06 0.09 0.16 rg
+50 666 Td
+(Compound Indexing:) Tj
+/F2 9.5 Tf
+0.2 0.25 0.3 rg
+120 0 Td
+(Optimized indexes on status, tenant_id, and timestamps for high throughput.) Tj
+ET
+
+0.48 0.23 0.93 rg
+40 615 515 24 re f
+
+BT
+/F1 11 Tf
+1 1 1 rg
+50 622 Td
+(4. AI & SMART INTELLIGENCE MODULES) Tj
+ET
+
+BT
+/F1 9.5 Tf
+0.06 0.09 0.16 rg
+50 590 Td
+(AI Expiry Predictor:) Tj
+/F2 9.5 Tf
+0.2 0.25 0.3 rg
+140 0 Td
+(Calculates spoilage risk % using shelf life, category and storage conditions.) Tj
+ET
+
+BT
+/F1 9.5 Tf
+0.06 0.09 0.16 rg
+50 568 Td
+(Food Health Score:) Tj
+/F2 9.5 Tf
+0.2 0.25 0.3 rg
+140 0 Td
+(0-100 hygiene rating evaluating temperature, seal integrity, and freshness.) Tj
+ET
+
+BT
+/F1 9.5 Tf
+0.06 0.09 0.16 rg
+50 546 Td
+(Smart NGO Matcher:) Tj
+/F2 9.5 Tf
+0.2 0.25 0.3 rg
+140 0 Td
+(Recommends instant redistribution channels based on urgency and volume.) Tj
+ET
+
+BT
+/F1 9.5 Tf
+0.06 0.09 0.16 rg
+50 524 Td
+(Impact ESG Engine:) Tj
+/F2 9.5 Tf
+0.2 0.25 0.3 rg
+140 0 Td
+(Real-time analytics for Meals Saved, CO2 Averted, and Waste Diverted.) Tj
+ET
+
+0.01 0.52 0.78 rg
+40 470 515 24 re f
+
+BT
+/F1 11 Tf
+1 1 1 rg
+50 477 Td
+(5. SCANNING, GEO-TRACKING & LOCALIZATION) Tj
+ET
+
+BT
+/F1 9.5 Tf
+0.06 0.09 0.16 rg
+50 445 Td
+(HTML5-QRCode / ZXing:) Tj
+/F2 9.5 Tf
+0.2 0.25 0.3 rg
+150 0 Td
+(In-browser camera Barcode & QR scanner for quick inventory check-ins.) Tj
+ET
+
+BT
+/F1 9.5 Tf
+0.06 0.09 0.16 rg
+50 423 Td
+(Leaflet & OpenStreetMap:) Tj
+/F2 9.5 Tf
+0.2 0.25 0.3 rg
+150 0 Td
+(Interactive map UI for real-time delivery route navigation & NGO tracking.) Tj
+ET
+
+BT
+/F1 9.5 Tf
+0.06 0.09 0.16 rg
+50 401 Td
+(6-Language i18n Engine:) Tj
+/F2 9.5 Tf
+0.2 0.25 0.3 rg
+150 0 Td
+(Supports English, Hindi, Kannada, Marathi, Telugu, and Urdu.) Tj
+ET
+
+0.9 0.92 0.95 RG
+1 w
+40 60 515 0.5 re S
+
+BT
+/F2 8.5 Tf
+0.5 0.55 0.6 rg
+40 45 Td
+(Aura Food Technical Documentation - Page 2 of 3) Tj
+ET
+endstream
+endobj
+
+5 0 obj
+<<
+  /Type /Page
+  /Parent 2 0 R
+  /MediaBox [0 0 595 842]
+  /Resources <<
+    /Font <<
+      /F1 6 0 R
+      /F2 7 0 R
+      /F3 8 0 R
+    >>
+  >>
+  /Contents 11 0 R
+>>
+endobj
+
+11 0 obj
+<< /Length 2600 >>
+stream
+0.06 0.09 0.16 rg
+0 790 595 52 re f
+0.01 0.52 0.78 rg
+0 786 595 4 re f
+
+BT
+/F1 12 Tf
+1 1 1 rg
+40 808 Td
+(Aura Food: Security, Deployment & Demo Presentation Pitch) Tj
+ET
+
+0.02 0.59 0.41 rg
+40 735 515 24 re f
+
+BT
+/F1 11 Tf
+1 1 1 rg
+50 742 Td
+(6. SECURITY, AUTHENTICATION & ROLE-BASED ACCESS (RBAC)) Tj
+ET
+
+BT
+/F1 9.5 Tf
+0.06 0.09 0.16 rg
+50 710 Td
+(JWT (PyJWT):) Tj
+/F2 9.5 Tf
+0.2 0.25 0.3 rg
+120 0 Td
+(Cryptographically signed stateless authentication tokens for API security.) Tj
+ET
+
+BT
+/F1 9.5 Tf
+0.06 0.09 0.16 rg
+50 688 Td
+(Argon2 / Passlib:) Tj
+/F2 9.5 Tf
+0.2 0.25 0.3 rg
+120 0 Td
+(Secure password hashing with salted one-way encryption.) Tj
+ET
+
+BT
+/F1 9.5 Tf
+0.06 0.09 0.16 rg
+50 666 Td
+(Multi-Role RBAC:) Tj
+/F2 9.5 Tf
+0.2 0.25 0.3 rg
+120 0 Td
+(Separate workflows for Donors, NGOs, Delivery Drivers, and Admins.) Tj
+ET
+
+0.01 0.52 0.78 rg
+40 615 515 24 re f
+
+BT
+/F1 11 Tf
+1 1 1 rg
+50 622 Td
+(7. DEPLOYMENT & DEVOPS INFRASTRUCTURE) Tj
+ET
+
+BT
+/F1 9.5 Tf
+0.06 0.09 0.16 rg
+50 590 Td
+(Vercel Platform:) Tj
+/F2 9.5 Tf
+0.2 0.25 0.3 rg
+120 0 Td
+(Frontend PWA deployment with CDN edge caching and continuous delivery.) Tj
+ET
+
+BT
+/F1 9.5 Tf
+0.06 0.09 0.16 rg
+50 568 Td
+(Render ASGI Cloud:) Tj
+/F2 9.5 Tf
+0.2 0.25 0.3 rg
+120 0 Td
+(Containerized Python backend hosting with automatic lifecycle events.) Tj
+ET
+
+BT
+/F1 9.5 Tf
+0.06 0.09 0.16 rg
+50 546 Td
+(Git & GitHub:) Tj
+/F2 9.5 Tf
+0.2 0.25 0.3 rg
+120 0 Td
+(Source control management, branching, and automated deployment hooks.) Tj
+ET
+
+0.06 0.09 0.16 rg
+40 370 515 135 re f
+0.01 0.52 0.78 RG
+2 w
+40 370 515 135 re S
+
+BT
+/F1 11 Tf
+0.22 0.74 0.97 rg
+55 480 Td
+(🎯 30-SECOND DEMO ELEVATOR PITCH FOR EVALUATORS & JUDGES) Tj
+ET
+
+BT
+/F3 9.5 Tf
+1 1 1 rg
+55 455 Td
+("Aura Food is an end-to-end full-stack platform built with React 19, Tailwind CSS,) Tj
+ET
+
+BT
+/F3 9.5 Tf
+1 1 1 rg
+55 440 Td
+(FastAPI, and MongoDB Atlas. It tackles the food surplus crisis by pairing intelligent) Tj
+ET
+
+BT
+/F3 9.5 Tf
+1 1 1 rg
+55 425 Td
+(AI expiry risk prediction and hygiene health scoring with in-browser barcode scanning,) Tj
+ET
+
+BT
+/F3 9.5 Tf
+1 1 1 rg
+55 410 Td
+(live delivery map routing, and 6-language regional accessibility -- ensuring that surplus) Tj
+ET
+
+BT
+/F3 9.5 Tf
+1 1 1 rg
+55 395 Td
+(food reaches hungry communities before it turns into waste.") Tj
+ET
+
+0.9 0.92 0.95 RG
+1 w
+40 60 515 0.5 re S
+
+BT
+/F2 8.5 Tf
+0.5 0.55 0.6 rg
+40 45 Td
+(Aura Food Technical Documentation - Page 3 of 3) Tj
+ET
+endstream
+endobj
+
+xref
+0 12
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000257 00000 n 
+0000003273 00000 n 
+0000006159 00000 n 
+0000000125 00000 n 
+0000000191 00000 n 
+0000000257 00000 n 
+0000000431 00000 n 
+0000003447 00000 n 
+0000006333 00000 n 
+trailer
+<<
+  /Size 12
+  /Root 1 0 R
+>>
+startxref
+9040
+%%EOF

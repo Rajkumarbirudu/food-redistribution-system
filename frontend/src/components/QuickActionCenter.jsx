@@ -28,7 +28,20 @@ export default function QuickActionCenter() {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
 
-  const role = String(user?.role || "").toUpperCase();
+  const path = location.pathname.toLowerCase();
+  let role = String(user?.role || "").toUpperCase();
+
+  if (path.startsWith("/ngo")) {
+    role = "NGO";
+  } else if (path.startsWith("/delivery")) {
+    role = "DELIVERY_PARTNER";
+  } else if (path.startsWith("/admin")) {
+    role = "ADMIN";
+  } else if (path.startsWith("/individual")) {
+    role = "INDIVIDUAL_DONOR";
+  } else if (path.startsWith("/donor") || path.startsWith("/inventory") || path.startsWith("/donations") || path.startsWith("/sales")) {
+    role = "DONOR";
+  }
 
   const getActionsForRole = () => {
     // 1. NGO Actions (Discover, Claims, Deliveries)
