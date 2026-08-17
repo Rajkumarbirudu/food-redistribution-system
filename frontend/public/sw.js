@@ -1,83 +1,78 @@
-const CACHE_NAME = "aura-food-pwa-v1";
+const CACHE_NAME = "aura-food-pwa-v2";
 const ASSETS_TO_CACHE = [
   "/",
   "/index.html",
-  "/src/main.jsx",
-  "/src/index.css",
-  "/src/App.css",
   "/favicon.ico"
 ];
 
+// Install: Cache essential assets and immediately take over
 self.addEventListener("install", (event) => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log("[SW] Pre-caching static app shell assets...");
+      console.log("[SW] Pre-caching latest app shell assets for v2...");
       return cache.addAll(ASSETS_TO_CACHE).catch(() => {});
     })
   );
-  self.skipWaiting();
 });
 
+// Activate: Purge ALL previous caches immediately
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((name) => {
           if (name !== CACHE_NAME) {
-            console.log("[SW] Removing old cache:", name);
+            console.log("[SW] Purging old cache:", name);
             return caches.delete(name);
           }
         })
       );
-    })
+    }).then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
+// Fetch handler: Network-first for HTML, Stale-While-Revalidate for static assets
 self.addEventListener("fetch", (event) => {
-  // Only handle GET requests for static assets and navigation
   if (event.request.method !== "GET") return;
 
   const url = new URL(event.request.url);
 
-  // Skip API requests - API requests are handled by Axios IndexedDB cache interceptor
+  // Never cache API or dynamic endpoints
   if (url.pathname.startsWith("/api") || url.port === "8000" || url.hostname.includes("onrender.com")) {
     return;
   }
 
-  event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        // Fetch fresh copy in background to keep cache updated (Stale-While-Revalidate)
-        fetch(event.request)
-          .then((networkResponse) => {
-            if (networkResponse && networkResponse.status === 200) {
-              caches.open(CACHE_NAME).then((cache) => {
-                cache.put(event.request, networkResponse);
-              });
-            }
-          })
-          .catch(() => {});
-        return cachedResponse;
-      }
-
-      return fetch(event.request)
+  // Network-First for Navigation / HTML pages to ensure users always get the latest layout
+  if (event.request.mode === "navigate") {
+    event.respondWith(
+      fetch(event.request)
         .then((networkResponse) => {
-          if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== "basic") {
-            return networkResponse;
+          if (networkResponse && networkResponse.status === 200) {
+            const copy = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
           }
-          const responseToCache = networkResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseToCache);
-          });
           return networkResponse;
         })
-        .catch(() => {
-          // If offline and request is HTML navigation, serve index.html cached page
-          if (event.request.mode === "navigate") {
-            return caches.match("/index.html") || caches.match("/");
+        .catch(() => caches.match("/index.html") || caches.match("/"))
+    );
+    return;
+  }
+
+  // Stale-While-Revalidate for other static assets
+  event.respondWith(
+    caches.match(event.request).then((cachedResponse) => {
+      const fetchPromise = fetch(event.request)
+        .then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            const copy = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
           }
-        });
+          return networkResponse;
+        })
+        .catch(() => {});
+
+      return cachedResponse || fetchPromise;
     })
   );
 });

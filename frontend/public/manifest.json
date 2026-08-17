@@ -4,8 +4,8 @@
   "description": "AI-Based Food Redistribution System for Waste Reduction and Surplus Inventory Management",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f6fbf7",
-  "theme_color": "#059669",
+  "background_color": "#F8FCFF",
+  "theme_color": "#0284C7",
   "orientation": "any",
   "scope": "/",
   "icons": [
