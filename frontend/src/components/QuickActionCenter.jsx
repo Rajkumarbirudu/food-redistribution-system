@@ -39,7 +39,12 @@ export default function QuickActionCenter() {
     role = "ADMIN";
   } else if (path.startsWith("/individual")) {
     role = "INDIVIDUAL_DONOR";
-  } else if (path.startsWith("/donor") || path.startsWith("/inventory") || path.startsWith("/donations") || path.startsWith("/sales")) {
+  } else if (
+    path.startsWith("/donor") ||
+    path.startsWith("/inventory") ||
+    path.startsWith("/donations") ||
+    path.startsWith("/sales")
+  ) {
     role = "DONOR";
   }
 
@@ -75,13 +80,13 @@ export default function QuickActionCenter() {
           label: t("Available Pickups"),
           path: "/delivery/partner",
           icon: Truck,
-          color: "bg-sky-600 hover:bg-sky-700",
+          color: "bg-emerald-600 hover:bg-emerald-700",
         },
         {
           label: t("Delivery Dashboard"),
           path: "/delivery/partner",
           icon: LayoutDashboard,
-          color: "bg-blue-600 hover:bg-blue-700",
+          color: "bg-teal-600 hover:bg-teal-700",
         },
       ];
     }
@@ -175,7 +180,24 @@ export default function QuickActionCenter() {
     ];
   };
 
+  const getFabTheme = () => {
+    if (role === "NGO") {
+      return "from-blue-600 to-blue-500 shadow-blue-600/40 ring-4 ring-blue-500/15";
+    }
+    if (role === "DELIVERY_PARTNER" || role === "DELIVERY_BOY") {
+      return "from-emerald-600 to-teal-500 shadow-emerald-600/40 ring-4 ring-emerald-500/15";
+    }
+    if (role === "INDIVIDUAL_DONOR") {
+      return "from-amber-500 to-orange-500 shadow-amber-500/40 ring-4 ring-amber-500/15";
+    }
+    if (role === "ADMIN") {
+      return "from-indigo-600 to-sky-500 shadow-indigo-600/40 ring-4 ring-indigo-500/15";
+    }
+    return "from-sky-600 to-sky-500 shadow-sky-600/40 ring-4 ring-sky-500/15";
+  };
+
   const actions = getActionsForRole();
+  const fabTheme = getFabTheme();
 
   return (
     <div className="fixed bottom-6 right-6 z-40">
@@ -207,7 +229,7 @@ export default function QuickActionCenter() {
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
         aria-label="Quick Actions"
-        className={`flex h-13 w-13 items-center justify-center rounded-2xl bg-gradient-to-tr from-sky-600 to-sky-500 text-white shadow-2xl shadow-sky-600/40 hover:scale-105 transition-all duration-300 cursor-pointer ${
+        className={`flex h-13 w-13 items-center justify-center rounded-2xl bg-gradient-to-tr ${fabTheme} text-white shadow-2xl hover:scale-105 transition-all duration-300 cursor-pointer ${
           isOpen ? "rotate-45" : ""
         }`}
       >
